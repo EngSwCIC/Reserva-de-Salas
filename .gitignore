@@ -17,3 +17,5 @@
 /yarn-error.log
 
 .byebug_history
+.idea/workspace.xml
+config/database.yml
