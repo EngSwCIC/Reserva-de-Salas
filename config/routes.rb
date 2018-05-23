@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     post 'create_user', to: 'users/registrations#create', as: :""
   end
 
+  get 'backoffice', to: 'backoffice/dashboard#index'
+
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
