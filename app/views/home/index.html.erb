@@ -1,0 +1,9 @@
+<h1 class='text-center'>Reserva de salas</h1>
+<% if user_signed_in? %>
+  <div>Signed in as... <%= current_user.email %></div>
+  <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
+<% end %>
+<% if !user_signed_in? %>
+  <%= link_to 'Login', login_path, class: 'btn btn-primary' %>
+  <%= link_to 'Cadastro', create_user_path, class: 'btn btn-primary' %>
+<% end %>
