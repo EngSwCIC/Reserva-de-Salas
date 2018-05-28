@@ -2,14 +2,18 @@ Rails.application.routes.draw do
   
   root 'home#index'
 
-  devise_for :users
+  devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
 
   devise_scope :user do
-    get 'login', to: 'users/sessions#new', as: :login
-    post 'login', to: 'users/sessions#create', as: :""
-    post 'logout', to: 'users/sessions#destroy', as: :"logout"
-    get 'create_user', to: 'users/registrations#new', as: :"create_user"
-    post 'create_user', to: 'users/registrations#create', as: :""
+    get 'login', to: 'users/sessions#new', as: :"new_user_session"
+    post 'login', to: 'users/sessions#create', as: :"user_session"
+    delete 'logout', to: 'users/sessions#destroy', as: :"destroy_user_session"
+    get 'create_user', to: 'users/registrations#new', as: :"new_user_registration"
+    post '', to: 'users/registrations#create', as: :"user_registration"
+    delete '', to: 'users/registrations#destroy', as: :""
+    patch '', to: 'users/registrations#update', as: :"" 
+    put '', to: 'users/registrations#update', as: :"" 
+    get 'edit_user', to: 'users/registrations#edit', as: :"edit_user_registration"
   end
 
   get 'backoffice', to: 'backoffice/dashboard#index'
