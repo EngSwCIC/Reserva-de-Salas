@@ -14,9 +14,12 @@ Rails.application.routes.draw do
     patch '', to: 'users/registrations#update', as: :"" 
     put '', to: 'users/registrations#update', as: :"" 
     get 'edit_user', to: 'users/registrations#edit', as: :"edit_user_registration"
+
   end
 
   get 'backoffice', to: 'backoffice/dashboard#index'
+  get 'user_list', to: 'backoffice/dashboard#user_list'
+  get 'create_admin', to: 'backoffice/dashboard#new'
 
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
