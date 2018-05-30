@@ -13,4 +13,11 @@ class BackofficeController < ApplicationController
 	def edit
   		@user = User.find(params[:id])
 	end
+
+	def destroy
+  		@user = User.find(params[:id])
+  		@user.destroy
+ 
+  		redirect_to backoffice
+end
 end
