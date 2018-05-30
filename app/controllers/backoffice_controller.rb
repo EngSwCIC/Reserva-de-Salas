@@ -18,6 +18,6 @@ class BackofficeController < ApplicationController
   		@user = User.find(params[:id])
   		@user.destroy
  
-  		redirect_to backoffice
-end
+		redirect_to backoffice
+	end
 end
