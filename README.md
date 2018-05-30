@@ -12,6 +12,9 @@
 Verifique a instalação com : `docker-compose --version`
 
 4 - Builde o container no qual a aplicação rodará: `docker-compose build`
+
 5 - Inicializa o container: `docker-compose up`
+
 6 - Caso necessário, inicializa o banco: `docker-compose run web bundle exec rake db:create`
+
 7 - Realize a migração: `docker-compose run web bundle exec rake db:migrate`
