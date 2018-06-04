@@ -1,5 +1,6 @@
 <h1 class='text-center'>BackOffice</h1>
 <% if current_user.is_admin? %>
 	<div>Signed in as... <%= current_user.email %></div>
+	<%= link_to 'Adicionar Sala', new_room_path, method: :get, class: 'btn btn-primary' %>
 	<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
 <% end %>
