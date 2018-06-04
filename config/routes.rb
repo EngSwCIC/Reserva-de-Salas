@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get 'edit_user', to: 'users/registrations#edit', as: :"edit_user_registration"
   end
 
+  resources :room
   get 'backoffice', to: 'backoffice/dashboard#index'
 
   
