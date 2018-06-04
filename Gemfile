@@ -21,6 +21,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'bootstrap', '~> 4.1.1'
 gem 'jquery-rails'
 
+gem 'gemaina', '~> 1.0'
+
 # gema devise para fazer autenticacao
 gem 'devise'
 
