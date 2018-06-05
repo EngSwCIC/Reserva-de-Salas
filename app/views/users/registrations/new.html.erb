@@ -1,6 +1,6 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url:  registration_path(resource)) do |f| %>
+<%= form_for(:user ,:html => {class: "form-horizontal", role: "form"}, url: user_registration_path, method: :post) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">

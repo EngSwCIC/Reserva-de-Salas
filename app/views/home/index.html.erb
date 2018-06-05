@@ -1,12 +1,14 @@
 <h1 class='text-center'>Reserva de salas</h1>
+
 <% if user_signed_in? %>
-  <div>
-    <p>Signed in as... <%= current_user.email %></p>
-  </div>
-  <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
-  <%= link_to 'Edit', edit_user_registration_path, class: 'btn btn-primary' %>
+	
+  	<div>Signed in as... <%= current_user.email %></div>
+  	<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary'%>
+  	<%= link_to 'Edit', edit_user_registration_path, class: 'btn btn-primary' %>
 <% end %>
+
+
 <% if !user_signed_in? %>
-  <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
-  <%= link_to 'Cadastro', new_user_registration_path, class: 'btn btn-primary' %>
+  	<%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
+  	<%= link_to 'Cadastro', new_user_registration_path, class: 'btn btn-primary' %>
 <% end %>
