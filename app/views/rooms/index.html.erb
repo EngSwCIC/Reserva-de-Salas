@@ -1,0 +1,8 @@
+<div>
+    <h1>Painel de Gerenciamento de Salas</h1>
+    <% @rooms.each do |room| %>
+        <span><%= room.name%> : <%= room.location%></span>
+        <%= link_to "Show",  room_path(:id) %>
+        <%= link_to "Edit", edit_room_path(:id) %>
+    <% end %>
+</div>
