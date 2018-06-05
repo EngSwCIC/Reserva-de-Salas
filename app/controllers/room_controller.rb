@@ -6,14 +6,13 @@ class RoomController < ApplicationController
 	def create
 		@room = Room.new(room_params)
 		if @room.save
-			flash[:sucess] = "Room was sucessfully created!"
+			flash[:success] = "A sala foi criada com sucesso!"
 			redirect_to backoffice_path
 		else
-			render 'new'
+			flash[:danger] = "A sala não pôde ser criada!"
+			redirect_to backoffice_path
 		end
 	end
-
-
 
 	private
 
