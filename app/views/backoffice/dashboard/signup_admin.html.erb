@@ -1,4 +1,4 @@
-<h2>Sign up</h2>
+<h2>Sign up NEW ADMINS</h2>
 
 <%= form_for(:user ,:html => {class: "form-horizontal", role: "form"}, url: user_registration_path, method: :post) do |f| %>
   <%= devise_error_messages! %>
@@ -34,6 +34,11 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label "É ADMIN?" %><br />
+    <%= f.check_box :is_admin %>
   </div>
 
   <div class="actions">
