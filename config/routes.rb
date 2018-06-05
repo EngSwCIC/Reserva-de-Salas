@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     post 'login', to: 'users/sessions#create', as: :"user_session"
     delete 'logout', to: 'users/sessions#destroy', as: :"destroy_user_session"
     get 'create_user', to: 'users/registrations#new', as: :"new_user_registration"
-    post '', to: 'users/registrations#create', as: :"user_registration"
+    post 'create_user', to: 'users/registrations#create', as: :"user_registration"
     delete '', to: 'users/registrations#destroy', as: :""
     patch '', to: 'users/registrations#update', as: :"" 
     put '', to: 'users/registrations#update', as: :"" 
@@ -18,9 +18,8 @@ Rails.application.routes.draw do
   end
 
   get 'backoffice', to: 'backoffice/dashboard#index'
-  get 'user_list', to: 'backoffice/dashboard#user_list'
-  get 'create_admin', to: 'backoffice/dashboard#new'
-
+  get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
+  post '', to: 'backoffice/dashboard#create', as: :"admin_registration"
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
