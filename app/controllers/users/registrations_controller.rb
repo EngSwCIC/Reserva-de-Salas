@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    @user = User.find(params[:id])
+    super
   end
 
   def update
@@ -29,7 +29,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       # Handle a successful update.
       redirect_to root_path
     else
-    render 'edit'
+      render 'edit'
     end
   end
 
