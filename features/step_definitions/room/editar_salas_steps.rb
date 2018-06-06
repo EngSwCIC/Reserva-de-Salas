@@ -16,7 +16,8 @@ Então("deve haver um botão na tela com a opção de {string} pois estarei vend
 end
 
 Então("eu devo estar na página de visualização de sala") do
-    expect(current_path).to eq("/rooms/1")
+    room = Room.where(name: "SalaTeste").first.id
+    expect(current_path).to eq("/rooms/" + room.to_s)
 end
 
 Então("minha sala deve estar com os campos atualizados como {string}") do |string|

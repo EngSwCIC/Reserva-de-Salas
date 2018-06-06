@@ -21,8 +21,8 @@ Funcionalidade: Editar sala no sistema
     Quando eu clicar no botão "Edit" nessa mesma página
     E eu esteja em uma página com o título "Edit Room"
     Quando eu preencher o formulário com:
-      | name | SalaTeste |
-      | location | LocalizacaoTeste |
+      | room_name | SalaTeste |
+      | room_location | LocalizacaoTeste |
     E clicar no botão "Update"
     Então eu devo estar na página de visualização de sala
     E minha sala deve estar com os campos atualizados como "SalaTeste"

@@ -4,12 +4,12 @@
   
   <div class="field">
     <%= r.label :name %><br>
-    <%= r.text_area :name %>
+    <%= r.text_area :name, autofocus: true, autocomplete: "Name" %>
   </div>
 
   <div class="field">
     <%= r.label :location %><br>
-    <%= r.text_area :location %>
+    <%= r.text_area :location, autocomplete: "off" %>
   <div>
   
   <div class="actions">
