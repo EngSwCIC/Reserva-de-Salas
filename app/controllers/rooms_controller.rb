@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
 	before_action :signed_in?
-	before_action :is_admin?, only: [:new, :create]
+	before_action :is_admin?, only: [:new, :create, :destroy]
 	def new
 		@room = Room.new
 	end
