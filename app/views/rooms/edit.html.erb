@@ -1,0 +1,16 @@
+<h2>Edit Room</h2>
+
+<div>
+    <%= form_for(@room) do |r| %>
+    <div class="field">
+      <p>Nome</p>
+      <%= r.text_area :name %>
+      <p>Localização</p>
+      <%= r.text_area :location %>
+    </div>
+    <div class="actions">
+  		<%= r.submit "Update" %>
+		</div>
+    <%end%>
+</div> 
+
