@@ -5,14 +5,19 @@
       <tr>
         <th scope="col">Name</th>
         <th scope="col">Location</th>
+        <td scope="col">Actions</td>
       </tr>
     </thead>
     <tbody>
       <% @rooms.each do |room| %>
         <div class="room-item">
           <tr>
-            <td><%= room.name %></>
+            <td><%= room.name %></td>
             <td><%= room.location %></td>
+            <td>
+                <%= link_to 'Show', room_path(room.id) %>
+                <%= link_to 'Edit', edit_room_path(room.id) %>
+            </td>
           </tr>
         </div>
       <% end %>

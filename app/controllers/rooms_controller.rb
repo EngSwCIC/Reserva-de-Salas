@@ -9,6 +9,25 @@ class RoomsController < ApplicationController
 		@rooms = Room.all
 	end
 
+	def show
+		@room = Room.find(params[:id])
+	end
+
+	def edit
+		@room = Room.find(params[:id])
+	end
+
+	def update
+		@room = Room.find(params[:id])
+		if @room.update(room_params)
+			redirect_to @room
+			flash[:notice] = "A sala foi editada com sucesso!"
+		else
+			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+			render 'edit'
+		end
+	end
+
 	def create
 		@room = Room.new(room_params)
 		if @room.save
@@ -22,25 +41,25 @@ class RoomsController < ApplicationController
 
 	private
 
-		def signed_in?
-			if current_user
-				true
-			else
-				flash[:danger] = "Você não pode acessar essa página"
-				return redirect_to '/'
-			end
+	def signed_in?
+		if current_user
+			true
+		else
+			flash[:danger] = "Você não pode acessar essa página"
+			return redirect_to '/'
+		end
   	end
 
-		def is_admin?
-			if current_user.is_admin
-				true
-			else
-				flash[:danger] = "Você não pode acessar essa página"
-				return redirect_to '/'
-			end
+	def is_admin?
+		if current_user.is_admin
+			true
+		else
+			flash[:danger] = "Você não pode acessar essa página"
+			return redirect_to '/'
 		end
+	end
 
-		def room_params
-			params.require(:room).permit(:name, :location)
-		end
+	def room_params
+		params.require(:room).permit(:name, :location)
+	end
 end
