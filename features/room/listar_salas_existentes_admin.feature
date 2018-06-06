@@ -2,14 +2,14 @@
 #encoding: utf-8
 
 Funcionalidade: Listar todas as salas do sistema
-  Como usuário comum autenticado no sistema,
+  Como administrador do sistema,
   Quero poder visualizar todas as salas no sistema
   Para verificar quais salas estão disponíveis para alguel
 
   Cenário: Lista de salas aparece adequadamente
 
-    Dado que eu esteja logado como usuário comum com o email "usuario@comum.com" e a senha "usuario123"
-    E eu esteja no página principal com caminho "/"
+    Dado que eu esteja logado como administrador com o email "admin@admin.com" e a senha "admin123"
+    E eu esteja no "backoffice"
     E existam as seguintes salas cadastradas no sistema:
       |name  | Pat-45 |
       |location| PAT-AT |

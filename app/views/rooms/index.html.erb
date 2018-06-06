@@ -15,14 +15,20 @@
             <td><%= room.name %></td>
             <td><%= room.location %></td>
             <td>
-                <%= link_to 'Show', room_path(room.id) %>
+              <%= link_to 'Show', room_path(room.id) %>
+              <% if current_user.is_admin? %>
                 <%= link_to 'Edit', edit_room_path(room.id) %>
+              <% end %>
             </td>
           </tr>
         </div>
       <% end %>
     </tbody>
   </table>
-  <%= link_to "Backoffice", backoffice_path, class: 'btn btn-secondary' %>
-  <%= link_to "Create room", new_room_path, class: 'btn btn-success' %>
+  <% if current_user.is_admin? %>
+    <%= link_to "Backoffice", backoffice_path, class: 'btn btn-secondary' %>
+    <%= link_to "Create room", new_room_path, class: 'btn btn-success' %>
+  <% else %>
+    <%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>
+  <% end %>
 </div>

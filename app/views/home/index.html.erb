@@ -3,6 +3,7 @@
 <% if user_signed_in? %>
 	
   	<div>Signed in as... <%= current_user.email %></div>
+  	<%= link_to 'Ver lista de salas existentes', rooms_path, class: 'btn btn-primary'%>
   	<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary'%>
   	<%= link_to 'Edit', edit_user_registration_path, class: 'btn btn-primary' %>
 <% end %>
