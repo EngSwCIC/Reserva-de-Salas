@@ -17,7 +17,8 @@ Rails.application.routes.draw do
 
   end
 
-  resources :room
+  resources :room, except: [:index]
+  get 'rooms_list', to: 'room#index'
   get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
   post '', to: 'backoffice/dashboard#create', as: :"admin_registration"

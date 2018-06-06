@@ -19,4 +19,3 @@ Funcionalidade: Cadastro de novo usuário no sistema
       | user_email |   a@a.com                   |
     E clicar no botão "Sign up"
     Então eu devo ser redirecionado para a página inicial
-    E deve haver um botão na tela com a opção de "Logout" pois eu já estarei logado no sistema
