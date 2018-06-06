@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>Rooms list</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rooms.each do |room| %>
+        <div class="room-item">
+          <tr>
+            <td><%= room.name %></>
+            <td><%= room.location %></td>
+          </tr>
+        </div>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to "Backoffice", backoffice_path, class: 'btn btn-secondary' %>
+  <%= link_to "Create room", new_room_path, class: 'btn btn-success' %>
+</div>
