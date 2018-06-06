@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
 	before_action :signed_in?
-	before_action :is_admin?, only: [:new, :create]
+	before_action :is_admin?, only: [:new, :create, :destroy]
 	def new
 		@room = Room.new
 	end
@@ -37,6 +37,13 @@ class RoomsController < ApplicationController
 			flash[:danger] = "A sala não pôde ser criada!"
 			redirect_to backoffice_path
 		end
+	end
+
+	def destroy
+		@room = Room.find(params[:id])
+		@room.destroy
+		flash[:danger] = "A sala foi excluída"
+		redirect_to backoffice_path
 	end
 
 	private
