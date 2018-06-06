@@ -17,6 +17,7 @@
             <td>
                 <%= link_to 'Show', room_path(room.id) %>
                 <%= link_to 'Edit', edit_room_path(room.id) %>
+                <%= link_to 'Deletar', room_path(room), method: :delete, data: {confirm: "Are you sure?"} %>
             </td>
           </tr>
         </div>

@@ -39,6 +39,13 @@ class RoomsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@room = Room.find(params[:id])
+		@room.destroy
+		flash[:danger] = "A sala foi excluída"
+		redirect_to backoffice_path
+	end
+
 	private
 
 	def signed_in?
