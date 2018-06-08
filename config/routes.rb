@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :rooms
+  resources :appointments
   get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
   post '', to: 'backoffice/dashboard#create', as: :"admin_registration"
