@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to backoffice_path
+      redirect_to root_path
     else
       render 'new'
     end
@@ -28,7 +28,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user.update(user_params)
       # Handle a successful update.
       redirect_to root_path
+      flash[:notice] = "Usuário editado com sucesso!"
     else
+      flash[:danger] = "O usuário não pôde ser editado! Tente novamente!"
       render 'edit'
     end
   end
