@@ -46,6 +46,9 @@ class RoomsController < ApplicationController
 		redirect_to backoffice_path
 	end
 
+	def new_appoint
+	end
+
 	private
 
 	def signed_in?
