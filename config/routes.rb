@@ -11,9 +11,9 @@ Rails.application.routes.draw do
     get 'create_user', to: 'users/registrations#new', as: :"new_user_registration"
     post 'create_user', to: 'users/registrations#create', as: :"user_registration"
     delete '', to: 'users/registrations#destroy', as: :""
-    patch '', to: 'users/registrations#update', as: :"" 
-    put '', to: 'users/registrations#update', as: :"" 
-    get 'edit_user', to: 'users/registrations#edit', as: :"edit_user_registration"
+    patch 'users/:id', to: 'users/registrations#update', as: :"update_user_registration" 
+    put 'users/:id', to: 'users/registrations#update', as: :"" 
+    get 'users/:id/edit', to: 'users/registrations#edit', as: :"edit_user_registration"
 
   end
 
