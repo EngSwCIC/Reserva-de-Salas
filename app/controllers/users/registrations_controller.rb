@@ -6,17 +6,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_account_update_params, only: [:update]
 
   def new
-    @user = User.new
+    super
   end
 
   # POST /resource
   def create
-    @user = User.new(user_params)
-    if @user.save
-      redirect_to root_path
-    else
-      render 'new'
-    end
+    super
   end
 
   def edit
@@ -24,20 +19,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      # Handle a successful update.
-      redirect_to root_path
-      flash[:notice] = "Usuário editado com sucesso!"
-    else
-      flash[:danger] = "O usuário não pôde ser editado! Tente novamente!"
-      render 'edit'
-    end
+    super
   end
 
   def delete
-    User.find(params[:id]).destroy
-    redirect_to root_path
+    super
   end
 
   private
@@ -67,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :registration, :course])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :registration, :course, :password_confirmation])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
