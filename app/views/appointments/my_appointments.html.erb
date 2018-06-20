@@ -1,18 +1,20 @@
 <div class="container">
-    <table class="table">
+    <table class="table" id="table">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Appointment Date</th>
                 <th scope="col">Start Time</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <% @my_appointments.each do |appointment| %>
                 <tr>
                     <th scope="row">1</th>
-                    <td> <%= appointment.appointment_date %> </td>
-                    <td> <%= appointment.start_time %> </td>
+                    <td class="appointment-data"> <%= appointment.appointment_date %> </td>
+                    <td class="appointment-data"> <%= appointment.start_time %> </td>
+                    <td> <%= link_to "Cancelar Aluguel", appointment_path(appointment), method: :delete %> </td>
                 </tr>
             <% end %>
         </tbody>
