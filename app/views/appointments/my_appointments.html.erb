@@ -1,0 +1,21 @@
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Appointment Date</th>
+                <th scope="col">Start Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @my_appointments.each do |appointment| %>
+                <tr>
+                    <th scope="row">1</th>
+                    <td> <%= appointment.appointment_date %> </td>
+                    <td> <%= appointment.start_time %> </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>
+</div>
