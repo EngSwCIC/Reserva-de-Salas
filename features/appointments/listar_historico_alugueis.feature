@@ -1,5 +1,5 @@
 #language: pt
-#encoding: utf-8
+#encoding: UTF-8
 
 Funcionalidade: listar_historico_alugueis
   Como Usuário autenticado
@@ -18,6 +18,5 @@ Funcionalidade: listar_historico_alugueis
     | 23-06-2018 | 10:00:00 |
     Quando eu clicar no botão "Ver Alugueis"
     Então eu devo estar em uma página que contenha a seguinte tabela:
-    | Appointment Date | Start Time | 
-    | 2018-06-22 | 08:00:00 |
-    | 2018-06-23 | 10:00:00 |
+    | Appointment Date | 2018-06-22 |
+    | start_time | 08:00:00 |
