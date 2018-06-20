@@ -1,5 +1,4 @@
 class AppointmentsController < ApplicationController
-
   def new
     @appointment = Appointment.new
     @room = Room.find(params[:id])
@@ -29,5 +28,9 @@ class AppointmentsController < ApplicationController
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end
 
+  def my_appointments
+    @user = current_user
+    @my_appointments = @user.appointments
+  end
   private
 end
