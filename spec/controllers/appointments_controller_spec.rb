@@ -30,8 +30,7 @@ RSpec.describe AppointmentsController, type: :controller do
                 sign_in @user
                 @room = FactoryBot.create(:room)
                 @appointment = FactoryBot.create(:appointment, :user_id => @user.id, :room_id => @room.id)
-                get :my_appointments
-                delete :destroy
+                delete :destroy, params: {:id => @appointment.id}
             end
 
             it 'deletes a appointment' do
