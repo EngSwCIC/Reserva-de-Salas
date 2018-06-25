@@ -32,5 +32,13 @@ class AppointmentsController < ApplicationController
     @user = current_user
     @my_appointments = @user.appointments
   end
+
+  def destroy
+    @appointment = Appointment.find(params[:id])
+    @appointment.destroy
+    flash[:danger] = "O Aluguel foi cancelado com suceso"
+    redirect_to root_path
+  end
+
   private
 end
