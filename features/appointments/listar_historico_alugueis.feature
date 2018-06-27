@@ -14,5 +14,5 @@ Funcionalidade: listar_historico_alugueis
       Então eu devo estar em uma página com uma tabela com os dados "<appointment_date>", "<start_time>"
       Exemplos:
       |appointment_date| start_time | name   | location |
-      | 2018-06-22     | 08:00:00   | Pat-45 | PAT-AT   |
-      | 2018-06-23     | 10:00:00   | Pjc-54 | PJC-BT   |
+      | Amanha         | 08:00:00   | Pat-45 | PAT-AT   |
+      | Amanha         | 10:00:00   | Pjc-54 | PJC-BT   |
