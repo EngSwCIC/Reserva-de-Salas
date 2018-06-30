@@ -16,7 +16,7 @@ Funcionalidade: Editar sala no sistema
     E clicar em "Log in" 
     Então deve haver um botão na tela com a opção de "Ver lista de salas existentes" pois eu já estarei logado no sistema
     Quando eu clicar no botão "Ver lista de salas existentes" nessa mesma página
-    E eu esteja em uma página com o título "Rooms list"
+    E eu esteja em uma página com o título "Listagem de salas"
     Então deve haver um botão na tela com a opção de "Show" pois estarei vendo as salas do sistema
     Quando eu clicar no botão "Edit" nessa mesma página
     E eu esteja em uma página com o título "Edit Room"
