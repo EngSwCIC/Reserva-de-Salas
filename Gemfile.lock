@@ -111,6 +111,8 @@ GEM
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     ffi (1.9.23)
+    font-awesome-rails (4.7.0.4)
+      railties (>= 3.2, < 6.0)
     formatador (0.2.5)
     gemaina (1.0)
     gherkin (5.0.0)
@@ -289,6 +291,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_bot_rails
+  font-awesome-rails
   gemaina (~> 1.0)
   guard
   guard-livereload (~> 2.5)
