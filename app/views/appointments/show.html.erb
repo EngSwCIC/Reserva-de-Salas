@@ -22,29 +22,29 @@
   </div>
 <% end %>
 <br>
-
-<table class="table table-bordered">
-  <thead>
-  <tr class="text-center">
-    <th scope="col">Horários/Dias</th>
-    <% @dates.each do |date| %>
-      <th scope="col"><%= date %></th>
-    <% end %>
-  </tr>
-  </thead>
-  <tbody>
-  <% i=0 %>
-  <% start_t = 6 %>
-  <% end_t = 8 %>
-  <% while i < 9 do %>
-    <tr>
-      <td class="text-center align-middle"><%= start_t %>-<%= end_t %></td>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+    <tr class="text-center">
+      <th scope="col">Horários/Dias</th>
       <% @dates.each do |date| %>
-        <% found = false %>
-        <% @appointments.each do |appointment| %>
-          <% app = appointment.start_time.hour.minutes.to_i  %>
-          <% if appointment.appointment_date == date and app >= Time.parse("0#{start_t.to_s}:00").hour.minutes.to_i and app < Time.parse("0#{end_t.to_s}:00").hour.minutes.to_i %>
-            <td class="text-center align-middle">
+        <th scope="col"><%= date %></th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+    <% i=0 %>
+    <% start_t = 6 %>
+    <% end_t = 8 %>
+    <% while i < 9 do %>
+      <tr>
+        <td class="text-center align-middle"><%= start_t %>-<%= end_t %></td>
+        <% @dates.each do |date| %>
+          <% found = false %>
+          <% @appointments.each do |appointment| %>
+            <% app = appointment.start_time.hour.minutes.to_i  %>
+            <% if appointment.appointment_date == date and app >= Time.parse("0#{start_t.to_s}:00").hour.minutes.to_i and app < Time.parse("0#{end_t.to_s}:00").hour.minutes.to_i %>
+              <td class="text-center align-middle">
                   <span> 
                     <% if appointment.status == 1 %>
                       Situação: <span style="color: CadetBlue" >Solicitado</span>
@@ -54,21 +54,22 @@
                       Situação: <span style="color: red" >Reprovado</span>
                     <% end %>
                   </span>
-            </td>
-            <% found = true %>
+              </td>
+              <% found = true %>
+            <% end %>
+          <% end %>
+          <% if found == false %>
+            <td class="text-center align-middle" style="color: green">Vago!</td>
           <% end %>
         <% end %>
-        <% if found == false %>
-          <td class="text-center align-middle" style="color: green">Vago!</td>
-        <% end %>
-      <% end %>
-    </tr>
-    <% start_t=start_t+2 %>
-    <% end_t=end_t+2 %>
-    <% i=i+1 %>
-  <% end %>
+      </tr>
+      <% start_t=start_t+2 %>
+      <% end_t=end_t+2 %>
+      <% i=i+1 %>
+    <% end %>
 
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 <br>
 <%= link_to 'Voltar', rooms_path, class: 'btn btn-secondary' %>
