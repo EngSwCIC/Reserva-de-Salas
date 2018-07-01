@@ -30,7 +30,12 @@
           </div>
         </div>
       <% else %>
-        <%= yield %>
+        <%= render 'layouts/header-user' %>
+        <div class="content-wrapper">
+          <div class="container-fluid">
+            <%= yield %>
+          </div>
+        </div>
       <% end %>
     <% else %>
       <%= yield %>
