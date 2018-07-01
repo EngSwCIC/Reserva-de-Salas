@@ -6,6 +6,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
   <body>
@@ -20,6 +21,19 @@
         </button>
       </div>
     <% end %>
-    <%= yield %>
+    <% if user_signed_in? == true %>
+      <% if current_user.is_admin? == true %>
+        <%= render 'layouts/header-admin' %>
+        <div class="content-wrapper">
+          <div class="container-fluid">
+            <%= yield %>
+          </div>
+        </div>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
