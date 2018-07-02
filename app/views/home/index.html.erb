@@ -1,15 +1,16 @@
-<h1 class='text-center'>Reserva de salas</h1>
-
 <% if user_signed_in? %>
-	
-  	<div>Signed in as... <%= current_user.email %></div>
-  	<%= link_to 'Ver lista de salas existentes', rooms_path, class: 'btn btn-primary'%>
-  	<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary'%>
-  	<%= link_to 'Edit', edit_user_registration_path(current_user.id), class: 'btn btn-primary' %>
+	<div class="content-wrapper">
+		<div class="container-fluid">
+			<h1 class='text-center'>Home</h1>
+			<div class="col-xs-10 col-xs-offset-5">
+				<div>Bem-vindo <%= current_user.email %></div>
+			</div>
+		</div>
+	</div>
 <% end %>
 
-
 <% if !user_signed_in? %>
+	<h1>Home</h1>
   	<%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
   	<%= link_to 'Cadastro', new_user_registration_path, class: 'btn btn-primary' %>
 <% end %>

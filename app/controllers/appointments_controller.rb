@@ -1,5 +1,4 @@
 class AppointmentsController < ApplicationController
-
   def new
     @appointment = Appointment.new
     @room = Room.find(params[:id])
@@ -42,6 +41,17 @@ class AppointmentsController < ApplicationController
       flash[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
       render 'edit'
     end
+
+  def my_appointments
+    @user = current_user
+    @my_appointments = @user.appointments
+  end
+
+  def destroy
+    @appointment = Appointment.find(params[:id])
+    @appointment.destroy
+    flash[:danger] = "O Aluguel foi cancelado com suceso"
+    redirect_to root_path
   end
 
   private

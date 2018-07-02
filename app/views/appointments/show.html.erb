@@ -1,50 +1,50 @@
-<div class="container">
-  <h2>Name: <%=@room.name %></h2>
-  <h3>Location: <%=@room.location %></h3>
-  <p><%= @room.name%> : <%= @room.location%></p>
 
-  <%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label>Dia do aluguel</label>
-        <%= form.date_field :appointment_date, class: 'form-control'  %>
-      </div>
-      <div class="form-group col-md-6">
-        <label>Horário</label>
-        <%= form.select :start_time, options_for_select([['6:00 - 8:00', "6:00"], ['8:00 - 10:00', "8:00"], ['10:00 - 12:00', "10:00"],
-                ['12:00 - 14:00', "12:00"], ['14:00 - 16:00', "14:00"], ['16:00 - 18:00', "16:00"], ['18:00 - 20:00', "18:00"], ['20:00 - 22:00', "20:00"],
-                ['22:00 - 24:00', "22:00"]]),
-                {}, class: "form-control" %>
-      </div>
-      <div class="form-group col-md-6">
-        <%= form.submit "Alugar", class: 'btn btn-success' %>
-      </div>
+<h2>Name: <%=@room.name %></h2>
+<h3>Location: <%=@room.location %></h3>
+<p><%= @room.name%> : <%= @room.location%></p>
+
+<%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label>Dia do aluguel</label>
+      <%= form.date_field :appointment_date, class: 'form-control'  %>
     </div>
-  <% end %>
-  <br>
-
+    <div class="form-group col-md-6">
+      <label>Horário</label>
+      <%= form.select :start_time, options_for_select([['6:00 - 8:00', "6:00"], ['8:00 - 10:00', "8:00"], ['10:00 - 12:00', "10:00"],
+                                                       ['12:00 - 14:00', "12:00"], ['14:00 - 16:00', "14:00"], ['16:00 - 18:00', "16:00"], ['18:00 - 20:00', "18:00"], ['20:00 - 22:00', "20:00"],
+                                                       ['22:00 - 24:00', "22:00"]]),
+                      {}, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= form.submit "Alugar", class: 'btn btn-success' %>
+    </div>
+  </div>
+<% end %>
+<br>
+<div class="table-responsive">
   <table class="table table-bordered">
     <thead>
-      <tr class="text-center">
-        <th scope="col">Horários/Dias</th>
-        <% @dates.each do |date| %>
-          <th scope="col"><%= date %></th>
-        <% end %>
-      </tr>
+    <tr class="text-center">
+      <th scope="col">Horários/Dias</th>
+      <% @dates.each do |date| %>
+        <th scope="col"><%= date %></th>
+      <% end %>
+    </tr>
     </thead>
     <tbody>
-      <% i=0 %>
-      <% start_t = 6 %>
-      <% end_t = 8 %>
-      <% while i < 9 do %>
-        <tr>
-          <td class="text-center align-middle"><%= start_t %>-<%= end_t %></td>
-          <% @dates.each do |date| %>
-            <% found = false %>
-            <% @appointments.each do |appointment| %>
-              <% app = appointment.start_time.hour.minutes.to_i  %>
-              <% if appointment.appointment_date == date and app >= Time.parse("0#{start_t.to_s}:00").hour.minutes.to_i and app < Time.parse("0#{end_t.to_s}:00").hour.minutes.to_i %>
-                <td class="text-center align-middle">
+    <% i=0 %>
+    <% start_t = 6 %>
+    <% end_t = 8 %>
+    <% while i < 9 do %>
+      <tr>
+        <td class="text-center align-middle"><%= start_t %>-<%= end_t %></td>
+        <% @dates.each do |date| %>
+          <% found = false %>
+          <% @appointments.each do |appointment| %>
+            <% app = appointment.start_time.hour.minutes.to_i  %>
+            <% if appointment.appointment_date == date and app >= Time.parse("0#{start_t.to_s}:00").hour.minutes.to_i and app < Time.parse("0#{end_t.to_s}:00").hour.minutes.to_i %>
+              <td class="text-center align-middle">
                   <span> 
                     <% if appointment.status == 1 %>
                       Situação: <span style="color: CadetBlue" >Solicitado</span>
@@ -55,22 +55,22 @@
                     <% end %>
                     <%= link_to 'Edit', edit_appointment_path(appointment.id) %>
                   </span>
-                </td>
-                <% found = true %>
-              <% end %>
-            <% end %>
-            <% if found == false %>
-              <td class="text-center align-middle" style="color: green">Vago!</td>
+              </td>
+              <% found = true %>
             <% end %>
           <% end %>
-        </tr>
-        <% start_t=start_t+2 %>
-        <% end_t=end_t+2 %>
-        <% i=i+1 %>
-      <% end %>
-      
+          <% if found == false %>
+            <td class="text-center align-middle" style="color: green">Vago!</td>
+          <% end %>
+        <% end %>
+      </tr>
+      <% start_t=start_t+2 %>
+      <% end_t=end_t+2 %>
+      <% i=i+1 %>
+    <% end %>
+
     </tbody>
   </table>
-    <br>
-    <%= link_to 'Voltar', rooms_path, class: 'btn btn-secondary' %>
 </div>
+<br>
+<%= link_to 'Voltar', rooms_path, class: 'btn btn-secondary' %>

@@ -18,7 +18,7 @@ Dado("que esteja na pagina {string}") do |string|
 end
 
 Dado("eu clicar no link {string}") do |string|
-  click_link "Adicionar Sala"
+  click_link "#{string}"
 end
 
 Quando("eu preencher o campo nome e localidade com:") do |table|
