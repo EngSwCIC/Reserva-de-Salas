@@ -3,13 +3,13 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    @room = Room.find(params[:room_id])
+    @room = Room.find(params[:id])
   end
 
   def create
     room_id = params[:format]
     @appointment = Appointment.new
-    @appointment.room_id = params[:room_id]
+    @appointment.room_id = room_id
     @appointment.user_id = current_user.id
     @appointment.appointment_date = params[:appointment_date]
     @appointment.start_time = params[:start_time]
@@ -25,7 +25,7 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @room = Room.find(params[:room_id])
+    @room = Room.find(params[:id])
     @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end

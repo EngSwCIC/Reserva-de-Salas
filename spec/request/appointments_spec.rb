@@ -11,7 +11,7 @@ RSpec.describe 'Appointment API', type: :request do
             end
             context 'when params are valid' do
                 before do
-                    @appointment_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id)
+                    @appointment_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :format => @room.id)
                     post "/appointments", params: @appointment_credentials
                 end
 
@@ -48,7 +48,7 @@ RSpec.describe 'Appointment API', type: :request do
                 sign_in user
                 @room = FactoryBot.create(:room)
                 @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-                get "/appointments/#{@appointment.id}", params: { :room_id => @room.id }
+                get "/appointments/#{@room.id}"
             end
 
             it 'should render show template' do
