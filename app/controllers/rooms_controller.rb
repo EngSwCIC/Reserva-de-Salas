@@ -48,25 +48,7 @@ class RoomsController < ApplicationController
 
 
 	private
-
-	def signed_in?
-		if current_user
-			true
-		else
-			flash[:danger] = "Você não pode acessar essa página"
-			return redirect_to '/'
-		end
-  	end
-
-	def is_admin?
-		if current_user.is_admin
-			true
-		else
-			flash[:danger] = "Você não pode acessar essa página"
-			return redirect_to '/'
-		end
-	end
-
+	
 	def room_params
 		params.require(:room).permit(:name, :location)
 	end
