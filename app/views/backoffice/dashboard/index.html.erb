@@ -1,0 +1,23 @@
+<div class="content-wrapper">
+  <div class="container-fluid">
+		<h1 class='text-center'>BackOffice</h1>
+		<div class="col-xs-10 col-xs-offset-5">
+			<% flash.each do |name, msg| %>
+				<div class='alert alert-<%="#{name}"%>'>
+					<a href="#" class="close" data-dismiss="alert">&#215;</a>
+				<%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+				</div>
+				<% end %>
+		</div>
+
+		<% if user_signed_in? %>
+			<% if current_user.is_admin? %>
+				<div>Signed in as... <%= current_user.email %></div>
+				<%= link_to 'Adicionar Sala', new_room_path, method: :get, class: 'btn btn-primary' %>
+				<%= link_to 'Ver lista de salas existentes', rooms_path, method: :get, class: 'btn btn-primary' %>
+				<%= link_to 'Cadastrar um novo admin', signup_admin_path, class: 'btn btn-primary' %>
+				<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
+			<% end %>
+		<% end %>
+  </div>
+</div>

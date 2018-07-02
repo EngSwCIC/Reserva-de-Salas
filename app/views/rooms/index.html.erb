@@ -1,0 +1,38 @@
+<%= content_for :css do %>
+  <%= stylesheet_link_tag 'header' %>
+<% end %>
+
+<h1>Listagem de salas</h1>
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Location</th>
+    <td scope="col">Actions</td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @rooms.each do |room| %>
+    <div class="room-item">
+      <tr>
+        <td><%= room.name %></td>
+        <td><%= room.location %></td>
+        <td>
+          <%= link_to 'Show', room_path(room.id) %>
+          <%= link_to 'Aluguel', appointment_path(room.id) %>
+          <% if current_user.is_admin? %>
+            <%= link_to 'Edit', edit_room_path(room.id) %>
+            <%= link_to 'Deletar', room_path(room), method: :delete, data: {confirm: "Are you sure?"} %>
+          <% end %>
+        </td>
+      </tr>
+    </div>
+  <% end %>
+  </tbody>
+</table>
+<% if current_user.is_admin? %>
+  <%= link_to "Backoffice", backoffice_path, class: 'btn btn-secondary' %>
+  <%= link_to "Create room", new_room_path, class: 'btn btn-success' %>
+<% else %>
+  <%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>
+<% end %>
