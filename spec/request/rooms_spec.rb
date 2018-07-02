@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Rooms API', type: :request do
-    let(:user) { FactoryBot.create(:user, :email => '123@email.com') }
-    let(:admin_user) { FactoryBot.create(:user, :is_admin => true, :email => '456@email.com') }
+    let(:user) { FactoryBot.create(:user) }
+    let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
     
     describe 'GET #new' do
         context 'when user is admin' do
@@ -213,7 +213,7 @@ RSpec.describe 'Rooms API', type: :request do
             end
             
             it 'should persist through database' do
-                expect(Room.find_by(:id => room.id)).to be_nil
+                expect(Room.find_by(:name => room.name)).to be_nil
             end            
             
             it 'should render a danger flash message' do
