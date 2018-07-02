@@ -1,58 +1,104 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div style="max-width: 45em; margin: 0 auto;">
+  <div>
+    <div style="text-align: center; margin-bottom: 50px;">
+      <h2>Edit <%= resource_name.to_s.humanize %></h2>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: update_user_registration_path(current_user.id), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+    <%= form_for(resource, as: resource_name, url: update_user_registration_path(current_user.id), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <label for="inputEmail">Email</label>
+        </div>
+        <div class="col-md-9">
+          <div class="field">
+            <%= f.email_field :email, style: "width: 100%;", class:"form-control" %>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <div class="col-md-3">
+          <label for="inputUsername">Usuário</label>
+        </div>
+        <div class="col-md-9">
+          <div class="field">
+            <%= f.text_field :username, autocomplete: true, style: "width: 100%;", class:"form-control" %>
+          </div>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <label for="inputRegistration">Registro</label>
+        </div>
+        <div class="col-md-9">
+          <div class="field">
+            <%= f.text_field :registration, autocomplete: "off", style: "width: 100%;", class:"form-control" %>
+          </div>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username, autocomplete: true %>
-  </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <label for="inputCourse">Curso</label>    
+        </div>
+        <div class="col-md-9">
+          <div class="field">
+            <%= f.text_field :course, autocomplete: "off", style: "width: 100%;", class:"form-control" %>
+          </div>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :registration %><br />
-    <%= f.text_field :registration, autocomplete: "off" %>
-  </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
 
-  <div class="field">
-    <%= f.label :course %><br />
-    <%= f.text_field :course, autocomplete: "off" %>
-  </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :nova_senha %>*</br>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> caracteres mínimo)</em>
+          <% end %>
+        </div>
+        <div class="col-md-9">
+          <div class="field">
+            <%= f.password_field :password, autocomplete: "off", style: "width: 100%;", class:"form-control" %>
+          </div>
+        </div>
+      </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :confirmar_nova_senha %><br />
+        </div>
+        <div class="col-md-9">
+          <div class="field">
+            <%= f.password_field :password_confirmation, autocomplete: "off", style: "width: 100%;", class:"form-control" %>
+          </div>
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :new_password %> <i>(leave blank if you dont want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :senha_atual %>**
+        </div>
+        <div class="col-md-9">
+          <div class="field">
+            <%= f.password_field :current_password, autocomplete: "off", style: "width: 100%;", class:"form-control" %>
+          </div>
+        </div>
+      </div>
+      <div>
+        <i>*Deixe em branco caso não deseje editar a senha</i><br/>
+        <i>**Confirme a senha atual para executar as mudanças</i>
+      </div>
+
+      <div class="actions" style="margin-top: 30px">
+        <%= link_to raw("<i class=\"fa fa-fw fa-arrow-left\">Back</i>"), :back, style: "float: left;" %>
+        <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger", style: "float: right; margin-right: 5px;"%>
+        <%= f.submit "Update", class: "btn btn-success", style: "float: right; margin-right: 5px;"%>
+      </div>
     <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :new_password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
-
-<%= link_to "Back", :back %>
+  <div>
+</div>
