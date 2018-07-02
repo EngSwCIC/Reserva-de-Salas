@@ -28,6 +28,21 @@ class AppointmentsController < ApplicationController
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end
 
+  def edit
+    @appointment = Appointment.find(params[:id])
+  end
+
+  def update
+    @appointment = Appointment.find(params[:id])
+    if @appointment.update(appointment_params)
+      redirect_to request.referrer
+      flash[:notice] = "O aluguél foi editado com sucesso!"
+    else
+      flash[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
+      render 'edit'
+    end
+  end
+
   def my_appointments
     @user = current_user
     @my_appointments = @user.appointments
@@ -41,4 +56,8 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
+  def appointment_params
+    params.require(:appointment).permit(:status)
+  end
 end
