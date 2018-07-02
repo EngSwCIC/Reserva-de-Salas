@@ -1,0 +1,77 @@
+
+<div>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+        <%= form_for(:user ,:html => {class: "form-horizontal ogin100-form validate-form", role: "form"}, url: user_registration_path, method: :post) do |f| %>
+					<%= devise_error_messages! %>
+          <span class="login100-form-title p-b-55">
+						<h2 style="font-weight: bold;">
+              Sign up
+            </h2>
+					</span>
+
+          <div class="wrap-input100 validate-input m-b-16">
+            <%= f.text_field :username, autofocus: true, autocomplete: "off", class: 'input100', placeholder: 'Nome de usuário' %>
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+							<span class="fa fa-user"></span>
+						</span>
+          </div>
+
+          <div class="wrap-input100 validate-input m-b-16">
+            <%= f.text_field :registration, autofocus: true, autocomplete: "off", class: 'input100', placeholder: 'Matrícula' %>
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+							<span class="fa fa-address-card"></span>
+						</span>
+          </div>
+
+          <div class="wrap-input100 validate-input m-b-16">
+            <%= f.text_field :course, autofocus: true, autocomplete: "off", class: 'input100', placeholder: 'Curso' %>
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+							<span class="fa fa-university"></span>
+						</span>
+          </div>
+
+          <div class="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input100', placeholder: 'Email' %>
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+							<span class="fa fa-envelope"></span>
+						</span>
+          </div>
+
+          <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+            <%= f.password_field :password, autocomplete: "off", class: 'input100', placeholder: "Senha" %>
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+							<span class="fa fa-lock"></span>
+						</span>
+          </div>
+
+          <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'input100', placeholder: "Confirmar senha" %>
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+							<span class="fa fa-lock"></span>
+						</span>
+          </div>
+
+          <div class="container-login100-form-btn p-t-25">
+            <%= f.submit "Sign up", class: 'login100-form-btn' %>
+          </div>
+
+          <div class="text-center w-full p-t-115">
+						<span class="txt1">
+							Já é cadastrado?
+						</span>
+
+            <%= link_to 'Entre aqui!', new_user_session_path, class: 'txt1 bo1 hov1' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

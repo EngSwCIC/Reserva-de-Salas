@@ -11,7 +11,7 @@ Funcionalidade: realizar_sessoes_admin
   E eu clicar no link para inicio de sessao "Login"
   Quando eu preencher o campo email e password com:
   |Email|admin@admin.com|
-  |Password|123123|
+  |Senha|123123|
   E eu clicar no botão para iniciar sessao "Log in"
   Entao eu devo ser redirecionado para a pagina "backoffice" 
 
@@ -20,6 +20,6 @@ Funcionalidade: realizar_sessoes_admin
   E eu clicar no link para inicio de sessao "Login"
   Quando eu preencher o campo email e password com:
   |Email|admin@admin.com|
-  |Password|123124|
+  |Senha|123124|
   E eu clicar no botão para iniciar sessao "Log in"
   Entao eu devo ser redirecionado para a pagina "login" 

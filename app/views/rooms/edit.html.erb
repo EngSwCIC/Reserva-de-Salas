@@ -1,3 +1,7 @@
+<%= content_for :css do %>
+  <%= stylesheet_link_tag 'header' %>
+<% end %>
+
 <h2>Edit Room</h2>
 
 <%= form_for(@room) do |r| %>
@@ -10,11 +14,10 @@
   <div class="field">
     <%= r.label :location %><br>
     <%= r.text_area :location, autocomplete: "off" %>
-  <div>
+  </div>
   
   <div class="actions">
     <%= r.submit "Update" %>
   </div>
 
 <% end %>
-

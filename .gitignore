@@ -13,8 +13,11 @@
 !/log/.keep
 !/tmp/.keep
 
+.idea/
 /node_modules
 /yarn-error.log
 
+# Ignore master key for decrypting credentials and more.
+/config/master.key
 .byebug_history
 .idea/

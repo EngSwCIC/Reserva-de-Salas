@@ -1,32 +1,48 @@
 class AppointmentsController < ApplicationController
+  before_action :signed_in?
+
   def new
     @appointment = Appointment.new
-    @room = Room.find(params[:id])
+    @room = Room.find(params[:room_id])
   end
 
   def create
     room_id = params[:format]
     @appointment = Appointment.new
-    @appointment.room_id = params[:format]
+    @appointment.room_id = params[:room_id]
     @appointment.user_id = current_user.id
     @appointment.appointment_date = params[:appointment_date]
     @appointment.start_time = params[:start_time]
     @appointment.status = 1
     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
-      redirect_to request.referrer
-      flash[:notice] = "Alguel realizado com sucesso!"   
+      redirect_to backoffice_path
+      flash[:notice] = "Aluguel realizado com sucesso!"   
     else
-      redirect_to request.referrer
+      redirect_to backoffice_path
       flash[:danger] = "Algo deu errado!"
     end
       #redirect_to '/'
   end
 
   def show
-    @room = Room.find(params[:id])
+    @room = Room.find(params[:room_id])
     @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end
+
+  def edit
+    @appointment = Appointment.find(params[:id])
+  end
+
+  def update
+    @appointment = Appointment.find(params[:id])
+    if @appointment.update(appointment_params)
+      redirect_to request.referrer
+      flash[:notice] = "O aluguél foi editado com sucesso!"
+    else
+      flash[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
+      render 'edit'
+    end
 
   def my_appointments
     @user = current_user
@@ -41,4 +57,8 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
+  def appointment_params
+    params.require(:appointment).permit(:status)
+  end
 end
