@@ -1,6 +1,6 @@
 FactoryBot.define do
     factory :appointment do
-        appointment_date '22-06-2018'
+        appointment_date { Date.today + 1 } 
         start_time '10:00:00'
     end
 end
