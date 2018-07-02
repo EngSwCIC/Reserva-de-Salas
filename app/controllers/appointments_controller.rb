@@ -43,6 +43,7 @@ class AppointmentsController < ApplicationController
       flash[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
       render 'edit'
     end
+  end
 
   def my_appointments
     @user = current_user
