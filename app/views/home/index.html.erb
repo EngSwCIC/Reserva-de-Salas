@@ -10,7 +10,24 @@
 <% end %>
 
 <% if !user_signed_in? %>
-	<h1>Home</h1>
-  	<%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
-  	<%= link_to 'Cadastro', new_user_registration_path, class: 'btn btn-primary' %>
+	<div style="width: 100vw; height: 100vh;background:#007622;">
+	<div style="padding-top: 30vh;">
+		<h1 align="center" style="color: white;">Bem-vindo ao Reserva de Salas!</h1>
+		<div align="center" class="container">
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4" style="text-justify:center; text-align: justify;">
+					<p style="margin: 2em 0; color: white;"> 
+						Esse projeto foi desenvolvido pelos alunos: Alex Souza, Guilherme Lopes, Tiago Cabral e Rodrigo Demetrio,
+						e tem por objetivo funcionar como um sistema de reserva de salas. Neste sistema, o usuário cadastra-se utilizando sua matrícula
+						e tem acesso a um painel com seus alugueis e todas as salas cadastradas.
+					</p>
+				</div>
+			</div>
+			<%= link_to 'Login', new_user_session_path, class: 'btn btn-primary' %>
+			<%= link_to 'Cadastro', new_user_registration_path, class: 'btn btn-primary' %>
+		</div>
+	</div>
+	</div>
 <% end %>
+
