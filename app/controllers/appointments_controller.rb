@@ -35,10 +35,10 @@ class AppointmentsController < ApplicationController
   def update
     @appointment = Appointment.find(params[:id])
     if @appointment.update(appointment_params)
-      redirect_to request.referrer
-      flash[:notice] = "O aluguél foi editado com sucesso!"
+      redirect_to all_appointments_path
+      flash.now[:notice] = "O aluguél foi editado com sucesso!"
     else
-      flash[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
+      flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
       render 'edit'
     end
   end
@@ -46,6 +46,11 @@ class AppointmentsController < ApplicationController
   def my_appointments
     @user = current_user
     @my_appointments = @user.appointments
+  end
+
+  def all_appointments
+    @appointments = Appointment.all
+
   end
 
   def destroy

@@ -25,6 +25,14 @@
             <span class="nav-link-text">Criar Salas</span>
           <% end %>
         </li>
+        <% if current_user.is_admin %>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+          <%= link_to all_appointments_path, class: 'nav-link' do %>
+            <i class="fa fa-fw fa-eye"></i>
+            <span class="nav-link-text">Todos aluguéis</span>
+          <% end %>
+        </li>
+        <%end%>
       </ul>
       <ul class="navbar-nav sidenav-toggler">
         <li class="nav-item">
