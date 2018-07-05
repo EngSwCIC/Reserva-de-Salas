@@ -6,7 +6,7 @@
 <%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label>Dia do aluguel</label>
+      <label>Dia da reserva</label>
       <%= form.date_field :appointment_date, class: 'form-control'  %>
     </div>
     <div class="form-group col-md-6">
