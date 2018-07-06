@@ -3,7 +3,7 @@
 
 Funcionalidade: Reservar uma sala no sistema
   Como usuário cadastrado e autenticado,
-  quero solicitar aluguel de uma sala no sistema
+  quero solicitar reserva de uma sala no sistema
   para poder utilizar em um determinado dia e horário.
 
   # Caso feliz
@@ -17,12 +17,12 @@ Funcionalidade: Reservar uma sala no sistema
     Então eu devo estar em uma página com uma tabela com os dados:
       |name  | Pat-45 |
       |location| PAT-AT |
-    Quando eu clicar no link "Aluguel" próximo ao nome da sala
+    Quando eu clicar no link "Reserva" próximo ao nome da sala
     E preencher o dia do alugel com:
       |appointment_date| Amanha |
     E selecionar o seguinte horário de "8:00 - 10:00" da manhã
-    E clicar no botão "Alugar"
-    Então deve aparecer uma mensagem na tela dizendo "Alguel realizado com sucesso!"
+    E clicar no botão "Reservar"
+    Então deve aparecer uma mensagem na tela dizendo "Reserva realizada com sucesso!"
 
   # Caso triste
   Cenário: Um usuário não consegue realizar uma solicitação, pois deixou a data em branco
@@ -35,7 +35,7 @@ Funcionalidade: Reservar uma sala no sistema
     Então eu devo estar em uma página com uma tabela com os dados:
       |name  | Pat-45 |
       |location| PAT-AT |
-    Quando eu clicar no link "Aluguel" próximo ao nome da sala
+    Quando eu clicar no link "Reserva" próximo ao nome da sala
     E selecionar o seguinte horário de "8:00 - 10:00" da manhã
-    E clicar no botão "Alugar"
+    E clicar no botão "Reserva"
     Então deve aparecer uma mensagem na tela dizendo "Algo deu errado!"

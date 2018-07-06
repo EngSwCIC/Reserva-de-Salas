@@ -14,7 +14,7 @@ class AppointmentsController < ApplicationController
     @appointment.status = 1
     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
       redirect_to backoffice_path
-      flash[:notice] = "Alguel realizado com sucesso!"   
+      flash[:notice] = "Reserva realizada com sucesso!"   
     else
       redirect_to backoffice_path
       flash[:danger] = "Algo deu errado!"
@@ -56,7 +56,7 @@ class AppointmentsController < ApplicationController
   def destroy
     @appointment = Appointment.find(params[:id])
     @appointment.destroy
-    flash[:danger] = "O Aluguel foi cancelado com suceso"
+    flash[:danger] = "A reserva foi cancelada com suceso"
     redirect_to root_path
   end
 
