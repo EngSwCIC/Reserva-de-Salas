@@ -4,8 +4,7 @@
 Funcionalidade: Listar todas as salas do sistema
   Como administrador do sistema,
   Quero poder visualizar todas as salas no sistema
-  Para verificar quais salas estão disponíveis para alguel
-
+  Para verificar quais salas estão disponíveis para reserva
   Cenário: Lista de salas aparece adequadamente
 
     Dado que eu esteja logado como administrador com o email "admin@admin.com" e a senha "admin123"
