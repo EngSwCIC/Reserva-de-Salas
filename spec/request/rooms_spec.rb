@@ -235,4 +235,25 @@ RSpec.describe 'Rooms API', type: :request do
             end
         end
     end
+
+    describe 'GET #free_rooms' do
+        context 'when user is signed in' do 
+            before do
+                sign_in user
+                @room1 = FactoryBot.create(:room)
+                @room2 = FactoryBot.create(:room)
+                @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room1.id)
+                @appointment1.status = 2
+                get '/free-rooms'
+            end
+            
+            it 'should render a collection of free rooms' do
+                expect(assigns(:free_rooms)).to match_array([@room2])
+            end
+            
+            it 'should render free rooms template' do
+                expect(response).to render_template(:free_rooms)
+            end
+        end
+    end
 end

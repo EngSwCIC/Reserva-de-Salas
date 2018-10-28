@@ -46,6 +46,20 @@ class RoomsController < ApplicationController
 		redirect_to backoffice_path
 	end
 
+	def free_rooms
+		#@free_rooms = Room.all
+		@free_rooms = Room.joins(:appointments).where('appointment_date = ? AND start_time = ?', params[:date_search], params[:time_search])
+
+		#if 
+		#	redirect_to free_rooms(params[:date_search], params[:time_search]) and return
+		#else
+			
+		#end
+
+
+		puts @free_rooms.inspect
+		puts params.inspect
+	end
 
 	private
 
