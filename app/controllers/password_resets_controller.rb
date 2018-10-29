@@ -25,11 +25,13 @@ class PasswordResetsController < ApplicationController
   def update
     if params[:user][:password].empty?                  # Case (3)
       @user.errors.add(:password, "Insira uma senha.")
+      flash[:info] = "Insira uma senha."
       render 'edit'
     elsif @user.update_attributes(user_params)          # Case (4)
       flash[:success] = "Senha alterada com sucesso."
       redirect_to user_session_url
     else
+      flash[:info] = "Senha e/ou confirmação de senha incorretas."
       render 'edit'                                     # Case (2)
     end
   end
@@ -39,8 +41,6 @@ class PasswordResetsController < ApplicationController
     def user_params
       params.require(:user).permit(:password, :password_confirmation)
     end
-
-    # Before filters
 
     def get_user
       @user = User.find_by(email: params[:email])
