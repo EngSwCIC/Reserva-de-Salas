@@ -1,14 +1,35 @@
+<div>
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+      <%= form_for(:password_reset, url: password_resets_path) do |f| %>
+                  <span class="login100-form-title p-b-55">
+                      <h2 style="font-weight: bold;">
+            Recuperação de senha
+          </h2>
+                  </span>
 
-<% provide(:title, "Forgot password") %>
-<h1>Forgot password</h1>
+        <div class="wrap-input100 validate-input m-b-16" data-validate = "Valid email is required: ex@abc.xyz">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input100', placeholder: 'Email' %>
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+                          <span class="fa fa-envelope"></span>
+                      </span>
+        </div>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:password_reset, url: password_resets_path) do |f| %>
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
+        <div class="container-login100-form-btn p-t-25">
+          <%= f.submit "Enviar", class: 'login100-form-btn' %>
+        </div>
 
-      <%= f.submit "Submit", class: "btn btn-primary" %>
-    <% end %>
+        <div class="text-center w-full p-t-115">
+                      <span class="txt1">
+                          Não é cadastrado ainda?
+                      </span>
+
+          <%= link_to 'Cadastre-se agora!', new_user_registration_path, class: 'txt1 bo1 hov1' %>
+        </div>
+      <% end %>
+    </div>
   </div>
+</div>
 </div>
