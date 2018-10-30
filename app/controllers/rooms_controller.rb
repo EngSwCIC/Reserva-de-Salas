@@ -48,17 +48,26 @@ class RoomsController < ApplicationController
 
 	def free_rooms
 		#@free_rooms = Room.all
-		@free_rooms = Room.joins(:appointments).where('appointment_date = ? AND start_time = ?', params[:date_search], params[:time_search])
+		@free_rooms = Room.all - Room.joins(:appointments).where('appointment_date = ? AND start_time = ? AND status = 2', params[:date_search], params[:time_search])
 
-		#if 
-		#	redirect_to free_rooms(params[:date_search], params[:time_search]) and return
-		#else
-			
-		#end
-
-
+		
 		puts @free_rooms.inspect
 		puts params.inspect
+
+		if params.has_key?(:date_search) and params.has_key?(:time_search)			
+			session[:date_search] = params[:date_search]
+			session[:time_search] = params[:time_search]
+			if (params[:date_search] != session[:date_search]) or (params[:time_search] != session[:time_search])
+				redirect_to free_rooms_path
+			end
+		#elsif session.has_key?(:date_search) and session.has_key?(:time_search)
+		#	params[:date_search] = session[:date_search]
+		#	params[:time_search] = session[:time_search]
+		#	flash.keep
+		#	redirect_to free_rooms_path(params.permit!) and return
+		end		
+
+
 	end
 
 	private

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   resources :rooms
   get 'free-rooms', to: 'rooms#free_rooms'
+  #get 'free-rooms-result', to: 'rooms#free_rooms_result'
   resources :appointments
   get 'my-appointments' => 'appointments#my_appointments'
   get 'all-appointments' => 'appointments#all_appointments'
