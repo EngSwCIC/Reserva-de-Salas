@@ -18,8 +18,9 @@ Rails.application.routes.draw do
   end
 
   resources :rooms
-  get 'free-rooms', to: 'rooms#free_rooms'
-  #get 'free-rooms-result', to: 'rooms#free_rooms_result'
+  get 'search-rooms', to: 'rooms#search_rooms'
+  get 'search-result', to: 'rooms#search_result'
+  post 'search-result', to: 'rooms#search_result'
   resources :appointments
   get 'my-appointments' => 'appointments#my_appointments'
   get 'all-appointments' => 'appointments#all_appointments'
