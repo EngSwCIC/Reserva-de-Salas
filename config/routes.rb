@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   end
 
   resources :rooms
+  get '/filtro/:id', to: 'rooms#filtro', as: 'filtro'
+
+
   resources :appointments
   get 'my-appointments' => 'appointments#my_appointments'
   get 'all-appointments' => 'appointments#all_appointments'

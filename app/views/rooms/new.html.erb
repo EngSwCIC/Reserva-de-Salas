@@ -27,7 +27,8 @@
           <%= f.label 'Categoria' %> <br>
         </div>
         <div class="col-sm-12 col-md-12">
-          <%= f.text_area :tipo_sala, class: "form-control", rows: 10, placeholder: "Categoria da sala" %>
+        <%= f.select :tipo_sala, options_for_select([['Auditórios', "Auditórios"], ['Laboratórios', "Laboratórios"], ['Multiuso', "Multiuso"], ['Salas de Aula', "Salas de aula"]]), {:include_blank => "Selecione o tipo de sala"}, { :class => 'custom-select' } %>
+          
         </div>
       </div>
 

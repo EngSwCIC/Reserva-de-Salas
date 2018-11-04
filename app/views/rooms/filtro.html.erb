@@ -18,7 +18,7 @@
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
           Tipos de Sala
         </button>
-        <div class="dropdown-menu"
+        <div class="dropdown-menu">
           <a class="dropdown-item" href="/rooms">Todas as Salas</a>
           <a class="dropdown-item" href="/filtro/Auditórios">Auditórios</a>
           <a class="dropdown-item" href="/filtro/Laboratórios">Laboratórios</a>
@@ -42,7 +42,7 @@
   </thead>
   <tbody>
   <% @rooms.each do |room| %>
-    
+    <% if params[:id] == room.tipo_sala%>
       <div class="room-item">
           <tr>
             <td><%= room.name %></td>
@@ -58,7 +58,7 @@
             </td>
           </tr>
       </div>
-    
+    <% end %>
   <% end %>
   </tbody>
 </table>

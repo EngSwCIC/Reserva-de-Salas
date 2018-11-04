@@ -1,31 +1,5 @@
-<table class="table table-bordered">
-  <thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Location</th>
-    <th scope="col">Categoria</th>
-    <td scope="col">Actions</td>
-  </tr>
-  </thead>
-  <tbody>
-  <% @rooms.each do |room| %>
-    <% if params[:id] == room.tipo_sala %>
-      <div class="room-item">
-          <tr>
-            <td><%= room.name %></td>
-            <td><%= room.location %></td>
-            <td><%= room.tipo_sala %></td>
-            <td>
-              <%= link_to 'Show', room_path(room.tipo_sala) %>
-              <%= link_to 'Aluguel', appointment_path(room.id) %>
-              <% if current_user.is_admin? %>
-                <%= link_to 'Edit', edit_room_path(room.id) %>
-                <%= link_to 'Deletar', room_path(room), method: :delete, data: {confirm: "Are you sure?"} %>
-              <% end %>
-            </td>
-          </tr>
-      </div>
-    <% end %>
-  <% end %>
-  </tbody>
-</table>
+<h1>Painel de visualização de Sala</h1>
+<div>
+    <span><%= @room.name%> : <%= @room.location%></span>
+</div>
+
