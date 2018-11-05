@@ -12,14 +12,26 @@ class AppointmentsController < ApplicationController
     @appointment.appointment_date = params[:appointment_date]
     @appointment.start_time = params[:start_time]
     @appointment.status = 1
-    if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
-      redirect_to backoffice_path
-      flash[:notice] = "Alguel realizado com sucesso!"   
-    else
-      redirect_to backoffice_path
-      flash[:danger] = "Algo deu errado!"
+    @reservado = 0
+
+    Appointment.all.each do |existingappointment|
+    	if(@appointment.room_id == existingappointment.room_id) and (@appointment.appointment_date == existingappointment.appointment_date) and (@appointment.start_time == existingappointment.start_time)
+      	@reservado = 1
+    	end
     end
-      #redirect_to '/'
+      if (@reservado == 1)
+      	redirect_to backoffice_path
+      	flash[:danger] = "Sala já reservada!"
+      else
+		    if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
+		      redirect_to backoffice_path
+		      flash[:notice] = "Alguel realizado com sucesso!"      
+		    else
+		      redirect_to backoffice_path
+		      flash[:danger] = "Algo deu errado!"
+		    end
+		      #redirect_to '/'
+		  end
   end
 
   def show
