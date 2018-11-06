@@ -24,6 +24,20 @@ RSpec.describe 'Appointment API', type: :request do
                 end
             end
 
+            context 'when appointment is duplicate' do
+            		before do
+                		@appointment_duplicated_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :format => @room.id)
+                    post "/appointments", params: @appointment_duplicated_credentials
+                    post "/appointments", params: @appointment_duplicated_credentials
+            		end
+            		it 'should render a danger flash message' do
+                		expect(flash[:danger]).not_to be_nil
+                end
+                it 'should not make duplicate appointments in database' do
+                		expect(Appointment.find_by(:appointment_date => @appointment_duplicated_credentials[:appointment_date], :room_id => @appointment_duplicated_credentials[:room_id])).to be_truthy
+                end
+            end
+
             context 'when params are not valid' do
                 before do
                     @appointment_fake_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :start_time => '')
