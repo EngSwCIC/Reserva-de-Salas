@@ -1,7 +1,7 @@
 # language: pt
 # encoding: utf-8
 
-Funcionalidade: Filtro de sala por salas ocupadas. (2)
+Funcionalidade: Filtro de sala por salas ocupadas. 
 	Como administrador autenticado do sistema.
 	Para que realizar a devida manutenção prévia nas salas a serem ocupadas.
 	Eu quero poder filtrar a busca de salas mostrando todas as salas ocupadas na semana.
