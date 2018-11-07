@@ -81,6 +81,30 @@ RSpec.describe 'Rooms API', type: :request do
             end
         end
     end
+    
+    describe 'GET #filtro' do
+        let(:room) {FactoryBot.create(:room)}
+        context 'when user is signed in' do
+            before do
+                sign_in user
+                get "/filtro/#{room.id}"
+            end
+            
+            it 'should render show template' do
+                expect(response).to render_template(:filtro)
+            end
+        end
+        
+        context 'when user is not signed in' do
+            before do
+                get "/filtro/#{room.id}"
+            end
+            it 'should render a flash message' do
+                expect(flash[:danger]).not_to be_nil
+            end
+        end
+    end
+        
 
     describe 'GET #edit' do
         let(:room) {FactoryBot.create(:room)}
