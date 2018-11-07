@@ -5,7 +5,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:mail) { UserMailer.password_reset }
 
     it "renders the headers" do
-      expect(mail.subject).to eq("Password reset")
+      expect(mail.subject).to eq("Recuperação de senha")
       expect(mail.to).to eq(["to@example.org"])
       expect(mail.from).to eq(["from@example.com"])
     end
