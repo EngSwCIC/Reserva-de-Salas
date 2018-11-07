@@ -235,4 +235,52 @@ RSpec.describe 'Rooms API', type: :request do
             end
         end
     end
+
+    describe 'GET #search_rooms' do
+        context 'when user is signed in' do 
+            before do
+                sign_in user
+            end
+            
+            it 'should render search rooms page' do
+                get '/search-rooms'
+                expect(response).to render_template(:search_rooms)
+            end
+        end
+
+
+        describe 'GET #search_result' do
+            context 'when user is signed in' do 
+                before do
+                    sign_in user
+                    @room1 = FactoryBot.create(:room)
+                    @room2 = FactoryBot.create(:room)
+                    @room3 = FactoryBot.create(:room)
+                    @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room1.id, :status => '2')
+                    
+                end
+
+                context 'when search params are not null'do
+                    before do
+                        post '/search-result', params: { :date_search => '22-06-2018', :time_search => '10:00:00'}
+                    end
+
+                    it 'should get a collection of free rooms if params are valid' do
+                        expect(Room.search_by('22-06-2018' ,'10:00:00')).to match_array([@room2, @room3])
+                    end
+                end
+
+                context 'when search params are null' do
+                    before do
+                        post '/search-result', params: { :date_search => nil, :time_search => nil}
+                    end
+                    it 'should render search rooms page' do
+                        expect(response).to redirect_to '/search-rooms'
+                    end
+                end
+
+            end
+
+        end
+    end
 end
