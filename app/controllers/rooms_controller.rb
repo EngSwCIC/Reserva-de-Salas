@@ -13,6 +13,10 @@ class RoomsController < ApplicationController
 		@room = Room.find(params[:id])
 	end
 
+	def filtro
+		@rooms = Room.all
+	end
+
 	def edit
 		@room = Room.find(params[:id])
 	end
@@ -76,6 +80,6 @@ class RoomsController < ApplicationController
 	end
 
 	def room_params
-		params.require(:room).permit(:name, :location)
+		params.require(:room).permit(:name, :location, :tipo_sala)
 	end
 end

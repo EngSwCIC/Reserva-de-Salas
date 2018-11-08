@@ -11,6 +11,7 @@ Rails.application.config.assets.precompile += %w( header.js )
 Rails.application.config.assets.precompile += %w( header.css )
 Rails.application.config.assets.precompile += %w( login-register-form.css )
 Rails.application.config.assets.precompile += %w( form-utils.css )
+Rails.application.config.assets.precompile += %w( salas.css )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
