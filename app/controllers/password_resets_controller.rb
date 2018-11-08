@@ -31,7 +31,7 @@ class PasswordResetsController < ApplicationController
       flash[:success] = "Senha alterada com sucesso."
       redirect_to user_session_url
     else
-      flash[:info] = "Senha e/ou confirmação de senha incorretas."
+      flash[:info] = "Senha e/ou confirmação de senha incorretas. Senha precisa ter 6 caracteres."
       render 'edit'                                     # Case (2)
     end
   end
@@ -57,7 +57,7 @@ class PasswordResetsController < ApplicationController
     def check_expiration
       if @user.password_reset_expired?
         flash[:danger] = "Link expirado."
-        redirect_to new_password_reset_url
+        redirect_to root_url
       end
     end
 end
