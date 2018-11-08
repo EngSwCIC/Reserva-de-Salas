@@ -1,7 +1,7 @@
 class PasswordResetsController < ApplicationController
   before_action :get_user,         only: [:edit, :update]
   before_action :valid_user,       only: [:edit, :update]
-  before_action :check_expiration, only: [:edit, :update]    # Case (1)
+  #before_action :check_expiration, only: [:edit, :update]    # Case (1)
 
   def new
   end
