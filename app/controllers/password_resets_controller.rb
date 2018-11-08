@@ -1,7 +1,7 @@
 class PasswordResetsController < ApplicationController
   before_action :get_user,         only: [:edit, :update]
   before_action :valid_user,       only: [:edit, :update]
-  #before_action :check_expiration, only: [:edit, :update]    # Case (1)
+  #before_action :check_expiration, only: [:edit, :update]   
 
   def new
   end
@@ -23,16 +23,16 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    if params[:user][:password].empty?                  # Case (3)
+    if params[:user][:password].empty?                  
       @user.errors.add(:password, "Insira uma senha.")
       flash[:info] = "Insira uma senha."
       render 'edit'
-    elsif @user.update_attributes(user_params)          # Case (4)
+    elsif @user.update_attributes(user_params)          
       flash[:success] = "Senha alterada com sucesso."
       redirect_to user_session_url
     else
       flash[:info] = "Senha e/ou confirmação de senha incorretas. Senha precisa ter 6 caracteres."
-      render 'edit'                                     # Case (2)
+      render 'edit'                                     
     end
   end
 
@@ -57,7 +57,7 @@ class PasswordResetsController < ApplicationController
     def check_expiration
       if @user.password_reset_expired?
         flash[:danger] = "Link expirado."
-        redirect_to root_url
+        redirect_to user_session_url
       end
     end
 end
