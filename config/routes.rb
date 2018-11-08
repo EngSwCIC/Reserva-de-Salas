@@ -28,6 +28,9 @@ Rails.application.routes.draw do
   get 'search-rooms', to: 'rooms#search_rooms'
   get 'search-result', to: 'rooms#search_result'
   post 'search-result', to: 'rooms#search_result'
+  get '/filtro/:id', to: 'rooms#filtro', as: 'filtro'
+
+
   resources :appointments
   get 'my-appointments' => 'appointments#my_appointments'
   get 'all-appointments' => 'appointments#all_appointments'

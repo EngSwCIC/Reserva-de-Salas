@@ -22,7 +22,7 @@ Dado("existam as seguintes salas cadastradas no sistema:") do |table|
 end
 
 Quando("eu clicar no botão {string}") do |string|
-  click_link (string)
+  click_button "Salas Existentes"
 end
 
 Então("eu devo estar em uma página com uma tabela com os dados:") do |table|
