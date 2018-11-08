@@ -90,7 +90,7 @@ RSpec.describe 'Rooms API', type: :request do
                 get "/filtro/#{room.id}"
             end
             
-            it 'should render show template' do
+            it 'should render filtro template' do
                 expect(response).to render_template(:filtro)
             end
         end
