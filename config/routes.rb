@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   
+  # TODO: Change for official Domain
+  default_url_options :host => "localhost:3000"
+
+  get 'password_resets/new'
+
+  get 'password_resets/edit'
+
   root 'home#index'
 
   devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
@@ -28,5 +35,7 @@ Rails.application.routes.draw do
   get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
   post '', to: 'backoffice/dashboard#create', as: :"admin_registration"
   
+  resources :password_resets, only: [:new, :create, :edit, :update]
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

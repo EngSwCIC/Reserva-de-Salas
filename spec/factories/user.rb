@@ -5,6 +5,7 @@ FactoryBot.define do
         username 'testesilva'
         registration '150115464'
         course 'Artes Cenicas'
+        reset_token '1pEbBAmlTGJRxb_LBYB4cQ'
         is_admin false
     end
 end

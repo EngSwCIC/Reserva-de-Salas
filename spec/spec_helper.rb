@@ -94,3 +94,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+# Line added to solve the problem "uninitialized constant PasswordResetsController"
+# https://stackoverflow.com/questions/26288113/rspec-cannot-find-my-controllers-uninitialized-constant
+require File.expand_path("../../config/environment", __FILE__)

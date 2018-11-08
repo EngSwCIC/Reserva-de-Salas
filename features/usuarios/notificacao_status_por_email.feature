@@ -1,21 +1,35 @@
-# language: pt
-# encoding: utf-8
+#language: pt
+#encoding: utf-8
 
-Funcionalidade: Notificação por e-mail de mudança no status de reserva de sala (2)
-	Como usuário cadastrado do sistema
-	Para que saiba quando o pedido de reserva mudar de status
-	Eu quero receber um e-mail informando que houve alteração do status da reserva
-	
-		Cenário: Um email informando ao usuário a respeito do status da sua reserva de sala
-	
-			Dado que eu efetuei o devido login no sistema 
-			E selecionei uma data e horário de interesse
-			E escolhi uma sala e cliquei no botão para solicitar a reserva
-			Quando o pedido de reserva foi julgado pelo administrador do sistema
-			Então recebo em minha caixa de emails um email informando a mudança do status da minha reserva. No seguinte formato:
+Funcionalidade: Notificação por e-mail de mudança no status de reserva de sala
+  Como usuário cadastrado do sistema
+  Para que saiba quando o pedido de reserva mudar de status
+  Eu quero receber um e-mail informando que houve alteração do status da reserva
 
-			“Caro usuário (nome do usuário), o seu pedido de reserva para a sala (id da sala) para data (data) e horário (horário) foi aprovado/rejeitado.”
+  # Caso feliz
+  Cenário: Administrador aprovou pedido de sala
+    Dado que eu esteja logado como usuário comum com o email "andre@email.com" e a senha "senhaandre"
+    E eu esteja no página principal com caminho "/"
+    E existam as salas cadastradas no sistema: "<name>", "<location>"
+    E existam os seguintes alugueis cadastrados no meu nome: "<appointment_date>", "<start_time>"
+    Quando eu clicar no botão "Salas Existentes"
+    E eu clicar no link "Aluguel" próximo ao nome da sala
+    E preencher o dia do alugel com:
+      |appointment_date| Amanha |
+    E selecionar o seguinte horário de "10:00 - 12:00" da manhã
+    E clicar no botão "Alugar"
+    Então após o pedido ser analisado pelo administrador do sistema eu devo receber em meu email "Pedido de aluguel aprovado!"
 
-			Exemplo: Dado login como usuário André, pedido da sala PAT-45 para dia 15/10/2018 e hora 15h30:
-
-			“Caro usuário André, o seu pedido de reserva para a sala PAT-45 para data 15/10/2018 e horário 15h30 foi aprovado.” 
+  # Caso triste
+  Cenário: Administrador reprovou pedido de sala
+    Dado que eu esteja logado como usuário comum com o email "andre@email.com" e a senha "senhaandre"
+    E eu esteja no página principal com caminho "/"
+    E existam as salas cadastradas no sistema: "<name>", "<location>"
+    E existam os seguintes alugueis cadastrados no meu nome: "<appointment_date>", "<start_time>"
+    Quando eu clicar no botão "Salas Existentes"
+    E eu clicar no link "Aluguel" próximo ao nome da sala
+    E preencher o dia do alugel com:
+      |appointment_date| Amanha |
+    E selecionar o seguinte horário de "10:00 - 12:00" da manhã
+    E clicar no botão "Alugar"
+    Então após o pedido ser analisado pelo administrador do sistema eu devo receber em meu email "Pedido de aluguel recusado!"
