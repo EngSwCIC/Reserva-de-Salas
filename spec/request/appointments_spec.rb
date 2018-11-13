@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Appointment API', type: :request do
     let(:user) { FactoryBot.create(:user, :email => '123@123.com') }
+    let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
 
     describe 'POST #create' do
         context 'when user is signed in' do
@@ -107,5 +108,19 @@ RSpec.describe 'Appointment API', type: :request do
                 expect(Appointment.find_by(appointment_date: appointment_params[:appointment_date])).not_to be_truthy
             end
         end
+    end
+
+    describe '' do
+      context 'when admin is signed in' do
+        before do
+          sign_in admin_user
+          get '/weeks-appointments'
+        end
+
+        it 'renders my appointments template' do
+          expect(response).to render_template(:weeks_appointments)
+        end
+
+      end
     end
 end
