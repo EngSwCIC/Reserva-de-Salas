@@ -65,6 +65,10 @@ class AppointmentsController < ApplicationController
 
   end
 
+  def weeks_appointments
+    @weeks_appointments =  Appointment.where('appointment_date BETWEEN ? AND ?', Date.today.beginning_of_week, Date.today.end_of_week).sort_by &:appointment_date
+  end
+
   def destroy
     @appointment = Appointment.find(params[:id])
     @appointment.destroy

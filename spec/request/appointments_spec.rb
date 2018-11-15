@@ -110,14 +110,25 @@ RSpec.describe 'Appointment API', type: :request do
         end
     end
 
-    describe '' do
+    describe 'GET #weeks-appointment' do
       context 'when admin is signed in' do
         before do
           sign_in admin_user
+          @room = FactoryBot.create(:room)
+          @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+          @appointment1.appointment_date = Date.today.yesterday
+          @appointment2 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+          @appointment2.appointment_date = Date.today.tomorrow
+          @appointment3 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
           get '/weeks-appointments'
+
         end
 
-        it 'renders my appointments template' do
+        it 'should display the list with appointments'do
+          expect(assigns(:weeks_appointments)).to match_array([@appointment1,@appointment2])
+        end
+
+        it 'renders weeks appointments template' do
           expect(response).to render_template(:weeks_appointments)
         end
 

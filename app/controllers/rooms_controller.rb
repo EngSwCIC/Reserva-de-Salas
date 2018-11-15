@@ -57,6 +57,7 @@ class RoomsController < ApplicationController
 		else
 			redirect_to search_rooms_path
 		end
+
 	end
 
 	private
