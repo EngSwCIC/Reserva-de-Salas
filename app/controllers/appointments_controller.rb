@@ -57,6 +57,7 @@ class AppointmentsController < ApplicationController
     end
     if status_old != @appointment.status
       @appointment.send_status_notification_email
+      flash[:info] = "Email enviado ao usuário com status de sua reserva."
     end
   end
 
