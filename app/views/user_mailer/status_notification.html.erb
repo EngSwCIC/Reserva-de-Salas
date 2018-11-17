@@ -1,0 +1,8 @@
+<h1>Notificação de Reserva</h1>
+
+<p>Usuário <%= @user.username %></p>
+
+<p>Informamos que seu pedido de reserva para a sala <%= @appointment.room.name %> foi <% if @appointment.status == 2 %>aprovado<% else %>reprovado<% end %> pelo administrador do sistema.</p>
+
+<p>Atenciosamente, 
+Equipe do Reserva-de-Salas UnB.</p>

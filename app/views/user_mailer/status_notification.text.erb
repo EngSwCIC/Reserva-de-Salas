@@ -1,0 +1,8 @@
+Notificação de Reserva
+
+Usuário <%= @user.username %>
+
+Informamos que seu pedido de reserva para a sala <%= @appointment.room.name %> foi <% if @appointment.status == 2 %>aprovado<% else %>reprovado<% end %> pelo administrador do sistema.
+
+Atenciosamente, 
+Equipe do Reserva-de-Salas UnB.

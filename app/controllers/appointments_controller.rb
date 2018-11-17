@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+
   def new
     @appointment = Appointment.new
     @room = Room.find(params[:id])
@@ -53,6 +54,7 @@ class AppointmentsController < ApplicationController
       flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
       render 'edit'
     end
+    @appointment.send_status_notification_email
   end
 
   def my_appointments
