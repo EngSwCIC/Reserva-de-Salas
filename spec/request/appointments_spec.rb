@@ -116,20 +116,22 @@ RSpec.describe 'Appointment API', type: :request do
           sign_in admin_user
           @room = FactoryBot.create(:room)
           @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-          @appointment1.appointment_date = Date.today.yesterday
+          @appointment1.appointment_date = Date.today.beginning_of_week
+          @appointment1.save
           @appointment2 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-          @appointment2.appointment_date = Date.today.tomorrow
-          @appointment3 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+          @appointment2.appointment_date = Date.today.end_of_week
+          @appointment2.save
           get '/weeks-appointments'
 
         end
 
-        it 'should display the list with appointments'do
-          expect(assigns(:weeks_appointments)).to match_array([@appointment1,@appointment2])
+        it 'renders weeks appointments template' do
+            expect(response).to render_template(:weeks_appointments)
         end
 
-        it 'renders weeks appointments template' do
-          expect(response).to render_template(:weeks_appointments)
+
+        it 'should display the list with appointments for the week' do
+          expect(assigns(:weeks_appointments)).to include(@appointment1, @appointment2)
         end
 
       end

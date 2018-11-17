@@ -12,9 +12,9 @@ Funcionalidade: Pesquisa de salas livres por dia e hora.
 		E eu esteja no página principal com caminho "/"
 		E existam as seguintes salas cadastradas no sistema: 
 		  |name  	 | Pjc-54 |
-		  |location| PJC-BT |
-      |name		 | Pat-45 |
-      |location| PAT-AT	|
+		  |location	 | PJC-BT |
+		  |name		 | Pat-45 |
+      	  |location	 | PAT-AT |
 		E exista o seguinte aluguel cadastrado no sistema:
 	  	|appointment_date| Amanha		   |
 	  	|start_time 	   | 08:00:00 	 |
