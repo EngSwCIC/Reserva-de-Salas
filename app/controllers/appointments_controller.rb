@@ -47,6 +47,7 @@ class AppointmentsController < ApplicationController
 
   def update
     @appointment = Appointment.find(params[:id])
+    status_old = @appointment.status
     if @appointment.update(appointment_params)
       redirect_to all_appointments_path
       flash.now[:notice] = "O aluguél foi editado com sucesso!"
@@ -54,7 +55,9 @@ class AppointmentsController < ApplicationController
       flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
       render 'edit'
     end
-    @appointment.send_status_notification_email
+    if status_old != @appointment.status
+      @appointment.send_status_notification_email
+    end
   end
 
   def my_appointments
