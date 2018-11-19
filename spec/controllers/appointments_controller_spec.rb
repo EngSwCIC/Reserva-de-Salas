@@ -16,7 +16,7 @@ RSpec.describe AppointmentsController, type: :controller do
             end
                     
             it "Should send an email when status of appointment is changed by admin user" do
-                put :update, params: { :id => appointment.id, :appointment => appointment, :status_old => 1 }
+                put :update, params: { :id => appointment.id, :appointment => { :status => 2}, :status_old => 1 }
                 expect(flash[:info]).to eq("Email enviado ao usuário com status de sua reserva.")
             end
             it "Should send an email to the correct email address" do
