@@ -12,8 +12,7 @@ Funcionalidade: Notificação por e-mail de mudança no status de reserva de sal
     E eu esteja no página principal do sistema com caminho "/"
     E existam tais salas cadastradas no sistema: "<name>", "<location>"
     Quando eu selecionar a opção "Salas Existentes"
-    E eu selecionar o link "Aluguel" próximo ao nome da sala
-    E preencher o dia do aluguel com:
+    E eu selecionar o link Aluguel e depois preencher o dia do aluguel com:
       |appointment_date| Amanha |
     E selecionar tal horário de "10:00 - 12:00" da manhã
     E eu selecionar a opção "Alugar"
@@ -25,8 +24,7 @@ Funcionalidade: Notificação por e-mail de mudança no status de reserva de sal
     E eu esteja no página principal do sistema com caminho "/"
     E existam tais salas cadastradas no sistema: "<name>", "<location>"
     Quando eu selecionar a opção "Salas Existentes"
-    E eu selecionar o link "Aluguel" próximo ao nome da sala
-    E preencher o dia do aluguel com:
+    E eu selecionar o link Aluguel e depois preencher o dia do aluguel com:
       |appointment_date| Amanha |
     E selecionar tal horário de "10:00 - 12:00" da manhã
     E eu selecionar a opção "Alugar"

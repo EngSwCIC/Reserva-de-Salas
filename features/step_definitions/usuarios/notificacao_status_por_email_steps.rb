@@ -20,12 +20,10 @@ Quando("eu selecionar a opção {string}") do |string|
   click_link("#{string}")
 end
 
-E("eu selecionar o link {string} próximo ao nome da sala") do |string|
-  first('.room-item').click_link("#{string}")
-end
-
-E("preencher o dia do aluguel com:") do |table|
+E("eu selecionar o link Aluguel e depois preencher o dia do aluguel com:") do |table|
+  current_path = "/edit_appointment"
   # table is a Cucumber::MultilineArgument::DataTable
+  puts current_path
   table.rows_hash.each do |field, value|
     fill_in field, :with => Date.today + 1
   end
