@@ -6,7 +6,8 @@ Dado("exista o seguinte aluguel cadastrado no sistema:")do |table|
 	    @appointment.user_id = User.last.id
 	    @appointment.room_id = Room.where(name: value, location:value).ids
 	    @appointment.save
-	end
+  end
+
 end
 
 
