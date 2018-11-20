@@ -129,7 +129,6 @@ RSpec.describe 'Appointment API', type: :request do
             expect(response).to render_template(:weeks_appointments)
         end
 
-
         it 'should display the list with appointments for the week' do
           expect(assigns(:weeks_appointments)).to include(@appointment1, @appointment2)
         end

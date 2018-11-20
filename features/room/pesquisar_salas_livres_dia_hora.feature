@@ -20,7 +20,7 @@ Funcionalidade: Pesquisa de salas livres por dia e hora.
 	  	|start_time 	   | 08:00:00 	 |
 	  	|name   				 | Pjc-54 		 |
 	  	|location 			 | PJC-BT  		 |
-		Quando eu clicar no botão "Buscar Salas Livres"
+		Quando eu clicar no link "Buscar Salas Livres"
 		Então eu esteja no página principal com caminho "/search-rooms"
 		E preencher o dia do alugel com:
       |date_search| Amanha |
