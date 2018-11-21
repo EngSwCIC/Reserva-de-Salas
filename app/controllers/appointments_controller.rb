@@ -11,7 +11,7 @@ class AppointmentsController < ApplicationController
     @appointment.user_id = current_user.id
     @appointment.appointment_date = params[:appointment_date]
     @appointment.start_time = params[:start_time]
-    @appointment.status = 1
+    #@appointment.status = 2
     @reservado = 0
 
     Appointment.all.each do |existingappointment|
@@ -20,9 +20,18 @@ class AppointmentsController < ApplicationController
     	end
     end
       if (@reservado == 1)
-      	redirect_to backoffice_path
-      	flash[:danger] = "Sala já reservada!"
+        @appointment.status = 1
+        if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
+          redirect_to backoffice_path
+          flash[:notice] = "Seu aluguel foi solicitado a um administrador pois a sala já está reservada"
+      	#redirect_to backoffice_path
+      	#flash[:danger] = "Sala já reservada!"
+        else
+          redirect_to backoffice_path
+          flash[:danger] = "Algo deu errado!"
+        end
       else
+        @appointment.status = 2
 		    if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
 		      redirect_to backoffice_path
 		      flash[:notice] = "Alguel realizado com sucesso!"      

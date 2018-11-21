@@ -1,7 +1,7 @@
 # This is the steps file referred to index_for_appointments feature
 # Place your code relative to that feature here
 Dado("existam as salas cadastradas no sistema: {string}, {string}") do |name, location|
-  Room.create(name: name, location: location)
+  Room.create(name: name, location: location, tipo_sala: 'Auditório')
 end
 
 Dado("existam os seguintes alugueis cadastrados no meu nome: {string}, {string}")do |appointment_date, start_time|
