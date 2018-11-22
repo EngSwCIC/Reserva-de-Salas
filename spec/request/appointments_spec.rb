@@ -24,18 +24,10 @@ RSpec.describe 'Appointment API', type: :request do
                 end
             end
 
-            #context 'when appointment is duplicate' do
-            #	it "should render a success flash message" do
-            #   	post '/appointments', params: { :appointment_date => '22-06-2018', :start_time => '10:00:00', :user_id => '500' }
-            #  	expect(flash[:info]).not_to be_nil
-            #	end
-          	#end
-
-
-            context 'when appointment is duplicate' do
+            context 'when appointment is duplicated' do
             		before do
-                		@appointment_duplicated_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :format => @room.id, :user_id => user.id)
-                    @appointment_duplicated_credentials2 = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :format => @room.id, :user_id => user.id)
+                		@appointment_duplicated_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :format => @room.id, :user_id => user.id, :status => '2')
+                    @appointment_duplicated_credentials2 = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :format => @room.id, :user_id => user.id, :status => '1')
                     post "/appointments", params: @appointment_duplicated_credentials
                     post "/appointments", params: @appointment_duplicated_credentials2
             		end
@@ -43,10 +35,10 @@ RSpec.describe 'Appointment API', type: :request do
                 		expect(flash[:notice]).to eq("Seu aluguel foi solicitado a um administrador pois a sala já está reservada")
                 end
                 it 'should make the first appointment status approved' do
-                    expect(Appointment.find_by(:appointment_date => @appointment_duplicated_credentials[:appointment_date], :room_id => @appointment_duplicated_credentials[:room_id], :user_id => @appointment_duplicated_credentials[:user_id])).to be_truthy
+                    expect(Appointment.find_by(:appointment_date => @appointment_duplicated_credentials[:appointment_date], :room_id => @appointment_duplicated_credentials[:room_id], :user_id => @appointment_duplicated_credentials[:user_id], :status => @appointment_duplicated_credentials[:status])).to be_truthy
                 end
                 it 'should make the duplicated appointment status requested' do
-                	expect(Appointment.find_by(:appointment_date => @appointment_duplicated_credentials2[:appointment_date], :room_id => @appointment_duplicated_credentials2[:room_id], :user_id => @appointment_duplicated_credentials2[:user_id])).to be_truthy
+                	expect(Appointment.find_by(:appointment_date => @appointment_duplicated_credentials2[:appointment_date], :room_id => @appointment_duplicated_credentials2[:room_id], :user_id => @appointment_duplicated_credentials2[:user_id], :status => @appointment_duplicated_credentials2[:status])).to be_truthy
                 end
             end
 
