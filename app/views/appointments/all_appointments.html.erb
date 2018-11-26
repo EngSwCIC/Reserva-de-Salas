@@ -1,3 +1,23 @@
+<% @Pair = Hash.new %>
+<% @array = Array.new %>
+<% @extract = Array.new %>
+<% @aux = Array.new %>
+<% @i = 0 %>
+<% @j = 0 %>
+<% @appointments.each do |appointment| %>
+    <% @array[@i] = [[appointment.appointment_date],[appointment.start_time]]  %>
+  <% @i += 1 %>
+<% end %>
+<% @tam = @array.size %>
+<% @tam2 = @extract.size %>
+<% for i in 0..@tam %>
+  <% if(@array[i] != @array[i+1]) %>
+    <% @extract[@j] = @array[i] %>
+    <% @j += 1 %>
+  <% end %>
+<% end %>
+<% @tam2 = @extract.size %>
+
 
 <table class="table" id="table">
   <thead>
@@ -11,16 +31,28 @@
   </tr>
   </thead>
   <tbody>
-  <% @appointments.each do |appointment| %>
-    <tr>
-      <th scope="row">1</th>
-      <td class="appointment-data"> <%= appointment.user.username %> </td>
-      <td class="appointment-data"> <%= appointment.room.name %> </td>
-      <td class="appointment-data"> <%= appointment.appointment_date %> </td>
-      <td class="appointment-data"> <%= appointment.start_time %> </td>
-      <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
-    </tr>
-  <% end %>
+  <% for i in 0..@tam2 %>
+    <th>d</th>
+    <% @appointments.each do |appointment| %>
+      <% @aux[0] = [[appointment.appointment_date],[appointment.start_time]] %>
+          <% if( @extract[i] == @aux[0] ) %>
+            <tr>
+              <th scope="row">1</th>
+              <td class="appointment-data"> <%= appointment.user.username %> </td>
+              <td class="appointment-data"> <%= appointment.room.name %> </td>
+              <td class="appointment-data"> <%= appointment.appointment_date %> </td>
+              <td class="appointment-data"> <%= appointment.start_time %> </td>
+              <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
+            </tr>
+          <% end %>
+       <% end %>
+    <% end %>
+
   </tbody>
 </table>
+
+
+
+
+
 <%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>
