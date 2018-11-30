@@ -10,6 +10,9 @@ Dado("exista o seguinte aluguel cadastrado no sistema:")do |table|
 
 end
 
+Então ("devo estar uma página com a tabela com as salas não reservadas") do
+	expect(page).to have_css 'table'
+end
 
 Quando("selecionar o seguinte horário de {string} da manhã para buscar") do |string|
   select string, from: "time_search"

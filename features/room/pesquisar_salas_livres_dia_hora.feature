@@ -27,6 +27,4 @@ Funcionalidade: Pesquisa de salas livres por dia e hora.
 		E selecionar o seguinte horário de "8:00 - 10:00" da manhã para buscar
 		E clicar no botão "Buscar"
 		Então eu esteja no página principal com caminho "/search-result"
-    Então eu devo estar em uma página com uma tabela com os dados:
-      |name  	 | Pat-45 |
-      |location| PAT-AT |	
+    Então devo estar uma página com a tabela com as salas não reservadas
