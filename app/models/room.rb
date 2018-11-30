@@ -5,7 +5,7 @@ class Room < ApplicationRecord
 	validates :location, presence: true, length: {minimum: 3, maximum: 50}
 
 
-
+	#Método de busca de salas que não tem uma reserva para o dia e hora indicados
 	def self.search_by(date, time)
 	  if date and time
 	    Room.all - Room.joins(:appointments).where('appointment_date = ? AND start_time = ? AND status = 2', date, time)

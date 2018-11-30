@@ -65,6 +65,7 @@ class AppointmentsController < ApplicationController
 
   end
 
+  #Método que busca as salas com reservas entre o início da semana atual até o fim da semana
   def weeks_appointments
     @weeks_appointments =  Appointment.week_appoint
   end

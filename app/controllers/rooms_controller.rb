@@ -50,6 +50,7 @@ class RoomsController < ApplicationController
 		redirect_to backoffice_path
 	end
 
+	#Método de busca de salas disponíveis por dia e hora
 	def search_result
 
 		if params[:date_search] and params[:time_search]
