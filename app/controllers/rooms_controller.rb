@@ -1,3 +1,4 @@
+#Classe de gerenciamento e controle das salas da controladora do sistema
 class RoomsController < ApplicationController
 	before_action :signed_in?
 	before_action :is_admin?, only: [:new, :create, :destroy]

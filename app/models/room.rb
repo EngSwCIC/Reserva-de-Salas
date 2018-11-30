@@ -1,3 +1,4 @@
+#Classe responsável pelo gerenciamento da model de salas
 class Room < ApplicationRecord
 	has_many :appointments
 	has_many :users, :through => :appointments

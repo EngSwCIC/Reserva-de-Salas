@@ -1,4 +1,4 @@
-#Classe de gerenciamento e controle das reservas de salas do sistema
+#Classe de gerenciamento e controle das reservas de salas da controladora do sistema.
 class AppointmentsController < ApplicationController
   def new
     @appointment = Appointment.new
@@ -66,7 +66,7 @@ class AppointmentsController < ApplicationController
 
   end
 
-  #Método que busca as salas com reservas entre o início da semana atual até o fim da semana
+  #Método que busca as salas com reservas entre o início da semana atual até o fim da semana.
   def weeks_appointments
     @weeks_appointments =  Appointment.where('appointment_date BETWEEN ? AND ?',
                                              Date.today.beginning_of_week,

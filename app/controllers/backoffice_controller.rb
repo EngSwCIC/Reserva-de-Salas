@@ -1,3 +1,4 @@
+#Classe responsável pelo controle dos recursos da página principal do administrador
 class BackofficeController < ApplicationController
 	layout 'backoffice'
 
