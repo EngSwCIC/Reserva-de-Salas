@@ -12,6 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/coverage/*
 
 .idea/
 /node_modules
