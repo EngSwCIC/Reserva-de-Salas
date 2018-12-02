@@ -38,6 +38,10 @@
   <% @go += 1 %>
 <% end %>
 <% @idsc = @ids.sort %>
+<% @extractc = @extract.sort_by! {|t| t.third} %>
+<% for i in 0..@tam2-1 %>
+  <% puts(@extract[i]) %>
+<% end %>
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
@@ -46,6 +50,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+
+<% @alerta = 0 %>
+
 <% @flag = 0 %>
 <div class="conjunto0">
   <% for i in 0..@tam2-1 %>
@@ -56,11 +63,24 @@
     <% if ( @idsc[i] != @idsc[i+1]) %>
       <% @flag = 0 %>
     <% end %>
+    <% @appointments.each do |appointment| %>
+      <% @aux[0] = [[appointment.appointment_date.strftime("%d/%m/%Y")],[appointment.start_time.strftime("%H:%M")],[appointment.room.name]] %>
+      <% if( @extract[i] == @aux[0]) %>
+        <% @alerta += 1 %>
+      <% end %>
+    <% end %>
+
+    <% if(@alerta > 1) %>
+      <% @bot = " bot" %>
+    <% else %>
+      <% @bot = " btn-info" %>
+    <% end %>
+    <% @alerta = 0 %>
     <ul class="conjunto">
       <li>
         <div class="container">
           <!-- Trigger the modal with a button -->
-          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<%= i.to_s %>"><%= @idsc[i].first %></button>
+          <button type="button" class="btn btn-lg<%= @bot.to_s %>" data-toggle="modal" data-target="#myModal<%= i.to_s %>"><%= @idsc[i].first %></button>
           <!-- Modal -->
           <div class="modal fade" id="myModal<%= i.to_s %>" role="dialog">
             <div class="modal-dialog">
@@ -69,7 +89,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Modal Header</h4>
+
                 </div>
                 <div class="modal-body">
                   <table class="table" id="table">

@@ -11,6 +11,11 @@
     display: inline-block;
 }
 
+.bot {
+    background-color: red;
+    color: white;
+}
+
 .conjunto {
     width: 150px;
     height: 150px;
