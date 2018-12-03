@@ -96,6 +96,21 @@ RSpec.describe 'Appointment API', type: :request do
         end
     end
 
+
+    describe 'GET #all_appointments' do
+        context 'when user is signed in' do
+            before do
+                sign_in user
+                get '/all-appointments'
+            end
+
+            it 'should render edit template' do
+                expect(response).to render_template(:all_appointments)
+            end
+        end
+    end
+
+
     describe 'GET #my_appointments' do
         context 'params are valid' do
             before do 
@@ -132,18 +147,4 @@ RSpec.describe 'Appointment API', type: :request do
         end
     end
 
-    describe 'PATCH #update' do
-        context 'when appointment exists' do
-
-            before do
-                sign_in user
-                @room = FactoryBot.create(:room)
-                @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-                put "/appointments/#{@appointment.id}", params: @appointment
-            end
-
-            it 'deletes a appointment' do
-            end
-        end
-    end
 end
