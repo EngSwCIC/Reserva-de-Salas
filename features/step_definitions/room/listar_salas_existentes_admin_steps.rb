@@ -17,6 +17,7 @@ Dado("existam as seguintes salas cadastradas no sistema:") do |table|
     @room = Room.new
     @room.name = value
     @room.location = value
+    @room.tipo_sala = 'salaTeste'
     @room.save
   end
 end
