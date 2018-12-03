@@ -11,7 +11,7 @@ Dado("que eu esteja cadastrado e logado como administrador do sistema") do
 end
 
 Dado("já exista uma sala cadastrada no sistema") do
-  Room.create!(name: 'teste', location: 'locationTeste')
+  Room.create!(name: 'teste', location: 'locationTeste', tipo_sala: 'tipoTeste')
 end
 
 Dado("eu esteja na pagina backoffice") do

@@ -13,7 +13,7 @@ Funcionalidade: Listar todas as salas do sistema
     E existam as seguintes salas cadastradas no sistema:
       |name  | Pat-45 |
       |location| PAT-AT |
-    Quando eu clicar no botão "Ver lista de salas existentes"
+    Quando eu clicar no link "Ver lista de salas existentes"
     Então eu devo estar em uma página com uma tabela com os dados:
       |name  | Pat-45 |
       |location| PAT-AT |

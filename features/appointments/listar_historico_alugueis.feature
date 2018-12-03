@@ -10,7 +10,7 @@ Funcionalidade: listar_historico_alugueis
       E eu esteja no página principal com caminho "/"
       E existam as salas cadastradas no sistema: "<name>", "<location>"
       E existam os seguintes alugueis cadastrados no meu nome: "<appointment_date>", "<start_time>"
-      Quando eu clicar no botão "Meus aluguéis"
+      Quando eu clicar no link "Meus aluguéis"
       Então eu devo estar em uma página com uma tabela com os dados "<appointment_date>", "<start_time>"
       Exemplos:
       |appointment_date| start_time | name   | location |

@@ -13,7 +13,7 @@ Funcionalidade: Reservar uma sala no sistema
     E existam as seguintes salas cadastradas no sistema:
       |name  | Pat-45 |
       |location| PAT-AT |
-    Quando eu clicar no botão "Salas Existentes"
+    Quando eu clicar no link "Salas Existentes"
     Então eu devo estar em uma página com uma tabela com os dados:
       |name  | Pat-45 |
       |location| PAT-AT |
@@ -31,7 +31,7 @@ Funcionalidade: Reservar uma sala no sistema
     E existam as seguintes salas cadastradas no sistema:
       |name  | Pat-45 |
       |location| PAT-AT |
-    Quando eu clicar no botão "Salas Existentes"
+    Quando eu clicar no link "Salas Existentes"
     Então eu devo estar em uma página com uma tabela com os dados:
       |name  | Pat-45 |
       |location| PAT-AT |

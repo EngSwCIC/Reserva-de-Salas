@@ -3,7 +3,7 @@
 Dado("que eu esteja na página principal e já seja um administrador cadastrado e já exista uma sala cadastrada") do
     User.create!(username: 'admin', email: 'admin@admin.admin', password: 'adminseed', 
         registration: "admin000", course: "ADMIN", is_admin: true)
-    Room.create!(name: 'teste', location: 'locationTeste', )
+    Room.create!(name: 'SalaTeste', location: 'locationTeste', tipo_sala: 'tipoTeste')
     visit("/")
   end
   
