@@ -1,8 +1,4 @@
 class AppointmentsController < ApplicationController
-  def new
-    @appointment = Appointment.new
-    @room = Room.find(params[:id])
-  end
 
   def create
     room_id = params[:format]

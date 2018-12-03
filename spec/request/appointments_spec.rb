@@ -3,6 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Appointment API', type: :request do
     let(:user) { FactoryBot.create(:user, :email => '123@123.com') }
 
+    describe 'GET #new' do
+
+    end
+
     describe 'POST #create' do
         context 'when user is signed in' do
             before do
@@ -77,7 +81,20 @@ RSpec.describe 'Appointment API', type: :request do
         end
     end
 
+    describe 'GET #edit' do
+        context 'when user is signed in' do
+            before do
+                sign_in user
+                @room = FactoryBot.create(:room)
+                @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                get "/appointments/#{@appointment.id}/edit"
+            end
 
+            it 'should render edit template' do
+                expect(response).to render_template(:edit)
+            end
+        end
+    end
 
     describe 'GET #my_appointments' do
         context 'params are valid' do
@@ -111,6 +128,21 @@ RSpec.describe 'Appointment API', type: :request do
 
             it 'deletes a appointment' do
                 expect(Appointment.find_by(appointment_date: appointment_params[:appointment_date])).not_to be_truthy
+            end
+        end
+    end
+
+    describe 'PATCH #update' do
+        context 'when appointment exists' do
+
+            before do
+                sign_in user
+                @room = FactoryBot.create(:room)
+                @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                put "/appointments/#{@appointment.id}", params: @appointment
+            end
+
+            it 'deletes a appointment' do
             end
         end
     end
