@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20181104170539) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "Tipo_sala"
     t.string "tipo_sala"
   end
 

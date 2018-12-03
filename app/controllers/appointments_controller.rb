@@ -1,5 +1,6 @@
 #Classe de gerenciamento e controle das reservas de salas da controladora do sistema.
 class AppointmentsController < ApplicationController
+
   def new
     @appointment = Appointment.new
     @room = Room.find(params[:id])
@@ -52,6 +53,7 @@ class AppointmentsController < ApplicationController
 
   def edit
     @appointment = Appointment.find(params[:id])
+    $status_old = @appointment.status
   end
 
   def update
@@ -63,6 +65,10 @@ class AppointmentsController < ApplicationController
       flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
       render 'edit'
     end
+    if $status_old != @appointment.status
+      @appointment.send_status_notification_email
+      flash[:info] = "Email enviado ao usuário com status de sua reserva."
+    end
   end
 
   def my_appointments
@@ -72,7 +78,6 @@ class AppointmentsController < ApplicationController
 
   def all_appointments
     @appointments = Appointment.all
-
   end
 
   #Método que busca as salas com reservas entre o início da semana atual até o fim da semana.

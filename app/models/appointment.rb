@@ -5,5 +5,9 @@ class Appointment < ApplicationRecord
   validates_presence_of :start_time
   validates_presence_of :appointment_date
 
+  # Sends status notification by email.
+  def send_status_notification_email
+    UserMailer.status_notification(self).deliver_now
+  end
 end
 
