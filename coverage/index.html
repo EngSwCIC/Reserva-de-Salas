@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-03T23:15:43-02:00">2018-12-03T23:15:43-02:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-04T00:06:19-02:00">2018-12-04T00:06:19-02:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -133,7 +133,7 @@
       <tr>
         <td class="strong"><a href="#493e3b5bacf06c8f0d50aee8e11c35b0b191737c" class="src_link" title="app/controllers/rooms_controller.rb">app/controllers/rooms_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>85</td>
+        <td>86</td>
         <td>49</td>
         <td>49</td>
         <td>0</td>
@@ -441,7 +441,7 @@
       <tr>
         <td class="strong"><a href="#493e3b5bacf06c8f0d50aee8e11c35b0b191737c" class="src_link" title="app/controllers/rooms_controller.rb">app/controllers/rooms_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>85</td>
+        <td>86</td>
         <td>49</td>
         <td>49</td>
         <td>0</td>
@@ -2409,421 +2409,427 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="16">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="16">
           
-          <code class="ruby">	def filtro</code>
+          
+          <code class="ruby">  # metodo envia todas as salas do banco de dados para a filtragem de requisição</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="17">
           <span class="hits">1</span>
           
-          <code class="ruby">		@rooms = Room.all</code>
+          <code class="ruby">	def filtro</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="18">
+        <li class="covered" data-hits="1" data-linenumber="18">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">	end</code>
+          <code class="ruby">		@rooms = Room.all</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="19">
           
           
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="20">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
+        <li class="covered" data-hits="1" data-linenumber="21">
           <span class="hits">1</span>
           
           <code class="ruby">	def edit</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="21">
+        <li class="covered" data-hits="2" data-linenumber="22">
           <span class="hits">2</span>
           
           <code class="ruby">		@room = Room.find(params[:id])</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="22">
-          
-          
-          <code class="ruby">	end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="23">
           
           
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="24">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="24">
+        <li class="covered" data-hits="1" data-linenumber="25">
           <span class="hits">1</span>
           
           <code class="ruby">	def update</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="25">
+        <li class="covered" data-hits="4" data-linenumber="26">
           <span class="hits">4</span>
           
           <code class="ruby">		@room = Room.find(params[:id])</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="26">
+        <li class="covered" data-hits="4" data-linenumber="27">
           <span class="hits">4</span>
           
           <code class="ruby">		if @room.update(room_params)</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="27">
+        <li class="covered" data-hits="2" data-linenumber="28">
           <span class="hits">2</span>
           
           <code class="ruby">			redirect_to @room</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="28">
+        <li class="covered" data-hits="2" data-linenumber="29">
           <span class="hits">2</span>
           
           <code class="ruby">			flash[:notice] = &quot;A sala foi editada com sucesso!&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="29">
+        <li class="never" data-hits="" data-linenumber="30">
           
           
           <code class="ruby">		else</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="30">
-          <span class="hits">2</span>
-          
-          <code class="ruby">			flash[:danger] = &quot;A sala não pôde ser editada! Tente novamente!&quot;</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="31">
           <span class="hits">2</span>
           
-          <code class="ruby">			render &#39;edit&#39;</code>
+          <code class="ruby">			flash[:danger] = &quot;A sala não pôde ser editada! Tente novamente!&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="32">
+        <li class="covered" data-hits="2" data-linenumber="32">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">		end</code>
+          <code class="ruby">			render &#39;edit&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="33">
           
           
-          <code class="ruby">	end</code>
+          <code class="ruby">		end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="34">
           
           
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="35">
+        <li class="covered" data-hits="1" data-linenumber="36">
           <span class="hits">1</span>
           
           <code class="ruby">	def create</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="36">
+        <li class="covered" data-hits="4" data-linenumber="37">
           <span class="hits">4</span>
           
           <code class="ruby">		@room = Room.new(room_params)</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="37">
+        <li class="covered" data-hits="4" data-linenumber="38">
           <span class="hits">4</span>
           
           <code class="ruby">		if @room.save</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="38">
+        <li class="covered" data-hits="2" data-linenumber="39">
           <span class="hits">2</span>
           
           <code class="ruby">			flash[:notice] = &quot;A sala foi criada com sucesso!&quot;</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="39">
+        <li class="covered" data-hits="2" data-linenumber="40">
           <span class="hits">2</span>
           
           <code class="ruby">			redirect_to backoffice_path</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="40">
+        <li class="never" data-hits="" data-linenumber="41">
           
           
           <code class="ruby">		else</code>
-        </li>
-      
-        <li class="covered" data-hits="2" data-linenumber="41">
-          <span class="hits">2</span>
-          
-          <code class="ruby">			flash[:danger] = &quot;A sala não pôde ser criada!&quot;</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="42">
           <span class="hits">2</span>
           
-          <code class="ruby">			redirect_to backoffice_path</code>
+          <code class="ruby">			flash[:danger] = &quot;A sala não pôde ser criada!&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="43">
+        <li class="covered" data-hits="2" data-linenumber="43">
+          <span class="hits">2</span>
           
-          
-          <code class="ruby">		end</code>
+          <code class="ruby">			redirect_to backoffice_path</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="44">
           
           
-          <code class="ruby">	end</code>
+          <code class="ruby">		end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="45">
           
           
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="46">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="46">
+        <li class="covered" data-hits="1" data-linenumber="47">
           <span class="hits">1</span>
           
           <code class="ruby">	def destroy</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="47">
+        <li class="covered" data-hits="2" data-linenumber="48">
           <span class="hits">2</span>
           
           <code class="ruby">		@room = Room.find(params[:id])</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="48">
+        <li class="covered" data-hits="2" data-linenumber="49">
           <span class="hits">2</span>
           
           <code class="ruby">		@room.destroy</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="49">
+        <li class="covered" data-hits="2" data-linenumber="50">
           <span class="hits">2</span>
           
           <code class="ruby">		flash[:danger] = &quot;A sala foi excluída&quot;</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="50">
+        <li class="covered" data-hits="2" data-linenumber="51">
           <span class="hits">2</span>
           
           <code class="ruby">		redirect_to backoffice_path</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="51">
+        <li class="never" data-hits="" data-linenumber="52">
           
           
           <code class="ruby">	end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="52">
+        <li class="never" data-hits="" data-linenumber="53">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="53">
+        <li class="covered" data-hits="1" data-linenumber="54">
           <span class="hits">1</span>
           
           <code class="ruby">	def search_result</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="54">
+        <li class="never" data-hits="" data-linenumber="55">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="55">
+        <li class="covered" data-hits="2" data-linenumber="56">
           <span class="hits">2</span>
           
           <code class="ruby">		if params[:date_search] and params[:time_search]</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="56">
+        <li class="covered" data-hits="1" data-linenumber="57">
           <span class="hits">1</span>
           
           <code class="ruby">			@search_result = Room.search_by(params[:date_search], params[:time_search]) </code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="57">
+        <li class="never" data-hits="" data-linenumber="58">
           
           
           <code class="ruby">		else</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="58">
+        <li class="covered" data-hits="1" data-linenumber="59">
           <span class="hits">1</span>
           
           <code class="ruby">			redirect_to search_rooms_path</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="59">
-          
-          
-          <code class="ruby">		end</code>
-        </li>
-      
         <li class="never" data-hits="" data-linenumber="60">
           
           
-          <code class="ruby">	end</code>
+          <code class="ruby">		end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="61">
           
           
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="62">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="62">
+        <li class="covered" data-hits="1" data-linenumber="63">
           <span class="hits">1</span>
           
           <code class="ruby">	private</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="63">
+        <li class="never" data-hits="" data-linenumber="64">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="64">
+        <li class="covered" data-hits="1" data-linenumber="65">
           <span class="hits">1</span>
           
           <code class="ruby">	def signed_in?</code>
         </li>
       
-        <li class="covered" data-hits="30" data-linenumber="65">
+        <li class="covered" data-hits="30" data-linenumber="66">
           <span class="hits">30</span>
           
           <code class="ruby">		if current_user</code>
         </li>
       
-        <li class="covered" data-hits="26" data-linenumber="66">
+        <li class="covered" data-hits="26" data-linenumber="67">
           <span class="hits">26</span>
           
           <code class="ruby">			true</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="67">
+        <li class="never" data-hits="" data-linenumber="68">
           
           
           <code class="ruby">		else</code>
-        </li>
-      
-        <li class="covered" data-hits="4" data-linenumber="68">
-          <span class="hits">4</span>
-          
-          <code class="ruby">			flash[:danger] = &quot;Você não pode acessar essa página&quot;</code>
         </li>
       
         <li class="covered" data-hits="4" data-linenumber="69">
           <span class="hits">4</span>
           
-          <code class="ruby">			return redirect_to &#39;/&#39;</code>
+          <code class="ruby">			flash[:danger] = &quot;Você não pode acessar essa página&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="70">
+        <li class="covered" data-hits="4" data-linenumber="70">
+          <span class="hits">4</span>
           
-          
-          <code class="ruby">		end</code>
+          <code class="ruby">			return redirect_to &#39;/&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="71">
           
           
-          <code class="ruby">  	end</code>
+          <code class="ruby">		end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="72">
           
           
+          <code class="ruby">  	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="73">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="73">
+        <li class="covered" data-hits="1" data-linenumber="74">
           <span class="hits">1</span>
           
           <code class="ruby">	def is_admin?</code>
         </li>
       
-        <li class="covered" data-hits="12" data-linenumber="74">
+        <li class="covered" data-hits="12" data-linenumber="75">
           <span class="hits">12</span>
           
           <code class="ruby">		if current_user.is_admin</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="75">
+        <li class="covered" data-hits="7" data-linenumber="76">
           <span class="hits">7</span>
           
           <code class="ruby">			true</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="76">
+        <li class="never" data-hits="" data-linenumber="77">
           
           
           <code class="ruby">		else</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="77">
+        <li class="covered" data-hits="5" data-linenumber="78">
           <span class="hits">5</span>
           
           <code class="ruby">			flash[:danger] = &quot;Você não pode acessar essa página&quot;</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="78">
+        <li class="covered" data-hits="5" data-linenumber="79">
           <span class="hits">5</span>
           
           <code class="ruby">			return redirect_to &#39;/&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="79">
+        <li class="never" data-hits="" data-linenumber="80">
           
           
           <code class="ruby">		end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="80">
+        <li class="never" data-hits="" data-linenumber="81">
           
           
           <code class="ruby">	end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="81">
+        <li class="never" data-hits="" data-linenumber="82">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="82">
+        <li class="covered" data-hits="1" data-linenumber="83">
           <span class="hits">1</span>
           
           <code class="ruby">	def room_params</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="83">
+        <li class="covered" data-hits="8" data-linenumber="84">
           <span class="hits">8</span>
           
           <code class="ruby">		params.require(:room).permit(:name, :location, :tipo_sala)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="84">
+        <li class="never" data-hits="" data-linenumber="85">
           
           
           <code class="ruby">	end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="85">
+        <li class="never" data-hits="" data-linenumber="86">
           
           
           <code class="ruby">end</code>

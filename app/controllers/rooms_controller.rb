@@ -13,6 +13,7 @@ class RoomsController < ApplicationController
 		@room = Room.find(params[:id])
 	end
 
+  # metodo envia todas as salas do banco de dados para a filtragem de requisição
 	def filtro
 		@rooms = Room.all
 	end
