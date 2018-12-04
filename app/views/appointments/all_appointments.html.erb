@@ -1,3 +1,4 @@
+<%= link_to "Reservas da semana", weeks_appointments_path, class:'btn btn-secondary' %>
 <% @Pair = Hash.new %>
 <% @array = Array.new %>
 <% @extract = Array.new %>
@@ -28,6 +29,9 @@
       <% @j += 1 %>
     <%end %>
     <% @stop = 0 %>
+
+
+
   <% end %>
 <% end %>
 <% @tam2 = @extract.size %>

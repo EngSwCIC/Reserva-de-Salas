@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Appointment API', type: :request do
     let(:user) { FactoryBot.create(:user, :email => '123@123.com') }
+    let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
 
     let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
 
@@ -148,7 +149,6 @@ RSpec.describe 'Appointment API', type: :request do
             end
         end
     end
-
     describe 'PUT #update' do
         context 'when appointment exists' do
             before do
@@ -185,5 +185,29 @@ RSpec.describe 'Appointment API', type: :request do
         end
 
     end
+    describe 'GET #weeks-appointment' do
+      context 'when admin is signed in' do
+        before do
+          sign_in admin_user
+          @room = FactoryBot.create(:room)
+          @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+          @appointment1.appointment_date = Date.today.beginning_of_week
+          @appointment1.save
+          @appointment2 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+          @appointment2.appointment_date = Date.today.end_of_week
+          @appointment2.save
+          get '/weeks-appointments'
 
+        end
+
+        it 'renders weeks appointments template' do
+            expect(response).to render_template(:weeks_appointments)
+        end
+
+        it 'should display the list with appointments for the week' do
+          expect(assigns(:weeks_appointments)).to include(@appointment1, @appointment2)
+        end
+
+      end
+    end
 end

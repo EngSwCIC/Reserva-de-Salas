@@ -1,3 +1,4 @@
+#Classe de gerenciamento e controle das salas da controladora do sistema
 class RoomsController < ApplicationController
 	before_action :signed_in?
 	before_action :is_admin?, only: [:new, :create, :destroy]
@@ -51,13 +52,16 @@ class RoomsController < ApplicationController
 		redirect_to backoffice_path
 	end
 
+	#Método de busca de salas disponíveis por dia e hora
 	def search_result
 
 		if params[:date_search] and params[:time_search]
-			@search_result = Room.search_by(params[:date_search], params[:time_search]) 
+			@search_result = Room.all - Room.joins(:appointments).where('appointment_date = ? AND start_time = ? AND status = 2',
+                                                                  params[:date_search], params[:time_search])
 		else
 			redirect_to search_rooms_path
 		end
+
 	end
 
 	private
