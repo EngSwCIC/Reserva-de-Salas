@@ -14,18 +14,18 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-03T21:26:16-02:00">2018-12-03T21:26:16-02:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2018-12-03T23:15:43-02:00">2018-12-03T23:15:43-02:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">65.7%</span></span>
+    (<span class="covered_percent"><span class="red">67.51%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.7
+         1.76
        </span>
     </span> hits/line)
   </h2>
@@ -33,8 +33,8 @@
   <div>
     <b>29</b> files in total.
     <b>277</b> relevant lines. 
-    <span class="green"><b>182</b> lines covered</span> and
-    <span class="red"><b>95</b> lines missed </span>
+    <span class="green"><b>187</b> lines covered</span> and
+    <span class="red"><b>90</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -82,12 +82,12 @@
       
       <tr>
         <td class="strong"><a href="#067c814989f38937512d284c725ccc4623b81f24" class="src_link" title="app/controllers/appointments_controller.rb">app/controllers/appointments_controller.rb</a></td>
-        <td class="red strong">79.63 %</td>
+        <td class="yellow strong">88.89 %</td>
         <td>89</td>
         <td>54</td>
-        <td>43</td>
-        <td>11</td>
-        <td>3.1</td>
+        <td>48</td>
+        <td>6</td>
+        <td>3.4</td>
       </tr>
       
       <tr>
@@ -349,11 +349,11 @@
           <div class="file_list_container" id="Controllers">
   <h2>
     <span class="group_name">Controllers</span>
-    (<span class="covered_percent"><span class="red">62.75%</span></span>
+    (<span class="covered_percent"><span class="red">65.2%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.9
+         1.98
        </span>
     </span> hits/line)
   </h2>
@@ -361,8 +361,8 @@
   <div>
     <b>13</b> files in total.
     <b>204</b> relevant lines. 
-    <span class="green"><b>128</b> lines covered</span> and
-    <span class="red"><b>76</b> lines missed </span>
+    <span class="green"><b>133</b> lines covered</span> and
+    <span class="red"><b>71</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -390,12 +390,12 @@
       
       <tr>
         <td class="strong"><a href="#067c814989f38937512d284c725ccc4623b81f24" class="src_link" title="app/controllers/appointments_controller.rb">app/controllers/appointments_controller.rb</a></td>
-        <td class="red strong">79.63 %</td>
+        <td class="yellow strong">88.89 %</td>
         <td>89</td>
         <td>54</td>
-        <td>43</td>
-        <td>11</td>
-        <td>3.1</td>
+        <td>48</td>
+        <td>6</td>
+        <td>3.4</td>
       </tr>
       
       <tr>
@@ -1085,11 +1085,11 @@
         <div class="source_table" id="067c814989f38937512d284c725ccc4623b81f24">
   <div class="header">
     <h3>app/controllers/appointments_controller.rb</h3>
-    <h4><span class="red">79.63 %</span> covered</h4>
+    <h4><span class="yellow">88.89 %</span> covered</h4>
     <div>
       <b>54</b> relevant lines. 
-      <span class="green"><b>43</b> lines covered</span> and
-      <span class="red"><b>11</b> lines missed.</span>
+      <span class="green"><b>48</b> lines covered</span> and
+      <span class="red"><b>6</b> lines missed.</span>
     </div>
   </div>
   
@@ -1438,26 +1438,26 @@
           <code class="ruby">  def update</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="58">
-          
+        <li class="covered" data-hits="3" data-linenumber="58">
+          <span class="hits">3</span>
           
           <code class="ruby">    @appointment = Appointment.find(params[:id])</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="59">
-          
+        <li class="covered" data-hits="3" data-linenumber="59">
+          <span class="hits">3</span>
           
           <code class="ruby">    if @appointment.update(appointment_params)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="60">
-          
+        <li class="covered" data-hits="3" data-linenumber="60">
+          <span class="hits">3</span>
           
           <code class="ruby">      redirect_to all_appointments_path</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="61">
-          
+        <li class="covered" data-hits="3" data-linenumber="61">
+          <span class="hits">3</span>
           
           <code class="ruby">      flash.now[:notice] = &quot;O aluguél foi editado com sucesso!&quot;</code>
         </li>
@@ -1612,8 +1612,8 @@
           <code class="ruby">  def appointment_params</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="87">
-          
+        <li class="covered" data-hits="3" data-linenumber="87">
+          <span class="hits">3</span>
           
           <code class="ruby">    params.require(:appointment).permit(:status)</code>
         </li>

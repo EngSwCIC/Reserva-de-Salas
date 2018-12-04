@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Appointment API', type: :request do
     let(:user) { FactoryBot.create(:user, :email => '123@123.com') }
 
+    let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
+
     describe 'GET #new' do
 
     end
@@ -145,6 +147,43 @@ RSpec.describe 'Appointment API', type: :request do
                 expect(Appointment.find_by(appointment_date: appointment_params[:appointment_date])).not_to be_truthy
             end
         end
+    end
+
+    describe 'PUT #update' do
+        context 'when appointment exists' do
+            before do
+                sign_in admin_user
+            end
+            context 'when params are valid' do
+                let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
+                before do
+                    @room = FactoryBot.create(:room)
+                    @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                    put "/appointments/#{@appointment.id}", params: { :appointment => appointment_params }
+                end
+
+                it 'update a appointment' do
+                    expect(Appointment.find_by(status: appointment_params[:status])).to be_truthy
+                end
+
+                it 'should render a flash success message' do
+                    expect(flash[:notice]).not_to be_nil
+                end
+            end
+            context 'when params not are valid' do
+                let(:appointment_params) {FactoryBot.attributes_for(:appointment, :status => '')}
+                before do
+                    @room = FactoryBot.create(:room)
+                    @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                    put "/appointments/#{@appointment.id}", params: { :appointment => appointment_params }
+                end
+
+                it 'update a appointment' do
+                    expect(Appointment.find_by(status: appointment_params[:status])).not_to be_truthy
+                end
+            end
+        end
+
     end
 
 end
