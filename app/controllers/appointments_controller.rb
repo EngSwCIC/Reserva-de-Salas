@@ -91,7 +91,7 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find(params[:id])
     @appointment.destroy
     flash[:danger] = "O Aluguel foi cancelado com suceso"
-    redirect_to root_path
+    redirect_to my_appointments_path
   end
 
   private

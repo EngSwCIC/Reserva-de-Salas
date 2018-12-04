@@ -1,26 +1,142 @@
 <%= link_to "Reservas da semana", weeks_appointments_path, class:'btn btn-secondary' %>
-<table class="table" id="table">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Username</th>
-    <th scope="col">Sala</th>
-    <th scope="col">Appointment Date</th>
-    <th scope="col">Start Time</th>
-    <th scope="col"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @appointments.each do |appointment| %>
-    <tr>
-      <th scope="row">1</th>
-      <td class="appointment-data"> <%= appointment.user.username %> </td>
-      <td class="appointment-data"> <%= appointment.room.name %> </td>
-      <td class="appointment-data"> <%= appointment.appointment_date %> </td>
-      <td class="appointment-data"> <%= appointment.start_time %> </td>
-      <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
-    </tr>
+<% @Pair = Hash.new %>
+<% @array = Array.new %>
+<% @extract = Array.new %>
+<% @aux = Array.new %>
+<% @salas = Array.new %>
+<% @ids = Array.new %>
+<% @i = 0 %>
+<% @j = 0 %>
+<% @appointments.each do |appointment| %>
+    <% @array[@i] = [[appointment.appointment_date.strftime("%d/%m/%Y")],[appointment.start_time.strftime("%H:%M")],[appointment.room.name]] %>
+    <% @i += 1 %>
+<% end %>
+
+<% @tam = @array.size %>
+<% @stop = 0 %>
+
+
+<% for i in 0..@tam %>
+  <% if(@array[i] != @array[i+1]) %>
+    <% @b = @extract.size %>
+    <% for k in 0..@b %>
+      <%if(@array[i] == @extract[k]) %>
+        <% @stop = 1 %>
+      <%end %>
+    <%end %>
+    <% if (@stop == 0) %>
+      <% @extract[@j] = @array[i] %>
+      <% @j += 1 %>
+    <%end %>
+    <% @stop = 0 %>
+
+
+
   <% end %>
-  </tbody>
-</table>
+<% end %>
+<% @tam2 = @extract.size %>
+
+<% @go = 0 %>
+<% for i in 0..@tam2-1 %>
+  <% @ids[@go] = @extract[i].third %>
+  <% @go += 1 %>
+<% end %>
+<% @idsc = @ids.sort %>
+<% @extractc = @extract.sort_by! {|t| t.third} %>
+<% for i in 0..@tam2-1 %>
+  <% puts(@extract[i]) %>
+<% end %>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<% @alerta = 0 %>
+
+<% @flag = 0 %>
+<div class="conjunto0">
+  <% for i in 0..@tam2-1 %>
+    <% if (@flag == 0) %>
+      <p class="conjunto1"> <%= @idsc[i].first %></p>
+    <% end %>
+    <% @flag = 1 %>
+    <% if ( @idsc[i] != @idsc[i+1]) %>
+      <% @flag = 0 %>
+    <% end %>
+    <% @appointments.each do |appointment| %>
+      <% @aux[0] = [[appointment.appointment_date.strftime("%d/%m/%Y")],[appointment.start_time.strftime("%H:%M")],[appointment.room.name]] %>
+      <% if( @extract[i] == @aux[0]) %>
+        <% @alerta += 1 %>
+      <% end %>
+    <% end %>
+
+    <% if(@alerta > 1) %>
+      <% @bot = " bot" %>
+    <% else %>
+      <% @bot = " btn-info" %>
+    <% end %>
+    <% @alerta = 0 %>
+    <ul class="conjunto">
+      <li>
+        <div class="container">
+          <!-- Trigger the modal with a button -->
+          <button type="button" class="btn btn-lg<%= @bot.to_s %>" data-toggle="modal" data-target="#myModal<%= i.to_s %>"><%= @idsc[i].first %></button>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal<%= i.to_s %>" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                  <table class="table" id="table">
+                    <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">Sala</th>
+                      <th scope="col">Appointment Date</th>
+                      <th scope="col">Start Time</th>
+                      <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% @appointments.each do |appointment| %>
+                      <% @aux[0] = [[appointment.appointment_date.strftime("%d/%m/%Y")],[appointment.start_time.strftime("%H:%M")],[appointment.room.name]] %>
+                      <% if( @extract[i] == @aux[0]) %>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td class="appointment-data"> <%= appointment.user.username %> </td>
+                          <td class="appointment-data"> <%= appointment.room.name %> </td>
+                          <td class="appointment-data"> <%= appointment.appointment_date.strftime("%d/%m/%Y") %> </td>
+                          <td class="appointment-data"> <%= appointment.start_time.strftime("%H:%M") %> </td>
+                          <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
+                        </tr>
+                      <% end %>
+                    <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  <%end %>
+
+</div>
+
+
+
 <%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>

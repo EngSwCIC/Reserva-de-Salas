@@ -81,7 +81,8 @@ RSpec.describe 'Rooms API', type: :request do
             end
         end
     end
-    
+
+    # metodo de teste que garante o funcionamento correto da feature filtro de sala
     describe 'GET #filtro' do
         let(:room) {FactoryBot.create(:room)}
         context 'when user is signed in' do
