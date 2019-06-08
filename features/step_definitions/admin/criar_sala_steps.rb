@@ -21,7 +21,7 @@ Dado("eu clicar no link {string}") do |string|
   click_link "#{string}"
 end
 
-Quando("eu preencher o campo nome e localidade com:") do |table|
+Quando("eu preencher o campo nome, capacidade máxima e localidade com:") do |table|
   table.rows_hash.each do |field, value|
   	fill_in field, :with => value
   end

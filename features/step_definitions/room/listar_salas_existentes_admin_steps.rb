@@ -12,13 +12,12 @@ Dado("eu esteja no {string}") do |string|
   expect(current_path).to eq("/#{string}")
 end
 
-Dado("existam as seguintes salas cadastradas no sistema:") do |table|
-  table.rows_hash.each do |field, value|
+Dado("existam as salas {string}, {int}, {string} cadastradas no sistema:") do |string1, int, string2|
     @room = Room.new
-    @room.name = value
-    @room.location = value
+    @room.name = string1
+    @room.students = int
+    @room.location = string2
     @room.save
-  end
 end
 
 Quando("eu clicar no botão {string}") do |string|
@@ -32,6 +31,8 @@ Então("eu devo estar em uma página com uma tabela com os dados:") do |table|
 end
 
 
-Então("eu devo estar em uma página com uma lista contendo a sala {string} localizada no {string}") do |string, string2|
+Então("eu devo estar em uma página com uma lista contendo a sala {string}, a capacidade {int}, localizada no {string}") do |string,int, string3|
   expect(page).to have_content(string)
+  expect(page).to have_content(int)
+  expect(page).to have_content(string3)
 end

@@ -11,8 +11,9 @@ Funcionalidade: criar_sala
   E que esteja logado
   E que esteja na pagina "backoffice"
   E eu clicar no link "Adicionar Sala"
-  Quando eu preencher o campo nome e localidade com:
+  Quando eu preencher o campo nome, capacidade máxima e localidade com:
   |room_name|BS-1234|
+  |room_students|40|
   |room_location|Babylon|
   E clicar no botao "Criar Sala"
   Então eu devo ver uma mensagem escrita "A sala foi criada com sucesso!"
@@ -22,8 +23,9 @@ Funcionalidade: criar_sala
   E que esteja logado
   E que esteja na pagina "backoffice"
   E eu clicar no link "Adicionar Sala"
-  Quando eu preencher o campo nome e localidade com:
+  Quando eu preencher o campo nome, capacidade máxima e localidade com:
   |room_name|BS-1234|
+  |room_students|40|
   |room_location|Babylon|
   E clicar no botao "Criar Sala"
   Então eu devo ver uma mensagem escrita "A sala não pôde ser criada!"
