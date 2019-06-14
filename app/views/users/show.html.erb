@@ -1,0 +1,23 @@
+<h1> User List </h1>
+
+<table class="table" id="table">
+  <thead>
+  <tr>
+    <th scope="col">Username</th>
+    <th scope="col">Course</th>
+    <th scope="col">Email</th>
+    <th scope="col">Registration</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td class="appointment-data"> <%= user.username %> </td>
+      <td class="appointment-data"> <%= user.course %> </td>
+      <td class="appointment-data"> <%= user.email %> </td>
+      <td class="appointment-data"> <%= user.registration %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
