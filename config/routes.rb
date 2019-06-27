@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   root 'home#index'
 
   devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     get 'create_user', to: 'users/registrations#new', as: :"new_user_registration"
     post 'create_user', to: 'users/registrations#create', as: :"user_registration"
     delete '', to: 'users/registrations#destroy', as: :""
-    patch 'users/:id', to: 'users/registrations#update', as: :"update_user_registration" 
-    put 'users/:id', to: 'users/registrations#update', as: :"" 
+    patch 'users/:id', to: 'users/registrations#update', as: :"update_user_registration"
+    put 'users/:id', to: 'users/registrations#update', as: :""
     get 'users/:id/edit', to: 'users/registrations#edit', as: :"edit_user_registration"
 
   end
@@ -22,8 +22,8 @@ Rails.application.routes.draw do
   get 'my-appointments' => 'appointments#my_appointments'
   get 'all-appointments' => 'appointments#all_appointments'
   get 'backoffice', to: 'backoffice/dashboard#index'
-  get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
+  get 'signup_user', to: 'backoffice/dashboard#signup_user'
   post '', to: 'backoffice/dashboard#create', as: :"admin_registration"
-  
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
