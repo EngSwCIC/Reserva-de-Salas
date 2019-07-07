@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   get 'users/show'
+  get 'users/showByOrder'
 
   root 'home#index'
 
