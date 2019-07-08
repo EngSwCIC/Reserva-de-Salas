@@ -33,19 +33,11 @@
             <% end %>
           </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-fw fa-eye"></i>
-              Usuários
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to users_show_path, class: 'dropdown-item' do%>
+          <li class="nav-item">
+              <%= link_to users_show_path, class: 'nav-link' do%>
+                <i class="fa fa-fw fa-eye"></i>
                 Todos os usuários
               <% end %>
-              <%= link_to users_showByOrder_path, class: 'dropdown-item' do%>
-                Usuários em ordem alfabética
-              <% end %>
-            </div>
           </li>
         <%end%>
       </ul>

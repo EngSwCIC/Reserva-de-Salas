@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   def show
-    @users = User.all
-  end
+    #@users = User.all
+    #@search = User.ransack(params[:q])
+    #@users = @search.result
+    #@search.build_condition
 
-  def showByOrder
-    @users = User.order(username: :asc)
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true)
   end
-
 end
