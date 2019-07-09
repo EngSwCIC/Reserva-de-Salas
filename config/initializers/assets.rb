@@ -14,4 +14,4 @@ Rails.application.config.assets.precompile += %w( form-utils.css )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w(bg-masthead.jpg 1.jpg 2.jpg)
+Rails.application.config.assets.precompile += %w(1.jpg 2.jpg 3.jpg)

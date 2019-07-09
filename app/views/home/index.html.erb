@@ -1,21 +1,18 @@
 <% if !user_signed_in? %>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Rserva de Salas</a>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+		<a class="navbar-brand" href="#">Reserva de Salas</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
-			
 				<li class="nav-item">
 					<%= link_to 'Login', new_user_session_path, class: 'nav-link' %>
 				</li>
 				<li class="nav-item">
 					<%= link_to 'Cadastro', new_user_registration_path, class: 'nav-link' %>
 				</li>
-			
 			</ul>
-
 		</div>
 	</nav>
 
@@ -23,13 +20,13 @@
 		<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<%= image_tag "bg-masthead.jpg", class: "d-block w-100" %>
-				</div>
-				<div class="carousel-item">
 					<%= image_tag "1.jpg", class: "d-block w-100" %>
 				</div>
 				<div class="carousel-item">
 					<%= image_tag "2.jpg", class: "d-block w-100" %>
+				</div>
+				<div class="carousel-item">
+					<%= image_tag "3.jpg", class: "d-block w-100" %>
 				</div>
 			</div>
 			<a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
@@ -42,6 +39,12 @@
 			</a>
 		</div>
 	</header>
+
+	<footer class="bg-light py-5">
+		<div class="container">
+			<div class="small text-center text-muted">Copyright &copy; 2019 - Reserva de Salas</div>
+		</div>
+	</footer>
 
 <% end %>
 
