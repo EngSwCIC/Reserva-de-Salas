@@ -6,17 +6,16 @@ Funcionalidade: Listar todas as salas do sistema
   Quero poder visualizar todas as salas no sistema
   Para verificar quais salas estão disponíveis para reserva
 
-  Esquema do Cenário: Lista de salas aparece adequadamente
+  Contexto:
+    Dado que eu esteja cadastrado como "admin@admin.com", "123123", "Engenharia", "15/0115474", "admin"
+    E que esteja logado
+    E que esteja na pagina inicial
+    E eu clicar no link "Salas Existentes"
 
-    Dado que eu estou autenticado como administrador com o email "admin@admin.com" e a senha "admin123"
-    E eu estou na página "backoffice"
-    E exista a sala <name>, <students>, <location> cadastrada no sistema:
-    Quando eu clicar no botão "Ver lista de salas existentes"
+  Cenário: Lista de salas aparece adequadamente
+    E exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
+    Quando eu clicar no botão "Salas Existentes"
     Então eu devo estar em uma página com uma tabela com os dados:
-      | name     | pt-67 |
-      | students | 45    |
-      | location | PJC   |
-
-    Exemplos:
-      | name    | students | location |
-      | "pt-67" | 45       | "PJC"    |
+    | name     | Pat-45 |
+    | location | PAT-AT |
+    | capacity | 50     |
