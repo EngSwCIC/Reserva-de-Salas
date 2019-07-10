@@ -1,5 +1,5 @@
 Dado("que eu sou administrador do sistema com email {string} senha {string}")do |string, string2|
-    User.create(username: 'admin', email: string, password: string2, 
+    User.create(username: 'admin', email: string, password: string2,
         registration: "15015296", course: "CIC", is_admin: true
     )
     visit new_user_session_path
@@ -8,29 +8,38 @@ Dado("que eu sou administrador do sistema com email {string} senha {string}")do 
     click_button "Log in"
 end
 
-Dado("eu esteja na página de {string}") do |string|
-    expect(current_path).to eq("/#{string}")
+Dado("eu esteja na página de Lista de usuários") do
+    visit(users_show_path)
 end
 
-Dado("e exista um usuário com {string}, curso {string}, email {string}, registro {string}") do |string1, string2, string3, int|
-    table.rows_hash.each do |field, value|
-        @user = User.new
-        @user.username = string1 
-        @user.course = string2
-        @user.email = string3
-        @user.registration = int
-        @user.save
-    end
+Dado("que exista um usuário com nome {string}, curso {string}, email {string}, registro {string}") do |username, course, email, registration|
+    # table.rows_hash.each do |field, value|
+    @user = User.create(username: username, password: 'senha12345',
+        email: email, registration: registration, course: course, is_admin: false)
+    # end
 end
 
-Quando("eu escrever na barra de pesquisa o nome {string} e clicar no botão {string}")do |string1, string2|
-    click_link (string2)
+Quando("eu escrever no campo {string} o nome {string}") do |string1, string2|
+    fill_in(string1, :with => string2)
 end
 
-Então("eu devo ver uma tabela com o nome {string} e seus respectivos dados") do |string, table|
+E("clicar no botão de busca {string}") do |string|
+    click_button string
+end
+
+Então("eu devo ver uma tabela com o nome {string} e seus respectivos dados:") do |string, table|
     table.rows_hash.each do |field, value|
         expect(page).to have_content(value)
     end
+end
+
+Então("não deve haver resultados da busca") do
+    expect(page).to have_css('table#table tbody tr', :count=>0)
+end
+
+
+E("não devo ver o usuário {string}") do |string|
+    expect(page).not_to have_content(string)
 end
 
 Então("eu devo estar em uma página com uma lista contendo o usuario {string}, email {string}, curso {string}, e registro {int}") do |string1 ,string2, string3, int|
