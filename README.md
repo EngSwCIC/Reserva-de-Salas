@@ -45,6 +45,7 @@ Verifique a instalação com : `docker-compose --version`
 4. No terminal digite `git clone https://github.com/EngSwCIC/Reserva-de-Salas.git`
 
 5. Execute o comando bundle install para instalar todas as gemas listadas no arquivo Gemfile.
+	
 	*Caso algum problema ocorra ou falte algum software para a execução dos comandos necessários, procure instalar todas as dependências antes de prosseguir.*
 
 6. Este tópido será atualizado em breve.
