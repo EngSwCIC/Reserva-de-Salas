@@ -11,6 +11,7 @@ class AppointmentsController < ApplicationController
     @appointment.user_id = current_user.id
     @appointment.appointment_date = params[:appointment_date]
     @appointment.start_time = params[:start_time]
+    @appointment.description = params[:description]
     @appointment.status = 1
     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
       redirect_to backoffice_path
