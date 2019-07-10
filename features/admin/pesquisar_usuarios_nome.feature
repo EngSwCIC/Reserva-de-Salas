@@ -10,7 +10,7 @@ Funcionalidade: pesquisar usuários de uma tabela pelo nome
         E eu esteja na página de Lista de usuários
 
     Cenário: pesquisar usuário através do nome
-    Dado que exista um usuário com nome "João", curso "Matemática", email "joao@gmail.com", registro "130123456"
+        Dado que exista um usuário com nome "João", curso "Matemática", email "joao@gmail.com", registro "130123456"
         Quando eu escrever no campo "q[username_or_course_or_registration_cont]" o nome "João"
         E clicar no botão de busca "Search"
         Então eu devo ver uma tabela com o nome "João" e seus respectivos dados:
