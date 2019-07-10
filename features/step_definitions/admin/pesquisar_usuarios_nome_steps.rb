@@ -13,10 +13,8 @@ Dado("eu esteja na página de Lista de usuários") do
 end
 
 Dado("que exista um usuário com nome {string}, curso {string}, email {string}, registro {string}") do |username, course, email, registration|
-    # table.rows_hash.each do |field, value|
     @user = User.create(username: username, password: 'senha12345',
         email: email, registration: registration, course: course, is_admin: false)
-    # end
 end
 
 Quando("eu escrever no campo {string} o nome {string}") do |string1, string2|

@@ -15,21 +15,6 @@ E("que eu esteja na pagina backoffice") do
     visit(backoffice_path)
 end
 
-# Dado("existe um usuário com nome {string}, curso {string}, email {string}, registro {string}") do |string1, string2, string3, string4|
-#     table.rows_hash.each do |field, value|
-#         @user = User.new
-#         @user.username = string1
-#         @user.course = string2
-#         @user.email = string3
-#         @user.registration = string4
-#         @user.save
-#     end
-# end
-
-# Quando("eu clicar no link {string}") do |string|
-#     click_link (string)
-# end
-
 Então("eu devo ver uma tabela com os dados:") do |table|
     table.rows_hash.each do |field, value|
         expect(page).to have_content(value)
@@ -43,4 +28,12 @@ Então("eu devo estar em uma página com uma lista contendo o usuario {string}, 
     expect(page).to have_content(string4)
 end
 
+Então("o primeiro usuario deve ser {string} e o segundo {string}") do | string1, string2 |
+    expect(page.find('#table > tbody > tr:nth-child(1) > td:nth-child(1)').text).to match(string1)
+    expect(page.find('#table > tbody > tr:nth-child(2) > td:nth-child(1)').text).to match(string2)
+end
+
+Quando("clicar na coluna {string}") do |string|
+  click_link string
+end
 
