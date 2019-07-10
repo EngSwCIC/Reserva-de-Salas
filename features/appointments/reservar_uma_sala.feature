@@ -10,9 +10,7 @@ Funcionalidade: Reservar uma sala no sistema
   Cenário: Um usuário faz uma solicitação de sala com sucesso
     Dado que eu esteja logado como usuário comum com o email "usuario@comum.com" e a senha "usuario123"
     E eu esteja no página principal com caminho "/"
-    E existam as seguintes salas cadastradas no sistema:
-      |name    | Pat-45 |
-      |location| PAT-AT |
+    E exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
     Quando eu clicar no botão "Salas Existentes"
     Então eu devo estar em uma página com uma tabela com os dados:
       |name    | Pat-45 |
@@ -28,9 +26,7 @@ Funcionalidade: Reservar uma sala no sistema
   Cenário: Um usuário não consegue realizar uma solicitação, pois deixou a data em branco
     Dado que eu esteja logado como usuário comum com o email "usuario@comum.com" e a senha "usuario123"
     E eu esteja no página principal com caminho "/"
-    E existam as seguintes salas cadastradas no sistema:
-      |name    | Pat-45 |
-      |location| PAT-AT |
+    E exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
     Quando eu clicar no botão "Salas Existentes"
     Então eu devo estar em uma página com uma tabela com os dados:
       |name    | Pat-45 |
