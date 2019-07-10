@@ -37,3 +37,15 @@ Cenario: Um administrador cadastra outro administrador
     E clicar em "Cadastrar"
     Então eu devo ser redirecionado para a página Backoffice
     E deve haver um alerta de sucesso
+
+Cenario: Tentar cadastrar usuário com email já cadastrado
+    Quando eu preencher formulário com os dados:
+      | user_username              | usuario1               |
+      | user_password              | password123            |
+      | user_password_confirmation | password123            |
+      | user_registration          | 150150296              |
+      | user_course                | Ciência da Computação  |
+      | user_email                 | admin@admin.com        |
+    E clicar em "Cadastrar"
+    Então eu devo permanecer na página de cadastro
+    E deve haver um alerta de erro de email existente para o email "admin@admin.com"

@@ -40,8 +40,16 @@ Então("eu devo ser redirecionado para a página Backoffice") do
   expect(current_path).to eq("/backoffice")
 end
 
+Então("eu devo permanecer na página de cadastro") do
+  expect(current_path).to eq("/signup_user")
+end
+
 E("deve haver um alerta de sucesso") do
   expect(page).to have_content("Criado com sucesso!")
+end
+
+E("deve haver um alerta de erro de email existente para o email {string}") do |string|
+  expect(page).to have_content("O usuário '"+string+"' já está cadastrado na plataforma.")
 end
 
 E("o usuário deve estar cadastrado no banco de dados") do
