@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'users/show'
+
   root 'home#index'
 
   devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
