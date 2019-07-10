@@ -163,7 +163,7 @@ RSpec.describe 'Rooms API', type: :request do
             end
             
             context 'when params are valid' do        
-                let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => 'New Fake Name', :location => 'New Fake Location') }
+                let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => 'New Fake Name', :location => 'New Fake Location', :students => 40) }
                 before do
                     put "/rooms/#{room.id}", params: { :room => rooms_credentials }
                 end
@@ -177,7 +177,7 @@ RSpec.describe 'Rooms API', type: :request do
             end
 
             context 'when params are not valid' do
-                let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => '', :location => 'New Fake Location') }
+                let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => '', :location => 'New Fake Location', :students => 40) }
                 before do
                     put "/rooms/#{room.id}", params: { :room => rooms_credentials }
                 end
@@ -192,7 +192,7 @@ RSpec.describe 'Rooms API', type: :request do
         end
         
         context 'when user is not admin' do
-            let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => 'New Fake Name', :location => 'New Fake Location') }
+            let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => 'New Fake Name', :location => 'New Fake Location', :students => 40) }
             before do
                 sign_in user
                 post '/rooms', params: { :room => rooms_credentials }

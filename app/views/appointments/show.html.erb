@@ -1,7 +1,8 @@
 
 <h2>Name: <%=@room.name %></h2>
 <h3>Location: <%=@room.location %></h3>
-<p><%= @room.name%> : <%= @room.location%></p>
+<h3>Capacity: <%=@room.students %></h3>
+<p><%= @room.name%> : <%= @room.location%>: <%= @room.students%></p>
 
 <%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
   <div class="form-row">
