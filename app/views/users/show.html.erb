@@ -1,0 +1,31 @@
+<h1 class="text-center"> Lista de Usuários </h1>
+<!-- formulário que envia através do @q o parametro que deve ser pesquiado-->
+<%= search_form_for @q, url: users_show_path, class:"form-inline my-2 my-lg-0" do |f| %>
+  <%= f.search_field :username_or_course_or_registration_cont, class:"form-control mr-sm-2" %>
+  <%= f.submit %>
+<% end %>
+<br>
+
+<table class="table" id="table">
+  <thead class="thead-dark">
+    <tr>
+      <!-- método sort_link é o responsável pela ordenação transformando cada uma das colunas-->
+      <!-- em links ordenáveis tanto de forma crescente quanto decrescente-->
+      <th scope="col"><%= sort_link @q, :username, "Nome"%></th>
+      <th scope="col"><%= sort_link @q, :course, "Curso"%></th>
+      <th scope="col"><%= sort_link @q, :email, "e-mail"%></th>
+      <th scope="col"><%= sort_link @q, :registration, "Registro"%></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td> <%= user.username %> </td>
+        <td> <%= user.course %> </td>
+        <td> <%= user.email %> </td>
+        <td> <%= user.registration %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

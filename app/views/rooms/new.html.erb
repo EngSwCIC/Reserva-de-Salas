@@ -13,12 +13,22 @@
           <%= f.text_field :name, class: "	form-control", placeholder: "Nome da sala", autofocus: 	true %>
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="control-label col-sm-12">
+          <%= f.label 'Capacidade maxima' %>
+        </div>
+        <div class="col-md-12" type="number">
+          <%= f.text_field :students, type:"number", class:"form-control",placeholder: "Capacidade maxima", autofocus:true %>
+        </div>
+      </div>
+
       <div class="form-group">
         <div class="control-label col-sm-2">
           <%= f.label 'Localização' %> <br>
         </div>
         <div class="col-sm-12 col-md-12">
-          <%= f.text_area :location, class: "form-control", rows: 10, placeholder: "Localização da sala" %>
+          <%= f.text_area :location, class: "form-control", rows: 3, placeholder: "Localização da sala" %>
         </div>
       </div>
       <div class="form-group">
