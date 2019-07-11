@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  # POST /users/registrations#create_as_admin
+  # POST /users/registrations
   # Permite a criação de um novo usuário, criado por um usuário adminisitrador autenticado.
   # Valida antes de persistir se o email utilizado já está cadastrado
   # Retorna mensagens de erro ou redireciona para a página inicial caso o usuário seja criaido

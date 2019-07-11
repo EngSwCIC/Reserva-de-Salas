@@ -4,6 +4,10 @@ class AppointmentsController < ApplicationController
     @room = Room.find(params[:id])
   end
 
+  # POST /appointments
+  # registra o aluguel de uma sala, feito pelo usuário autenticado e
+  # contendo obrigatoriamente a data e horário do aluguel.
+  # O motivo (description) é opcional.
   def create
     room_id = params[:format]
     @appointment = Appointment.new
@@ -11,6 +15,7 @@ class AppointmentsController < ApplicationController
     @appointment.user_id = current_user.id
     @appointment.appointment_date = params[:appointment_date]
     @appointment.start_time = params[:start_time]
+    @appointment.description = params[:description]
     @appointment.status = 1
     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
       redirect_to backoffice_path

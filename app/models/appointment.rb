@@ -1,3 +1,6 @@
+# Classe que registra o aluguel de uma sala,
+# que pode ser feito por um usuário ou administrador,
+# informando obrigatoriamente a data e horário do aluguel
 class Appointment < ApplicationRecord
   belongs_to :room
   belongs_to :user

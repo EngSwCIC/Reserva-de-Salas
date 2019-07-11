@@ -2,14 +2,6 @@ Dado("que eu esteja na página principal") do
   visit("/")
 end
 
-Quando("eu clicar em {string}") do |string|
-  click_link("#{string}")
-end
-
-E("eu esteja agora em uma página com título {string}") do |string|
-  page.has_content?("#{string}")
-end
-
 Quando("eu preencher o formulário com:") do |table|
   # table is a Cucumber::MultilineArgument::DataTable
   table.rows_hash.each do |field, value|

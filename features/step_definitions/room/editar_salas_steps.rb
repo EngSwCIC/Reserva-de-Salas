@@ -1,12 +1,12 @@
 # This is the steps file referred to editar_salas feature
 # Place your code relative to that feature here
 Dado("que eu esteja na página principal e já seja um administrador cadastrado e já exista uma sala cadastrada") do
-    User.create!(username: 'admin', email: 'admin@admin.admin', password: 'adminseed', 
+    User.create!(username: 'admin', email: 'admin@admin.admin', password: 'adminseed',
         registration: "admin000", course: "ADMIN", is_admin: true)
     Room.create!(name: 'teste', location: 'locationTeste', )
     visit("/")
   end
-  
+
 Quando("eu esteja agora em uma página com o título {string},") do |string|
     expect(page).to have_content(string)
 end
