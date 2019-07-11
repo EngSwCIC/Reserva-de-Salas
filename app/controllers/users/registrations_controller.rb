@@ -15,6 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  ##
   # POST /users/registrations
   # Permite a criação de um novo usuário, criado por um usuário adminisitrador autenticado.
   # Valida antes de persistir se o email utilizado já está cadastrado
@@ -68,6 +69,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :registration, :course])
   end
 
+  ##
   # Parâmetros permitidos para o cadastro de usuários quando
   # se está logado como admin.
   # Diferença apenas do parâmetro "is_admin", que permite o cadastro

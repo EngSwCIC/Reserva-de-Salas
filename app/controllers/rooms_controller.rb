@@ -67,6 +67,12 @@ class RoomsController < ApplicationController
 		end
 	end
 
+	##
+	# GET /rooms/new
+	# Parâmetros permitidos para a criação dos campos nome, local e capacidade da sala
+	# POST /rooms
+	# Assim como para renderizar na view do usuário, e assim um usuário não administrador
+	# poder ver a capacidade máxima da sala
 	def room_params
 		params.require(:room).permit(:name, :location, :students)
 	end

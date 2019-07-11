@@ -4,6 +4,7 @@ class AppointmentsController < ApplicationController
     @room = Room.find(params[:id])
   end
 
+  ##
   # POST /appointments
   # registra o aluguel de uma sala, feito pelo usuário autenticado e
   # contendo obrigatoriamente a data e horário do aluguel.

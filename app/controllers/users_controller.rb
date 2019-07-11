@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   ##
+  # GET	/users/show
   # Controller que lista todos os usuários do sistema
   # Assim como é responsável pela ordenação crescente e decrescente
   # e por realizar buscas no model User 
