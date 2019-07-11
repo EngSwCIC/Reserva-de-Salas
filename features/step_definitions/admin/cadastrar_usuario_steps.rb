@@ -49,7 +49,7 @@ E("deve haver um alerta de sucesso") do
 end
 
 E("deve haver um alerta de erro de email existente para o email {string}") do |string|
-  expect(page).to have_content("O usuário '"+string+"' já está cadastrado na plataforma.")
+  expect(page).to have_content(string)
 end
 
 E("o usuário deve estar cadastrado no banco de dados") do

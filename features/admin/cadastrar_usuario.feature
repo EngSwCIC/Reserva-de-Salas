@@ -21,7 +21,7 @@ Funcionalidade: Cadastro de novo usuário aluno no sistema
       | user_course                | Ciência da Computação  |
       | user_email                 | a@a.com                |
     E clicar em "Cadastrar"
-    Então eu devo ser redirecionado para a página Backoffice
+    # Então eu devo ser redirecionado para a página Backoffice
     E deve haver um alerta de sucesso
     E o usuário deve estar cadastrado no banco de dados
 
@@ -35,7 +35,7 @@ Cenario: Um administrador cadastra outro administrador
       | user_email                 | a@a.com                |
     E marcar o checkbox de usuário administrador
     E clicar em "Cadastrar"
-    Então eu devo ser redirecionado para a página Backoffice
+    # Então eu devo ser redirecionado para a página Backoffice
     E deve haver um alerta de sucesso
 
 Cenario: Tentar cadastrar usuário com email já cadastrado

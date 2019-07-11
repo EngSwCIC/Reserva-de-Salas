@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user.save
       flash[:success] = "Usuário '" + @user.email + "' Criado com sucesso!"
     else
-      flash[:danger] = "Erro ao tentar cadastrar o usuário: " + @user.email
+      flash[:danger] = "O email '" + @user.email+ "' já está cadastrado";
     end
     redirect_to request.referrer
   end
