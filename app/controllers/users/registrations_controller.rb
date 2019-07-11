@@ -22,16 +22,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # com sucesso.
   def create_as_admin
     @user = User.new(user_params)
-    if !User.where(:email => @user.email).blank?
-      flash[:warning] = "O usuário '" + @user.email + "' já está cadastrado na plataforma."
-      redirect_to request.referrer
-    elsif @user.save
+    if @user.save
       flash[:success] = "Usuário '" + @user.email + "' Criado com sucesso!"
-      redirect_to :backoffice
     else
       flash[:danger] = "Erro ao tentar cadastrar o usuário: " + @user.email
-      redirect_to request.referrer
     end
+    redirect_to request.referrer
   end
 
   def edit
