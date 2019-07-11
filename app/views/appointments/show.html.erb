@@ -1,6 +1,6 @@
 
-<h2>Name: <%=@room.name %></h2>
-<h3>Location: <%=@room.location %></h3>
+<h2>Nome: <%=@room.name %></h2>
+<h3>Local: <%=@room.location %></h3>
 <p><%= @room.name%> : <%= @room.location%></p>
 
 <%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
@@ -51,7 +51,7 @@
             <% app = appointment.start_time.hour.minutes.to_i  %>
             <% if appointment.appointment_date == date and app >= Time.parse("0#{start_t.to_s}:00").hour.minutes.to_i and app < Time.parse("0#{end_t.to_s}:00").hour.minutes.to_i %>
               <td class="text-center align-middle">
-                  <span> 
+                  <span>
                     <% if appointment.status == 1 %>
                       Situação: <span style="color: CadetBlue" >Solicitado</span>
                     <% elsif appointment.status == 2 %>

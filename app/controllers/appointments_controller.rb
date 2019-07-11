@@ -15,12 +15,11 @@ class AppointmentsController < ApplicationController
     @appointment.status = 1
     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
       redirect_to backoffice_path
-      flash[:notice] = "Alguel realizado com sucesso!"   
+      flash[:notice] = "Alguel realizado com sucesso!"
     else
       redirect_to backoffice_path
       flash[:danger] = "Algo deu errado!"
     end
-      #redirect_to '/'
   end
 
   def show
