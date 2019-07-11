@@ -31,7 +31,7 @@ Funcionalidade: Reservar uma sala no sistema
     E preencher o dia do alugel com:
       |appointment_date| Amanha |
     E selecionar o seguinte horário de "8:00 - 10:00" da manhã
-    E preencher o campo descrição com "estudar"
+    E preencher o campo descrição com "Estudos"
     E clicar no botão "Alugar"
     Então deve aparecer uma mensagem na tela dizendo "Alguel realizado com sucesso!"
 
