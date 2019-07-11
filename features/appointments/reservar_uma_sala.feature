@@ -22,6 +22,15 @@ Funcionalidade: Reservar uma sala no sistema
     E clicar no botão "Alugar"
     Então deve aparecer uma mensagem na tela dizendo "Alguel realizado com sucesso!"
 
+  Cenário: Um usuário faz uma solicitação de sala com sucesso preenchendo o campo descrição
+    Quando eu clicar no link "Aluguel" próximo ao nome da sala
+    E preencher o dia do alugel com:
+      |appointment_date| Amanha |
+    E selecionar o seguinte horário de "8:00 - 10:00" da manhã
+    E preencher o campo descrição com "Estudos"
+    E clicar no botão "Alugar"
+    Então deve aparecer uma mensagem na tela dizendo "Alguel realizado com sucesso!"
+
   # Caso triste
   Cenário: Um usuário não consegue realizar uma solicitação, pois deixou a data em branco
     Dado que eu esteja logado como usuário comum com o email "usuario@comum.com" e a senha "usuario123"
