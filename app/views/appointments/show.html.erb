@@ -2,6 +2,8 @@
 <h2>Nome: <%=@room.name %></h2>
 <h3>Local: <%=@room.location %></h3>
 <p><%= @room.name%> : <%= @room.location%></p>
+<h3>Capacity: <%=@room.students %></h3>
+<p><%= @room.name%> : <%= @room.location%>: <%= @room.students%></p>
 
 <%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
   <div class="form-row">
@@ -15,13 +17,7 @@
                                                        ['12:00 - 14:00', "12:00"], ['14:00 - 16:00', "14:00"], ['16:00 - 18:00', "16:00"], ['18:00 - 20:00', "18:00"], ['20:00 - 22:00', "20:00"],
                                                        ['22:00 - 24:00', "22:00"]]),
                       {}, class: "form-control" %>
-    </div >
-
-    <div class="form-group col-md-12">
-        <label> Descrição </label>
-        <%= form.text_area :description, rows: 3, class:"form-control" %>
     </div>
-
     <div class="form-group col-md-6">
       <%= form.submit "Alugar", class: 'btn btn-success' %>
     </div>

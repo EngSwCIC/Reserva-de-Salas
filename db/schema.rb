@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20190606170145) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tipo_sala"
     t.integer "students"
   end
 
@@ -53,6 +54,8 @@ ActiveRecord::Schema.define(version: 20190606170145) do
     t.string "registration"
     t.string "course"
     t.boolean "is_admin", default: false
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
