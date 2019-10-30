@@ -3,7 +3,4 @@ class Backoffice::DashboardController < BackofficeController
 
 	def index
 	end
-
-	def signup_admin
-  	end
 end

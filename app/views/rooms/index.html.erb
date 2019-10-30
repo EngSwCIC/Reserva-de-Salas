@@ -8,6 +8,7 @@
   <tr>
     <th scope="col">Name</th>
     <th scope="col">Location</th>
+    <th scope="col">Capacidade de alunos</th>
     <td scope="col">Actions</td>
   </tr>
   </thead>
@@ -17,6 +18,7 @@
       <tr>
         <td><%= room.name %></td>
         <td><%= room.location %></td>
+        <td><%= room.students %></td>
         <td>
           <%= link_to 'Show', room_path(room.id) %>
           <%= link_to 'Aluguel', appointment_path(room.id) %>

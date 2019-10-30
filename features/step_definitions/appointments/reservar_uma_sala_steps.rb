@@ -21,4 +21,3 @@ end
 Então("deve aparecer uma mensagem na tela dizendo {string}") do |string|
   expect(page).to have_content(string)
 end
-

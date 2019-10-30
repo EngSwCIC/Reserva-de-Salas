@@ -2,7 +2,7 @@
 # Place your code relative to that feature here
 
 Dado("que eu esteja cadastrado como {string}, {string}, {string}, {string}, {string}") do |email, password, course, registration, username|
-  @user = User.create(username: username, password: password, 
+  @user = User.create(username: username, password: password,
   email: email, registration: registration, course: course, is_admin: true)
 end
 
@@ -21,15 +21,15 @@ Dado("eu clicar no link {string}") do |string|
   click_link "#{string}"
 end
 
-Quando("eu preencher o campo nome e localidade com:") do |table|
+Quando("eu preencher o campo nome, capacidade máxima e localidade com:") do |table|
   table.rows_hash.each do |field, value|
   	fill_in field, :with => value
   end
 end
 
-Quando("clicar no botao {string}") do |string|
-  click_button("#{string}")
-end
+# Quando("clicar no botao {string}") do |string|
+#   click_button("#{string}")
+# end
 
 Então("eu devo ver uma mensagem escrita {string}") do |string|
   page.has_content?("#{string}")

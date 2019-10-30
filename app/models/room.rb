@@ -1,3 +1,5 @@
+# Classe que declara uma sala disponível para aluguel
+# cadastrada com os dados "nome", "capacidade" e "local"
 class Room < ApplicationRecord
 	has_many :appointments
 	has_many :users, :through => :appointments
