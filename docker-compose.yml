@@ -1,15 +1,24 @@
-version: '3'
+version: "3"
+
 services:
-  db:
-    image: postgres
-    volumes: 
-      - ./tmp/db:/var/lib/postgresql/data
-  web:
-    build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  postgres:
+    image: "postgres:9.5"
     volumes:
-      - .:/reserva-de-salas
+      - postgres:/var/lib/postgresql/data
+
+  app:
+    depends_on:
+      - "postgres"
+    build: .
+    command: bash start.sh
     ports:
       - "3000:3000"
-    depends_on:
-      - db
+    volumes:
+      - .:/reserva
+      - gems:/gems
+    tty: true
+    stdin_open: true
+
+volumes:
+  postgres:
+  gems:
