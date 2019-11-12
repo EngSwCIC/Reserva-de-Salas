@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'today_appointments/index'
+
   root 'home#index'
 
   devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
   get 'all-appointments' => 'appointments#all_appointments'
   get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
+  get 'today_appointments', to: 'today_appointments#index'
   post '', to: 'backoffice/dashboard#create', as: :"admin_registration"
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

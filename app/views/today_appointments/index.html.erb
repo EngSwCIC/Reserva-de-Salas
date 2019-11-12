@@ -1,0 +1,16 @@
+<h1>Salas Alugadas Para Hoje</h1>
+<p>Hoje: <%= @day%> </p>
+
+<table>
+    <tr>
+        <th>Sala</th>
+        <th>Horario</th>
+    </tr>
+
+    <% @appointments_today.each do |appointment| %>
+        <tr>
+            <td> <%= appointment.room_id %></td>
+            <td> <%= appointment.appointment_date %></td>
+        </tr>
+    <% end %>
+</table>

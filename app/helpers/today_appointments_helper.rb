@@ -1,0 +1,2 @@
+module TodayAppointmentsHelper
+end
