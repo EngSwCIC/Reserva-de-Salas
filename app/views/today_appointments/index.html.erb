@@ -3,14 +3,20 @@
 
 <table>
     <tr>
-        <th>Sala</th>
-        <th>Horario</th>
+	<th>ID</th>
+	<th>Nome</th>
+	<th>Usuário</th>
+	<th>Início</th>
+	<th>Final</th>
     </tr>
 
     <% @appointments_today.each do |appointment| %>
-        <tr>
-            <td> <%= appointment.room_id %></td>
-            <td> <%= appointment.appointment_date %></td>
-        </tr>
+	<tr>
+	    <td> <%= appointment.room_id %></td>
+	    <td> <%= get_room(appointment.room_id).name %></td>
+	    <td> <%= get_user(appointment.user_id).username %></td>
+	    <td> <%= appointment.start_time.strftime("%H:%M") %></td>
+	    <td> <%= (appointment.start_time + 2.hours).strftime("%H:%M") %></td>
+	</tr>
     <% end %>
 </table>
