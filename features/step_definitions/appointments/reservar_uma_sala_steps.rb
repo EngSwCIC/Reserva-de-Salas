@@ -14,6 +14,10 @@ Quando("selecionar o seguinte horário de {string} da manhã") do |string|
   select string, from: "start_time"
 end
 
+Quando("selecionar o seguinte horário de {string} da noite") do |string|
+  select string, from: "start_time"
+end
+
 Então("deve aparecer uma mensagem na tela dizendo {string}") do |string|
   expect(page).to have_content(string)
 end

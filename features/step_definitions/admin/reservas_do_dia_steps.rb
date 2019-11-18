@@ -6,3 +6,7 @@ Então("eu devo ver somente a data de hoje") do
   date = Date.parse(DateTime.now.strftime("%y-%m-%d"))
   page.has_content?("#{date}")
 end
+
+Quando("preencher o dia do aluguel com a data de hoje") do
+  appointment_date =  Date.today()
+end
