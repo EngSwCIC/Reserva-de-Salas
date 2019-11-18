@@ -31,7 +31,7 @@ Funcionalidade: reservas_do_dia
     |location|fooland|
   Quando eu clicar no link "Aluguel" próximo ao nome da sala
   E preencher o dia do aluguel com a data de hoje
-      |appointment_date| Amanha |
+      |appointment_date| Hoje |
   E selecionar o seguinte horário de "18:00 - 20:00" da noite
   E clicar no botão "Alugar"
   Então eu devo ver uma mensagem "Alguel realizado com sucesso!"
