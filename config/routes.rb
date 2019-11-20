@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get 'all-appointments' => 'appointments#all_appointments'
   get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
+  get 'conflicting-appointments', to: 'appointments#conflicting_appointments', as: :"conflicting_appointments"
   post '', to: 'backoffice/dashboard#create', as: :"admin_registration"
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
