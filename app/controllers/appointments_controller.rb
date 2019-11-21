@@ -63,6 +63,7 @@ class AppointmentsController < ApplicationController
   def conflicting_appointments
     @appointments = Appointment.all
     @conflicts = Array.new
+    @exists = false
     @appointments.each do |appointment|
       conflicting = false
       if(@conflicts[0])
@@ -73,6 +74,7 @@ class AppointmentsController < ApplicationController
             (appointment.status != 3)and 
             (conflict[0].status == appointment.status))
             conflicting = true
+            @exists = true
             conflict << appointment;
           end
         end

@@ -112,8 +112,25 @@ RSpec.describe 'Appointment API', type: :request do
                 @appointment2 = FactoryBot.create(:appointment, :user_id => admin_user.id, :room_id => @room.id, :status => 1) 
                 get '/conflicting-appointments'
             end
+            it 'expected to exists conflicts' do
+                expect(assigns(:exists)).to be_truthy
+            end
             it 'expected conflicting appointments' do
                 expect(assigns(:conflicts)).to match_array([[@appointment1,@appointment2]])
+            end
+        end
+        context 'when conflict doesnt exists' do 
+            before do
+                @room = FactoryBot.create(:room)
+                @appointment1 = FactoryBot.create(:appointment, :user_id => admin_user.id, :room_id => @room.id, :status => 1)
+                @appointment2 = FactoryBot.create(:appointment, :user_id => admin_user.id, :room_id => @room.id, :status => 2) 
+                get '/conflicting-appointments'
+            end
+            it 'expected to dexist conflicts' do
+                expect(assigns(:exists)).not_to be_truthy
+            end
+            it 'expected not conflicting appointments' do
+                expect(assigns(:conflicts)).to match_array([[@appointment1],[@appointment2]])
             end
         end
     end
