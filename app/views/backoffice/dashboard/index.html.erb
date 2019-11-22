@@ -16,6 +16,7 @@
 				<%= link_to 'Adicionar Sala', new_room_path, method: :get, class: 'btn btn-primary' %>
 				<%= link_to 'Ver lista de salas existentes', rooms_path, method: :get, class: 'btn btn-primary' %>
 				<%= link_to 'Cadastrar um novo admin', signup_admin_path, class: 'btn btn-primary' %>
+				<%= link_to "Reservas para hoje", today_appointments_path, method: :get, class: 'btn btn-primary' %>
 				<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
 			<% end %>
 		<% end %>
