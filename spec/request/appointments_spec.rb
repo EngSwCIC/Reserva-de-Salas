@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Appointment API', type: :request do
-    let(:user) { FactoryBot.create(:user, :email => '123@123.com') }
+    let(:user) { FactoryBot.create(:user, :email => '123@123.com')}
+    let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
 
     describe 'POST #create' do
         context 'when user is signed in' do
@@ -94,4 +95,45 @@ RSpec.describe 'Appointment API', type: :request do
             end
         end
     end
+
+    describe 'GET #conflicting_appointments' do
+    context 'when user admin is signed in' do
+        before do
+            sign_in admin_user
+        end
+        it 'returns http success' do
+          get '/conflicting-appointments'
+          expect(response).to have_http_status(:success)
+        end
+        context 'when conflict exists' do 
+            before do
+                @room = FactoryBot.create(:room)
+                @appointment1 = FactoryBot.create(:appointment, :user_id => admin_user.id, :room_id => @room.id, :status => 1)
+                @appointment2 = FactoryBot.create(:appointment, :user_id => admin_user.id, :room_id => @room.id, :status => 1) 
+                get '/conflicting-appointments'
+            end
+            it 'expected to exists conflicts' do
+                expect(assigns(:exists)).to be_truthy
+            end
+            it 'expected conflicting appointments' do
+                expect(assigns(:conflicts)).to match_array([[@appointment1,@appointment2]])
+            end
+        end
+        context 'when conflict doesnt exists' do 
+            before do
+                @room = FactoryBot.create(:room)
+                @appointment1 = FactoryBot.create(:appointment, :user_id => admin_user.id, :room_id => @room.id, :status => 1)
+                @appointment2 = FactoryBot.create(:appointment, :user_id => admin_user.id, :room_id => @room.id, :status => 2) 
+                get '/conflicting-appointments'
+            end
+            it 'expected to dexist conflicts' do
+                expect(assigns(:exists)).not_to be_truthy
+            end
+            it 'expected not conflicting appointments' do
+                expect(assigns(:conflicts)).to match_array([[@appointment1],[@appointment2]])
+            end
+        end
+    end
+
+  end
 end

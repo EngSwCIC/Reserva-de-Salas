@@ -13,7 +13,7 @@
   <tbody>
   <% @appointments.each do |appointment| %>
     <tr>
-      <th scope="row">1</th>
+      <th scope="row"><%=  appointment.id %></th>
       <td class="appointment-data"> <%= appointment.user.username %> </td>
       <td class="appointment-data"> <%= appointment.room.name %> </td>
       <td class="appointment-data"> <%= appointment.appointment_date %> </td>
@@ -23,4 +23,4 @@
   <% end %>
   </tbody>
 </table>
-<%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>
+<%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %> <%= link_to "Visualizar Conflitos", conflicting_appointments_path, class:'btn btn-secondary' %>

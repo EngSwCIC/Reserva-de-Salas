@@ -1,0 +1,30 @@
+<table class="table" id="table">
+  <thead>
+    <h1>Conflitos</h1>
+  </thead>
+  <tbody>
+  <% if @exists%>
+    <% @conflicts.each do |conflict| %>
+      <% if conflict.size > 1 %>
+      <tr>
+        <th scope="col">Sala: <%= conflict[0].room.name%></th>
+        <th scope="col">Appointment Date: <%= conflict[0].appointment_date%></th>
+        <th scope="col">Start Time: <%= conflict[0].start_time%></th>
+        <th scope="col"></th>
+      </tr>
+        <% conflict.each do |appointment| %>
+        <tr>
+          <th scope="appointment-data">ID> <%= appointment.id %></th>
+          <td class="appointment-data">Username> <%= appointment.user.username %> </td>
+          <td class="appointment-data">Status> <%= appointment.status %> </td>
+          <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
+        </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  <%else%>
+    <th scope="col">Não existem conflitos.</th>
+  <%end%>
+  </tbody>
+</table>
+<%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %> <%= link_to "Voltar às reservas", '/all-appointments', class:'btn btn-secondary' %>

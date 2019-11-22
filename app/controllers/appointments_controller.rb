@@ -56,8 +56,33 @@ class AppointmentsController < ApplicationController
   def destroy
     @appointment = Appointment.find(params[:id])
     @appointment.destroy
-    flash[:danger] = "O Aluguel foi cancelado com suceso"
+    flash[:danger] = "O Aluguel foi cancelado com sucesso"
     redirect_to root_path
+  end
+
+  def conflicting_appointments
+    @appointments = Appointment.all
+    @conflicts = Array.new
+    @exists = false
+    @appointments.each do |appointment|
+      conflicting = false
+      if(@conflicts[0])
+        @conflicts.each do |conflict|
+          if ((conflict[0].start_time == appointment.start_time) and
+            (conflict[0].appointment_date == appointment.appointment_date) and
+            (conflict[0].room_id == appointment.room_id) and
+            (appointment.status != 3)and 
+            (conflict[0].status == appointment.status))
+            conflicting = true
+            @exists = true
+            conflict << appointment;
+          end
+        end
+      end
+      if !conflicting
+        @conflicts.push(Array.new(1,appointment))
+      end
+    end
   end
 
   private
