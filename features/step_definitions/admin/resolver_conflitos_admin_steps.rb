@@ -17,18 +17,8 @@ Quando("que eu clico no botao {string}") do |string|
   click_button("#{string}")
 end
 
-Então("eu devo ver uma mensagem escrita {string}") do |string|
-  page.has_content?("#{string}")
-end
-
 Então("eu devo ver link {string}") do |string|
 	page.has_link?("#{string}")
-end
-
-Quando("eu preencher o campo nome e localidade com:") do |table|
-  table.rows_hash.each do |field, value|
-  	fill_in field, :with => value
-  end
 end
 
 Então("eu devo ver listados os dados de {string}, {string}, {string}") do |id, data, hora|
