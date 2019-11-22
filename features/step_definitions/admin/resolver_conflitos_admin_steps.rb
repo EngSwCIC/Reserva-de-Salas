@@ -13,8 +13,8 @@ Dado("que eu esteja logado") do
   click_button "Log in"
 end
 
-Dado("que eu esteja na pagina {string}") do |string|
-  visit(backoffice_path)
+Dado("que eu esteja na página {string}") do |string|
+  visit(string)
 end
 
 
@@ -48,4 +48,13 @@ end
 
 Dado("existam as salas cadastradas no sistema {string}, {string}") do |name, location|
   Room.create(name: name, location: location)
+end
+
+Dado("que existem os seguintes alugueis: {string}, {string}")do |appointment_date, start_time|
+    @appointment = Appointment.new
+    @appointment.appointment_date = Date.today + 1
+    @appointment.start_time = start_time
+    @appointment.user_id = User.last.id
+    @appointment.room_id = Room.last.id
+    @appointment.save
 end
