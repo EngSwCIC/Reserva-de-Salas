@@ -7,7 +7,7 @@ Funcionalidade: resolver_conflitos_admin
   Eu gostaria de ver as solicitações que possuem conflito de horário
   E poder escolher qual será aprovada
 
-  Background: Comece como admin
+  Contexto: Comece como admin
   Dado que eu esteja cadastrado como "admin@admin.com", "123123", "Engenharia", "15/0115474", "admin"
   E que eu esteja logado
   E existam as seguintes salas cadastradas no sistema:
@@ -20,7 +20,7 @@ Funcionalidade: resolver_conflitos_admin
   Dado que existem os seguintes alugueis: "<appointment_date>", "<start_time>"
   E que eu esteja na página "all-appointments"
   Quando eu clicar no botao "Visualizar Conflitos" 
-  Então eu devo ver listados os dados de "ID> <appointment_id>", "ID> <appointment_id>"
+  Então eu devo ver listados os dados de "ID>", "<appointment_date>", "<start_time>"
   E eu devo ver link "Editar"
   Exemplos:
     | appointment_date | start_time | name    | location |
@@ -33,7 +33,7 @@ Funcionalidade: resolver_conflitos_admin
   E que eu esteja na página "all-appointments"
   Quando eu clicar no botão "Visualizar Conflitos"
   Então eu devo ver uma mensagem "Não existem conflitos."
-  E não devo ver listados os dados de "ID> <appointment_id>", "ID> <appointment_id>"
+  E não devo ver listados os dados de "ID>", "<appointment_date>", "<start_time>"
   Exemplos:
     | appointment_date | start_time | name    | location |
     | 2019-11-25       | 16:00:00   | Pat-133 | PJC-BT   |
