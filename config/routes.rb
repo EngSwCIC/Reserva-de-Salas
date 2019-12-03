@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :rooms_available
   get 'my-appointments' => 'appointments#my_appointments'
   get 'all-appointments' => 'appointments#all_appointments'
-  get 'backoffice', to: 'backoffice/dtoday_appointmentsashboard#index'
+  get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_admin', to: 'backoffice/dashboard#signup_admin'
   get 'conflicting-appointments', to: 'appointments#conflicting_appointments', as: :"conflicting_appointments"
   get 'today_appointments', to: 'today_appointments#index'
