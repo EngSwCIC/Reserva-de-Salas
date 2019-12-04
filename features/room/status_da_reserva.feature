@@ -6,7 +6,7 @@ Funcionalidade: Verificar o status da reserva
  para que eu saiba se meu pedido foi aceito,
  eu gostaria de ver o status da minha solicitação
 
-  Cenário: Reserva solicitada
+  Cenário: Nenhuma reserva
     Dado que eu esteja logado como usuário comum com o email "usuario@comum.com" e a senha "usuario123"
     E eu esteja no página principal com caminho "/"
     E existam as seguintes salas cadastradas no sistema:
