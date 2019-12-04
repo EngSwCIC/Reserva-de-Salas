@@ -20,7 +20,7 @@ Funcionalidade: Verificar o status da reserva
     E existam as salas cadastradas no sistema: "<name>", "<location>"
     E existam os seguintes alugueis confirmados cadastrados no meu nome: "<appointment_date>", "<start_time>"
     E eu clicar no botão "Meus aluguéis"
-    Então deve aparecer uma mensagem na tela dizendo "Confirmado"
+    Então deve aparecer uma mensagem na tela dizendo "Confirmada"
 
   Cenário: Reserva rejeitada
     Dado que eu esteja logado como usuário comum com o email "usuario@comum.com" e a senha "usuario123"
@@ -28,4 +28,4 @@ Funcionalidade: Verificar o status da reserva
     E existam as salas cadastradas no sistema: "<name>", "<location>"
     E existam os seguintes alugueis rejeitados cadastrados no meu nome: "<appointment_date>", "<start_time>"
     E eu clicar no botão "Meus aluguéis"
-    Então deve aparecer uma mensagem na tela dizendo "Rejeitado"
+    Então deve aparecer uma mensagem na tela dizendo "Rejeitada"

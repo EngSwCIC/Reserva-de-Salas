@@ -14,7 +14,7 @@
       <th scope="row">1</th>
       <td class="appointment-data"> <%= appointment.appointment_date %> </td>
       <td class="appointment-data"> <%= appointment.start_time %> </td>
-      <td class="appointment-data"> <%= "Aguardando confirmação" %> </td>
+      <td class="appointment-data"> <%= get_status_string(appointment.status) %> </td>
       <td> <%= link_to "Cancelar Aluguel", appointment_path(appointment), method: :delete %> </td>
     </tr>
   <% end %>

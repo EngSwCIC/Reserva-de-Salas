@@ -1,6 +1,6 @@
 # coding: utf-8
 
-Dado("existam os seguintes alugueis confirmados cadastrados no meu nome: {string}, {string}") do |string, string2|
+Dado("existam os seguintes alugueis confirmados cadastrados no meu nome: {string}, {string}") do |appointment_date, start_time|
     @appointment = Appointment.new
     @appointment.appointment_date = Date.today + 1
     @appointment.start_time = start_time
@@ -10,7 +10,7 @@ Dado("existam os seguintes alugueis confirmados cadastrados no meu nome: {string
     @appointment.save
 end
 
-Dado("existam os seguintes alugueis rejeitados cadastrados no meu nome: {string}, {string}") do |string, string2|
+Dado("existam os seguintes alugueis rejeitados cadastrados no meu nome: {string}, {string}") do |appointment_date, start_time|
     @appointment = Appointment.new
     @appointment.appointment_date = Date.today + 1
     @appointment.start_time = start_time
