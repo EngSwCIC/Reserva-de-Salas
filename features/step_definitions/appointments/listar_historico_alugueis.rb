@@ -1,3 +1,4 @@
+# coding: utf-8
 # This is the steps file referred to index_for_appointments feature
 # Place your code relative to that feature here
 Dado("existam as salas cadastradas no sistema: {string}, {string}") do |name, location|
