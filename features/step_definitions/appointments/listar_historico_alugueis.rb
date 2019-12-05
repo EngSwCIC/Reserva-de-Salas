@@ -11,6 +11,7 @@ Dado("existam os seguintes alugueis cadastrados no meu nome: {string}, {string}"
     @appointment.start_time = start_time
     @appointment.user_id = User.last.id
     @appointment.room_id = Room.last.id
+    @appointment.status = 1
     @appointment.save
 end
 
