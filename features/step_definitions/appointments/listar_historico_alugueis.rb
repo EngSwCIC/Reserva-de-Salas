@@ -1,3 +1,4 @@
+# coding: utf-8
 # This is the steps file referred to index_for_appointments feature
 # Place your code relative to that feature here
 Dado("existam as salas cadastradas no sistema: {string}, {string}") do |name, location|
@@ -10,6 +11,7 @@ Dado("existam os seguintes alugueis cadastrados no meu nome: {string}, {string}"
     @appointment.start_time = start_time
     @appointment.user_id = User.last.id
     @appointment.room_id = Room.last.id
+    @appointment.status = 1
     @appointment.save
 end
 
