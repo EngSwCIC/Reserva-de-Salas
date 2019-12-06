@@ -134,6 +134,5 @@ RSpec.describe 'Appointment API', type: :request do
             end
         end
     end
-
-  end
+    end
 end
