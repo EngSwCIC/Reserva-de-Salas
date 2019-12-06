@@ -12,9 +12,9 @@
     <div class="room-item">
       <tr>
         <% if time.size > 0 %>
-          <th><%= date %></td>
+          <th class = "date "><%= date %></td>
           <%  time.each do |number| %>
-            <td><%=number%></td>
+            <td class = "h" + number[0,1]><%=number%></td>
           <%end%>
         <%else%>
         <td></td>
