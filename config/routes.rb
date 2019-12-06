@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  
-  get 'today_appointments/index'
-
   root 'home#index'
 
   devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
@@ -21,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :rooms
   resources :appointments
+  resources :rooms_available
   get 'my-appointments' => 'appointments#my_appointments'
   get 'all-appointments' => 'appointments#all_appointments'
   get 'backoffice', to: 'backoffice/dashboard#index'

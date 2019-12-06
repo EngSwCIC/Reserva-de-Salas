@@ -1,0 +1,27 @@
+<h1>Horários Disponíveis Para <%=@room.name %></h1>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col" colspan="1" >Dia</th>
+    <th scope="col" colspan="9" >Horários</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @available.each do |date, time| %>
+    <div class="room-item">
+      <tr>
+        <% if time.size > 0 %>
+          <th class = "date "><%= date %></td>
+          <%  time.each do |number| %>
+            <td class = "h" + number[0,1]><%=number%></td>
+          <%end%>
+        <%else%>
+        <td></td>
+        <%end%>
+      </tr>
+    </div>
+    <% end %>
+  </tbody>
+</table>
+
