@@ -22,7 +22,7 @@ Funcionalidade: Reservar uma sala no sistema
       |appointment_date| Amanha |
     E selecionar o seguinte horário de "8:00 - 10:00" da manhã
     E clicar no botão "Alugar"
-    Então deve aparecer uma mensagem na tela dizendo "Alguel realizado com sucesso!"
+    Então deve aparecer uma mensagem na tela dizendo "Aluguel realizado com sucesso!"
 
   # Caso triste
   Cenário: Um usuário não consegue realizar uma solicitação, pois deixou a data em branco

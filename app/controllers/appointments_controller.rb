@@ -122,8 +122,10 @@ class AppointmentsController < ApplicationController
   end
 
   private
-
-  def appointment_params
+  ##
+  # Cria e permite o recebimento de um parâmetro chamado appointment para os métodos existentes a fim de receber seu status.
+  # É permitida somente a existência do atributo status de appointment. 
+  def appointment_params#:doc:
     params.require(:appointment).permit(:status)
   end
 end

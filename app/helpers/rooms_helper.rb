@@ -8,7 +8,7 @@ module RoomsHelper
   # * status == 1 : "Aguardando confirmação"
   # * status == 2 : "Confirmada"
   # * status == 3 : "Rejeitada"
-  # * outros : "Ainvalid status identifier (status)"  
+  # * outros : "A invalid status identifier (status)"  
   def get_status_string(status)
     if status.to_i == 1
       return "Aguardando confirmação"
