@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class RoomsAvailableController - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#class-RoomsAvailableController-label-Defini-C3-A7-C3-A3o+da+classe+RoomsAvailableController.">Definição da classe <strong>RoomsAvailableController</strong>.</a>
+    <li><a href="#class-RoomsAvailableController-label-M-C3-A9todos-3A">Métodos:</a>
+  </ul>
+</div>
+
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-show">#show</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-RoomsAvailableController">
+  <h1 id="class-RoomsAvailableController" class="class">
+    class RoomsAvailableController
+  </h1>
+
+  <section class="description">
+    
+<h2 id="class-RoomsAvailableController-label-Defini-C3-A7-C3-A3o+da+classe+RoomsAvailableController.">Definição da classe <strong>RoomsAvailableController</strong>.<span><a href="#class-RoomsAvailableController-label-Defini-C3-A7-C3-A3o+da+classe+RoomsAvailableController.">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<p>Responsável por identificar salas/horários disponíveis para aluguel.</p>
+
+<h3 id="class-RoomsAvailableController-label-M-C3-A9todos-3A">Métodos:<span><a href="#class-RoomsAvailableController-label-M-C3-A9todos-3A">&para;</a> <a href="#top">&uarr;</a></span></h3>
+<ul><li>
+<p><em>show</em>.</p>
+</li></ul>
+
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-show" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">show</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Identifica salas/horários disponíveis para aluguel. Salas disponíveis são
+aquelas sem consulta ou que a consulta não foi confirmada. Primeiramente,
+identifica alugueis atuais (cujas datas não são anteriores ao dia atual).
+Em seguida cria um Hash, para cada data do mês a partir do dia atual, com
+os vetor de horários disponíveis:</p>
+
+<p>|“06:00”, “08:00”, “10:00”, “12:00”, “14:00”, “16:00”, “18:00”, “20:00”,
+“22:00”|</p>
+
+<p>Em seguida, para cada aluguel ativo, deleta no Hash o horário do dia
+correspondente. Dessa forma, o Hash possuirá apenas horários disponíveis em
+datas válidas.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="show-source">
+            <pre><span class="ruby-comment"># File app/controllers/rooms_available_controller.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">show</span>
+  <span class="ruby-ivar">@room</span> = <span class="ruby-constant">Room</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@appointments</span> = <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">get_future_appointments</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@available</span> = <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">get_hash_available_times</span>
+  <span class="ruby-ivar">@appointments</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">app</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">date_now</span> = <span class="ruby-identifier">app</span>.<span class="ruby-identifier">appointment_date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%a (%d/%b)&quot;</span>)
+      <span class="ruby-ivar">@available</span>[<span class="ruby-identifier">date_now</span>] = <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">available_times</span>(<span class="ruby-ivar">@available</span>[<span class="ruby-identifier">date_now</span>], <span class="ruby-identifier">app</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.0.1.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

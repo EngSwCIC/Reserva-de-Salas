@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>module RoomsAvailableHelper - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-available_times">#available_times</a>
+    
+    <li ><a href="#method-i-build_hash">#build_hash</a>
+    
+    <li ><a href="#method-i-get_future_appointments">#get_future_appointments</a>
+    
+    <li ><a href="#method-i-get_future_dates">#get_future_dates</a>
+    
+    <li ><a href="#method-i-get_hash_available_times">#get_hash_available_times</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="module-RoomsAvailableHelper">
+  <h1 id="module-RoomsAvailableHelper" class="module">
+    module RoomsAvailableHelper
+  </h1>
+
+  <section class="description">
+    
+<p>Módulo com funções auxiliares para manipular salas disponiveis.</p>
+
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-available_times" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">available_times</span><span
+            class="method-args">(times, app)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retorna um array com os horarios disponiveis Retira horário do hash do dia
+em questão caso o horário não esteja disponível.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="available_times-source">
+            <pre><span class="ruby-comment"># File app/helpers/rooms_available_helper.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">available_times</span>(<span class="ruby-identifier">times</span>, <span class="ruby-identifier">app</span>)
+  <span class="ruby-keyword">if</span> ( (<span class="ruby-identifier">app</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">times</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">app</span>.<span class="ruby-identifier">start_time</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%H:%M&quot;</span>))) )
+      <span class="ruby-identifier">times</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">app</span>.<span class="ruby-identifier">start_time</span>.<span class="ruby-identifier">strftime</span> (<span class="ruby-string">&quot;%H:%M&quot;</span>))
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">times</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-build_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_hash</span><span
+            class="method-args">(keys, item)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retorna um hash com chaves do array recebido &#39;keys&#39; e com o
+conteudo definido por &#39;item&#39;</p>
+          
+          
+
+          
+          <div class="method-source-code" id="build_hash-source">
+            <pre><span class="ruby-comment"># File app/helpers/rooms_available_helper.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">build_hash</span>(<span class="ruby-identifier">keys</span>, <span class="ruby-identifier">item</span>)
+  <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">date</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">date</span>, <span class="ruby-identifier">item</span>.<span class="ruby-identifier">dup</span>]}]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_future_appointments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_future_appointments</span><span
+            class="method-args">(id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retorna um array com appointments futuros de determinada sala. Caso não
+exista retorna nill</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_future_appointments-source">
+            <pre><span class="ruby-comment"># File app/helpers/rooms_available_helper.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_future_appointments</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-constant">Appointment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&#39;appointment_date &gt;= ? AND room_id = ?&#39;</span>, <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>, <span class="ruby-identifier">id</span>).<span class="ruby-identifier">all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_future_dates" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_future_dates</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retorna um array com strings das datas no formato (DiadaSemana (Dia/Mes))
+de hoje até daqui 1 mês.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_future_dates-source">
+            <pre><span class="ruby-comment"># File app/helpers/rooms_available_helper.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_future_dates</span>
+  (<span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span><span class="ruby-operator">..</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span><span class="ruby-operator">&gt;&gt;</span><span class="ruby-value">1</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">date</span><span class="ruby-operator">|</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%a (%d/%b)&quot;</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_hash_available_times" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_hash_available_times</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Retorna um hash com chaves como sendo os dias no periodo de 1 mes a partir
+do dia de hoje, no formato (DiadaSemana (Dia/Mes)), e com seus valores
+sendo os horarios disponiveis para reserva em cada dia na sala de id
+&#39;room_id&#39;</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_hash_available_times-source">
+            <pre><span class="ruby-comment"># File app/helpers/rooms_available_helper.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_hash_available_times</span>
+  <span class="ruby-identifier">dates</span> = <span class="ruby-identifier">get_future_dates</span>
+  <span class="ruby-identifier">options_start</span> = [<span class="ruby-string">&quot;06:00&quot;</span>, <span class="ruby-string">&quot;08:00&quot;</span>, <span class="ruby-string">&quot;10:00&quot;</span>, <span class="ruby-string">&quot;12:00&quot;</span>, <span class="ruby-string">&quot;14:00&quot;</span>, <span class="ruby-string">&quot;16:00&quot;</span>, <span class="ruby-string">&quot;18:00&quot;</span>, <span class="ruby-string">&quot;20:00&quot;</span>, <span class="ruby-string">&quot;22:00&quot;</span>]
+  <span class="ruby-identifier">build_hash</span>(<span class="ruby-identifier">dates</span>, <span class="ruby-identifier">options_start</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.0.1.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
