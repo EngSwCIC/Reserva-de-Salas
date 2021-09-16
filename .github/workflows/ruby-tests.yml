@@ -9,24 +9,6 @@ on:
     - master
 
 jobs:
-  linters:
-    name: Linters
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ env.RUBY_VERSION }}
-
-      - name: Install Rubocop Gems
-        run: |
-          gem install rubocop -v 1.19.0
-          gem install rubocop-rails -v 2.11.1
-          gem install rubocop-performance -v 1.11.3
-          gem install rubocop-rspec -v 2.4.0
-      - name: Check code
-        run: rubocop
-
   rspec-test:
     name: RSpec
     runs-on: ubuntu-latest
