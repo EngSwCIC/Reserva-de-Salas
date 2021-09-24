@@ -22,7 +22,8 @@ Funcionalidade: Eu como admin quero poder
 
   # Cenario Feliz
   Cenario: Um Administrador 
-  Quando eu clicar no botão "Aprovado" 
+  Quando eu clicar no botão "Aprovado"
+  Então o botão "Aprovado" mudara de cor
 
   # Cenario Feliz
   Cenario: Um Administrador 
