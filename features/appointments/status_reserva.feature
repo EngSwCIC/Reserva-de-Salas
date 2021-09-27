@@ -24,7 +24,7 @@ página recarregue para cada agendamento
   # Cenario Triste
   Cenario: Um administrador aprova duas requisições da mesma sala no mesmo horário
   Quando eu clicar no botão "Aprovado"
-  Dado que exista a sala "Pat-45" cadastrada no sistema
+  Dado que exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
   E a sala "Pat-45" possua uma requisição aprovada no horário de "8:00 - 10:00" da manhã
   Quando eu clicar no botão "Aprovado" para a requisição da sala "Pat-45" no horário de "8:00 - 10:00" da manhã
   Então deve aparecer uma mensagem na tela dizendo "Algo deu errado!"
