@@ -9,7 +9,6 @@ Quando("preencher o dia do alugel com:") do |table|
   end
 end
 
-
 Quando("selecionar o seguinte horário de {string} da manhã") do |string|
   select string, from: "start_time"
 end
