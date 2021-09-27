@@ -15,7 +15,7 @@ página recarregue para cada agendamento
 
   # Cenario Triste aprovado apos vencimento
   Cenario: Um Administrador aprova uma requisição após a data de seu vencimento
-  Dado exista a sala "PAT-45", "2021-09-23" na data "00:00:00 UTC"
+  Dado que exista a sala "PAT-45", "2021-09-23" na data "00:00:00 UTC"
   E que a data e horário atual sejam após  "2021-09-23", "00:00:00 UTC"
   Quando eu clicar no botão "Aprovado"
   Então deve aparecer uma mensagem na tela dizendo "Requisição vencida!"
