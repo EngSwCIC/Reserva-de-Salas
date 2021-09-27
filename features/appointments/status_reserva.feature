@@ -36,5 +36,8 @@ página recarregue para cada agendamento
   Então deve aparecer uma mensagem na tela dizendo "Aprovado com sucesso!"
 
   # Cenario Feliz aluguel reprovado
-  Cenario: Um Administrador
+  Cenario: Um Administrador reprova uma requisão
   Quando eu clicar no botão "Reprovado"
+  Dado que exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
+  E que a sala "Pat-45", "50", "PAT-AT" possua requisições no horário de "14:00 - 16:00" da manhã
+  Então deve aparecer uma mensagem na tela dizendo "Reprovado, a sala está já está reservada!"
