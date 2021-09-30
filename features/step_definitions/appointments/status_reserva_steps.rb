@@ -8,30 +8,18 @@ Quando("eu clicar no botão {string} para a requisição da sala {string} no hor
     end
 end
 
-Dado("que eu esteja logado como Administrador do Sistema") do
-  
-end
-
-Dado("eu esteja na pagina Backoffice com caminho {string}") do |string|
-  
-end
-
-Então("eu devo estar na página com uma tabela com os dados:") do |table|
-  
-end
-
 Dado("que exista a sala {string}, {string} na data {string}") do |sala, hora, data|
-  
+
 end
 
-Dado("que a data e horário atual sejam após  {string}") do |string|
+Dado("que a data e horário atual sejam após {string}") do |string|
     expect(Time.now).to be > string.to_datetime
 end
 
 Dado("que exista a sala {string}, {string}, {string} cadastrada no sistema") do |sala, hora, data|
-  page.has_content?(sala)
-  page.has_content?(hora)
-  page.has_content?(data)
+  expect(page).to have_content(sala)
+  expect(page).to have_content(hora)
+  expect(page).to have_content(data)
 end
 
 Dado("que a sala {string}, {string}, {string} não possua requisições no horário de {string} da manhã") do |string, string2, string3, string4|
@@ -40,4 +28,13 @@ end
 
 Dado("que a sala {string}, {string}, {string} possua requisições no horário de {string} da manhã") do |string, string2, string3, string4|
    # Write code here that turns the phrase above into concrete actions
+end
+
+Dado("a sala {string} possua uma requisição aprovada no horário de {string}") do |sala, horario|
+  @appointment = Appointment.new
+  @appointment.appointment_date = Date.today + 1
+  @appointment.start_time = horario
+  @appointment.user_id = User.last.id
+  @appointment.room_id = Room.where(name: sala).last.id
+  @appointment.save
 end
