@@ -15,3 +15,13 @@ Rails.application.config.assets.precompile += %w( form-utils.css )
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 Rails.application.config.assets.precompile += %w(1.jpg 2.jpg 3.jpg)
+
+# https://github.com/rails/sprockets/issues/283
+# Allow overriding of the sprockets cache path
+Rails.application.config.assets.configure do |env|
+  env.cache = Sprockets::Cache::FileStore.new(
+    ENV.fetch("SPROCKETS_CACHE", "#{env.root}/tmp/cache/assets"),
+    Rails.application.config.assets.cache_limit,
+    env.logger
+  )
+end
