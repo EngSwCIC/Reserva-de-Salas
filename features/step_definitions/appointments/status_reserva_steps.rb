@@ -7,7 +7,7 @@ Dado("eu esteja na pagina Backoffice com caminho {string}") do |string|
 end
 
 Então("eu devo estar na página com uma tabela com os dados:") do |table|
-  
+
 end
 
 Dado("que exista a sala {string}, {string} na data {string}") do |sala, hora, data|
@@ -19,6 +19,9 @@ Dado("que a data e horário atual sejam após  {string}, {string}") do |string, 
 end
 
 Dado("que exista a sala {string}, {string}, {string} cadastrada no sistema") do |sala, hora, data|
+  print("BODY: #{page.body}\n")
+  print("HTML: #{page.html}\n")
+  save_and_open_page
   page.has_content?(sala)
   page.has_content?(hora)
   page.has_content?(data)
