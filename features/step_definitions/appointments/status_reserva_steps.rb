@@ -22,11 +22,11 @@ Dado("que exista a sala {string}, {string}, {string} cadastrada no sistema") do 
   expect(page).to have_content(data)
 end
 
-Dado("que a sala {string}, {string}, {string} não possua requisições no horário de {string} da manhã") do |string, string2, string3, string4|
+Dado("que a sala {string}, {string}, {string} não possua requisições no horário de {string} da manhã") do |name, students, location, horario|
    # Write code here that turns the phrase above into concrete actions
 end
 
-Dado("que a sala {string}, {string}, {string} possua requisições no horário de {string} da manhã") do |string, string2, string3, string4|
+Dado("que a sala {string}, {string}, {string} possua requisições no horário de {string} da manhã") do |name, students, location, horario|
    # Write code here that turns the phrase above into concrete actions
 end
 
