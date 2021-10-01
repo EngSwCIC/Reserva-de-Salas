@@ -16,10 +16,10 @@ Dado("que a data e horário atual sejam após {string}") do |string|
     expect(Time.now).to be > string.to_datetime
 end
 
-Dado("que exista a sala {string}, {string}, {string} cadastrada no sistema") do |sala, hora, data|
-  expect(page).to have_content(sala)
-  expect(page).to have_content(hora)
-  expect(page).to have_content(data)
+Dado("que exista a sala {string}, {string}, {string} cadastrada no sistema") do |name, students, location|
+  expect(page).to have_content(name)
+  expect(page).to have_content(students)
+  expect(page).to have_content(location)
 end
 
 Dado("que a sala {string}, {string}, {string} não possua requisições no horário de {string} da manhã") do |name, students, location, horario|
