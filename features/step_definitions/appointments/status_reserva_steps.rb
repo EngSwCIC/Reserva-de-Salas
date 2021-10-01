@@ -23,12 +23,7 @@ Dado("que exista a sala {string}, {string}, {string} cadastrada no sistema") do 
 end
 
 Dado("que a sala {string}, {string}, {string} não possua requisições no horário de {string} da manhã") do |name, students, location, horario|
-  @appointment = Appointment.new
-  @appointment.appointment_date = Date.today + 1
-  @appointment.start_time = horario
-  @appointment.user_id = User.last.id
-  @appointment.room_id = Room.where(name: name, students: students, location: location).last.id
-  @appointment.save
+  room = Room.where(name: name, students: students, location: location)
 end
 
 Dado("que a sala {string}, {string}, {string} possua requisições no horário de {string} da manhã") do |name, students, location, horario|
@@ -50,10 +45,5 @@ Dado("a sala {string} possua uma requisição aprovada no horário de {string}")
 end
 
 Dado("a sala {string}, {string}, {string} não possua requisições no horário de {string}") do |name, students, location, horario|
-  @appointment = Appointment.new
-  @appointment.appointment_date = Date.today + 1
-  @appointment.start_time = horario
-  @appointment.user_id = User.last.id
-  @appointment.room_id = Room.where(name: name, students: students, location: location).last.id
-  @appointment.save
+  room = Room.where(name: name, students: students, location: location)
 end
