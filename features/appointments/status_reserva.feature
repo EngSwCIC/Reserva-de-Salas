@@ -8,7 +8,7 @@ página recarregue para cada agendamento
 
   Contexto:
     Dado que eu esteja cadastrado e logado como administrador do sistema
-    E eu esteja na pagina Backoffice com caminho "/all-appointments"
+    E eu esteja na pagina backoffice
     Então eu devo estar em uma página com uma tabela com os dados:
     | # | Usuário | Sala   | Data do aluguel         | Início                  | Status              |
     | 1 | rafael  | teste1 | 2021-09-23 00:00:00 UTC | 2000-01-01 06:00:00 UTC | Aprovado  Reprovado |
