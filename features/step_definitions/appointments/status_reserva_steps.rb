@@ -44,11 +44,11 @@ Dado("a sala {string} possua uma requisição aprovada no horário de {string}")
   @appointment.save
 end
 
-Dado("a sala {string} não possua requisições no horário de {string}") do |sala, horario|
+Dado("a sala {string}, {string}, {string} não possua requisições no horário de {string}") do |name, students, location, horario|
   @appointment = Appointment.new
   @appointment.appointment_date = Date.today + 1
   @appointment.start_time = horario
   @appointment.user_id = User.id
-  @appointment.room_id = Room.where(name: sala).id
+  @appointment.room_id = Room.where(name: name, students: students, location: location).id
   @appointment.save
 end
