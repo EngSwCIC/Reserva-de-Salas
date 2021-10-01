@@ -26,8 +26,8 @@ Dado("que a sala {string}, {string}, {string} não possua requisições no horá
   @appointment = Appointment.new
   @appointment.appointment_date = Date.today + 1
   @appointment.start_time = horario
-  @appointment.user_id = User.id
-  @appointment.room_id = Room.where(name: name, students: students, location: location).id
+  @appointment.user_id = User.last.id
+  @appointment.room_id = Room.where(name: name, students: students, location: location).last.id
   @appointment.save
 end
 
@@ -53,7 +53,7 @@ Dado("a sala {string}, {string}, {string} não possua requisições no horário 
   @appointment = Appointment.new
   @appointment.appointment_date = Date.today + 1
   @appointment.start_time = horario
-  @appointment.user_id = User.id
-  @appointment.room_id = Room.where(name: name, students: students, location: location).id
+  @appointment.user_id = User.last.id
+  @appointment.room_id = Room.where(name: name, students: students, location: location).last.id
   @appointment.save
 end
