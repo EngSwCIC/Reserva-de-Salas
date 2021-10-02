@@ -18,10 +18,6 @@ Dado("que a data e horário atual sejam após {string}") do |string|
    expect(Time.now).to be > string.to_datetime
 end
 
-Dado("que exista a sala {string}, {string}, {string} cadastrada no sistema" ) do |name, students, location|
-   @room = Room.create(name: name, students: students, location: location)
- end
-
 Dado("que a sala {string}, {string}, {string} possua requisições no horário de {string}") do |name, students, location, horario|
  @appointment = Appointment.new
  @appointment.appointment_date = Date.today + 1

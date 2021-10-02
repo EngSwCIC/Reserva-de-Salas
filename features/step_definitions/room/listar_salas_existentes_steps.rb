@@ -13,7 +13,7 @@ Dado("que eu esteja cadastrado como usuario {string}, {string}, {string}, {strin
   email: email, registration: registration, course: course, is_admin: false)
 end
 
-Dado("exista a sala {string}, {string}, {string} cadastrada no sistema") do |name, students, location|
+Dado("(que )exista a sala {string}, {string}, {string} cadastrada no sistema") do |name, students, location|
   @room = Room.create(name: name, students: students, location: location)
 end
 
