@@ -15,29 +15,28 @@ página recarregue para cada agendamento
 
   # Cenario Triste aprovado apos vencimento
   Cenario: Um Administrador aprova uma requisição após a data de seu vencimento
-  Dado que exista a sala "PAT-45", "2021-09-23" na data "00:00:00 UTC"
+  Dado que exista a sala "PAT-45", "2021-09-23" no horario "00:00:00 UTC"
   E que a data e horário atual sejam após "2021-09-23 00:00:00 UTC"
   Quando eu clicar no botão "Aprovado"
   Então deve aparecer uma mensagem na tela dizendo "Requisição vencida!"
 
   # Cenario Triste aprovacao no mesmo horario
   Cenario: Um administrador aprova duas requisições da mesma sala no mesmo horário
-  Quando eu clicar no botão "Aprovado"
   Dado que exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
-  E a sala "Pat-45" possua uma requisição aprovada no horário de "8:00 - 10:00" da manhã
-  Quando eu clicar no botão "Aprovado" para a requisição da sala "Pat-45" no horário de "8:00 - 10:00" da manhã
+  E a sala "Pat-45" possua uma requisição aprovada no horário de "8:00 - 10:00"
+  Quando eu clicar no botão "Aprovado" para a requisição da sala "Pat-45" no horário de "8:00 - 10:00"
   Então deve aparecer uma mensagem na tela dizendo "Algo deu errado!"
 
   # Cenario Feliz aluguel aprovado
   Cenario: Um Administrador aprova uma requisição
-  Quando eu clicar no botão "Aprovado"
   Dado que exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
-  E que a sala "Pat-45", "50", "PAT-AT" não possua requisições no horário de "8:00 - 10:00" da manhã
+  E que a sala "Pat-45", "50", "PAT-AT" não possua requisições no horário de "8:00 - 10:00"
+  Quando eu clicar no botão "Aprovado"
   Então deve aparecer uma mensagem na tela dizendo "Aprovado com sucesso!"
 
   # Cenario Feliz aluguel reprovado
   Cenario: Um Administrador reprova uma requisição
-  Quando eu clicar no botão "Reprovado"
   Dado que exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
-  E que a sala "Pat-45", "50", "PAT-AT" possua requisições no horário de "14:00 - 16:00" da manhã
+  E que a sala "Pat-45", "50", "PAT-AT" possua requisições no horário de "14:00 - 16:00"
+  Quando eu clicar no botão "Reprovado"
   Então deve aparecer uma mensagem na tela dizendo "Reprovado, a sala está já está reservada!"
