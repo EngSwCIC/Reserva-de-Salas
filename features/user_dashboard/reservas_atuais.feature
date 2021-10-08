@@ -3,7 +3,7 @@
 
 Funcionalidade: Visualização de reservas para dia atual
   Como usuário autenticado do sistema
-  Eu quero acessar minhas reservas
+  Eu quero acessar meu dashboard
   Para visualizar as minhas reservas para o dia atual
 
   Contexto: Login de um usuário

@@ -3,7 +3,7 @@
 
 Funcionalidade: Visualização de reservas aprovadas com datas futuras
   Como usuário autenticado do sistema
-  Eu quero acessar minhas reservas
+  Eu quero acessar meu dashboard
   Para visualizar as minhas reservas aprovadas com datas futuras
 
   Contexto: Login de um usuário
