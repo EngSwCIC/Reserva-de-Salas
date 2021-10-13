@@ -7,7 +7,9 @@
     <th scope="col">Sala</th>
     <th scope="col">Data do aluguel</th>
     <th scope="col">Início</th>
-    <th scope="col">Descrição</th>
+    <%# TODO %>
+    <%# Change col to Status%>
+    <th scope="col">Status</th>
 
     <th scope="col"></th>
   </tr>
@@ -20,10 +22,35 @@
       <td class="appointment-data"> <%= appointment.room.name %> </td>
       <td class="appointment-data"> <%= appointment.appointment_date %> </td>
       <td class="appointment-data"> <%= appointment.start_time %> </td>
-      <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
+      <%# TODO %>
+      <%# Change link_to to two buttons (Aprovado, Reprovado)%>
+      <td><%= form_for(appointment) do |r| %>      
+          <% if appointment.status == 1 %>
+            <div class="btn btn-primary">
+              <%= r.select :status, ['Solicitado'] %> 
+            </div>
+          <% elsif appointment.status == 2 %>
+            <div class="btn btn-primary">
+              <%= r.select :status, ['Aprovado'] %>
+            </div>
+          <% else %>
+            <div class="btn btn-primary">
+              <%= r.select :status, ['Reprovado'] %>
+            </div>
+          <% end %>
+        <div class="btn btn-secondary">
+          <%= r.select :status, ['Aprovado'] %>
+        </div>  
+        <%= r.submit "Update" %>
+      <% end %> </td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
 <%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>
+<%# <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) </td> %>
+
+<%# <div class="actions">
+  <%= r.submit "Update" %>
+<%# </div> %>

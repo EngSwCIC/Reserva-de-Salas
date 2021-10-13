@@ -33,6 +33,13 @@ class AppointmentsController < ApplicationController
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end
 
+  # function to control button in view
+  # 0 = reprovado, 1 = solicitado, 2 = aprovado
+  def status 
+    # recupera o id do appointment
+    # @appointment = Appointment.find(params[:id])
+  end
+
   def edit
     @appointment = Appointment.find(params[:id])
   end
