@@ -22,7 +22,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 
 gem 'gemaina', '~> 1.0'
-
+gem 'simplecov', require: false, group: :test
 # gema devise para fazer autenticacao
 gem 'devise'
 
