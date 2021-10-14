@@ -1,4 +1,7 @@
 class HomeController < ApplicationController
-  def index
+	def index
+	  if current_user
+		redirect_to backoffice_path
+	  end
+	end
   end
-end
