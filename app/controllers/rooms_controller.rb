@@ -13,11 +13,11 @@ class RoomsController < ApplicationController
 		@room = Room.find(params[:id])
 
 		if params.has_key?(:filter) and params[:filter] == "history"
-			@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
+			@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all.order("appointment_date DESC, start_time DESC")
 		else
-			@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
+			@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all.order("appointment_date ASC, start_time ASC")
 		end
-
+	
 		@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
 	end
 	
