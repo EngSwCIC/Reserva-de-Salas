@@ -1,15 +1,26 @@
 <h1>Painel de visualização de Sala</h1>
 
-<%= link_to "Histórico", {:filter => "history"}, class: "button"%>
-<%= link_to "Agendamentos", {:filter => "appointments"}, class: "button"%>
-
-<div class="letra">
-    <% @appointments.each do |item| %>
-        <div>
+<div class="containerRooms">
+    <div class="table_button">
+        <%= link_to "Histórico", {:filter => "history"}, class: "button"%>
+        <%= link_to "Agendamentos", {:filter => "appointments"}, class: "button"%>
+    </div>
+    <table>
+        <thead>
             <tr>
-                <td><%= item.appointment_date.strftime("%d/%m/%Y") %> </td>
-                <td><%= item.start_time.strftime("%T") %> </td>
+                <th>Data do Agendamento</th>
+                <th>Horário do Agendamento</th>
             </tr>
-        </div>
-    <% end %>
+        </thead>
+
+        <tbody>
+            <% @appointments.each do |item| %>        
+                <tr>
+                    <td><%= item.appointment_date.strftime("%d/%m/%Y") %> </td>
+                    <td><%= item.start_time.strftime("%T") %> </td>
+                </tr>
+            <% end %>
+        </tbody>
+
+    </table>
 </div>
