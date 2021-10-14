@@ -11,8 +11,16 @@ class RoomsController < ApplicationController
 
 	def show
 		@room = Room.find(params[:id])
-	end
 
+		if params.has_key?(:filter) and params[:filter] == "history"
+			@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
+		else
+			@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
+		end
+
+		@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
+	end
+	
 	def edit
 		@room = Room.find(params[:id])
 	end

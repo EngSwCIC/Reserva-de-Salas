@@ -1,3 +1,19 @@
 // Place all the styles related to the rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.button {
+    padding:5px;
+    background-color: #dcdcdc;
+    border: 1px solid #666;
+    color:#000;
+    text-decoration:none;
+    border-radius: 10%;
+  }
+
+.button:hover {
+    color: black;
+    text-decoration: none;
+    background-color: gray;
+}
+
