@@ -16,15 +16,20 @@
   <% @rooms.each do |room| %>
     <div class="room-item">
       <tr>
-        <td><%= room.name %></td>
+        <td><%= link_to room.name, room_path(room.id) %></td>
         <td><%= room.location %></td>
         <td><%= room.students %></td>
         <td>
-          <%= link_to 'Show', room_path(room.id) %>
-          <%= link_to 'Aluguel', appointment_path(room.id) %>
+          <%= link_to appointment_path(room.id), class: "icons" do %>
+            <%= image_tag "calendar.png" %>
+          <% end %>
           <% if current_user.is_admin? %>
-            <%= link_to 'Edit', edit_room_path(room.id) %>
-            <%= link_to 'Deletar', room_path(room), method: :delete, data: {confirm: "Are you sure?"} %>
+            <%= link_to edit_room_path(room.id), class: "icons" do %>
+              <%= image_tag "edit.png" %>
+            <% end %>
+            <%= link_to room_path(room), class: "icons", method: :delete, data: {confirm: "Are you sure?"} do %>
+              <%= image_tag "bin.png" %>
+            <% end %>
           <% end %>
         </td>
       </tr>
