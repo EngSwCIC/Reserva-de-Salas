@@ -6,11 +6,12 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
     context 'when admin is signed in' do
       # Gustavo
       it 'Estado muda para aprovado' do
-        pending(':status == 1')
+        pending(':status == 2')
       end
       # Rafael
       it 'Estado muda para reprovado' do
-        pending(':status == 0')
+        app = Appointment.new(:status => 0)
+        expect(app.status).to eq(0)
       end
       # Tong
       it 'Estado sem mudança' do

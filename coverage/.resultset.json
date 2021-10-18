@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/app/spec/controllers/all_appointments_spec.rb": [
+      "/app/spec/views/appointments/all_appointments_spec.rb": [
         1,
         null,
         1,
@@ -11,6 +11,17 @@
         null,
         1,
         1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        null,
+        null,
         null,
         null
       ],
@@ -806,8 +817,19 @@
         null,
         null,
         null
+      ],
+      "/app/app/models/appointment.rb": [
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null
       ]
     },
-    "timestamp": 1634234384
+    "timestamp": 1634576959
   }
 }
