@@ -6,6 +6,7 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
 
   describe 'POST #update' do
     context 'when admin is signed in' do
+      # Approved appointment 0 <- (1) -> 2
       before do
         @room = FactoryBot.create(:room)
         @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
@@ -13,7 +14,6 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
       
       # Checks if appointment status is approved
       it 'Estado muda para aprovado' do
-        # Approved appointment 0 <- (1) -> 2
         @appointment.status = 2
         expect(@appointment.status).to eq(2)
       end
@@ -25,9 +25,9 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
       end
 
       # Tong
-      it 'Estado sem mudança' do
-        @appointment.status = status
-        #pending(':status == inicial/default')
+      it 'Estado solicitado' do
+        @appointment.status = 1
+        expect(@appointment.status).to eq(1)
       end  
     end
   end
