@@ -26,7 +26,8 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
 
       # Tong
       it 'Estado sem mudança' do
-        pending(':status == inicial/default')
+        @appointment.status = status
+        #pending(':status == inicial/default')
       end  
     end
   end
