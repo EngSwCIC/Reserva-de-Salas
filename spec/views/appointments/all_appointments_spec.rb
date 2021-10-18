@@ -13,7 +13,8 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
   
       # Rafael
       it 'Estado muda para reprovado' do
-        pending(':status == 0')
+        app = Appointment.new(:status => 0)
+        expect(app.status).to eq(0)
       end
       # Tong
       it 'Estado sem mudança' do
