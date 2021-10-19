@@ -10,8 +10,13 @@ class RoomsController < ApplicationController
 	end
 
 	def show
-		@room = Room.find(params[:id])
-
+		begin
+			@room = Room.find(params[:id])
+		rescue
+			flash[:alert] = "A sala procurada não existe!"
+			redirect_to rooms_path
+			return
+		end
 		if params.has_key?(:filter) and params[:filter] == "history"
 			@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all.order("appointment_date DESC, start_time DESC")
 		else
@@ -32,6 +37,7 @@ class RoomsController < ApplicationController
 			flash[:notice] = "A sala foi editada com sucesso!"
 		else
 			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+			flash.keep(:danger)
 			render 'edit'
 		end
 	end

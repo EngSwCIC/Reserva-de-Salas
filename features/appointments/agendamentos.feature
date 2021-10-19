@@ -19,6 +19,7 @@ Funcionalidade: Eu, como administrador, estando na página "Salas Existentes", g
         Dado que o banco possui ao menos uma sala cadastrada
         E que o usuário esteja logado como administrador
         E que o usuário esteja na página "Salas Existentes"
+        E que a sala possua ao menos um agendamento
         Quando eu clicar no nome da sala 
         Então eu devo ser redirecionado para a página da sala
     
@@ -35,7 +36,8 @@ Funcionalidade: Eu, como administrador, estando na página "Salas Existentes", g
     Cenário: Acessar as informações de uma sala 
         Dado que o banco possui ao menos uma sala cadastrada
         E que o usuário esteja logado como administrador
-        E que o usuário esteja na página "Salas Existentes"
+        E que o usuário esteja na página Salas Existentes
+        E que a sala possua ao menos um agendamento
         Quando eu manualmente digitar a URL no navegador para acessar a página de uma sala
         E não existir um registro correspondente a URL
         Então eu devo ser redirecionado para uma página que informe ao usuário que a sala em questão não existe.
