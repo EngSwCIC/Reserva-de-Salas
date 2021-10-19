@@ -1,7 +1,10 @@
 Dado("que o banco possui ao menos uma sala cadastrada") do
-	@room = Room.create(name: "teste#{Time.now.utc}", location: 'locationTeste')
+	if ! Room.exists(name: "teste") then
+		@room = Room.create(name: "teste", location: 'locationTeste')
+	else
+		@room = Room.where(name: "teste")[0]
+	end
 end
-
 
 Dado("que o usuário esteja logado como administrador") do
 	@user = User.create(username: 'lupas', email: 'lupas@lupas.lupas', password: 'lupasseed', 
@@ -12,36 +15,16 @@ Dado("que o usuário esteja logado como administrador") do
   	click_button "Log in"
 end
 
-Dado('que a sala possua ao menos um agendamento') do
-	@appointment = Appointment.new
-    @appointment.appointment_date = Date.today + 1
-    @appointment.start_time = '8:00:00'
-    @appointment.user_id = @user.id
-    @appointment.room_id = @room.id
-    @appointment.save
-
-    @appointment = Appointment.new
-    @appointment.appointment_date = Date.today - 7
-    @appointment.start_time = '6:00:00'
-    @appointment.user_id = @user.id
-    @appointment.room_id = @room.id
-    @appointment.save
-end
-
 Dado('que o usuário esteja na página "Salas Existentes"') do
-	visit('/rooms')
+	visit(rooms_path)
 end
 
 Quando("eu clicar no nome da sala") do
-	visit("/rooms/#{@room.id}")
+	click_link("teste")
 end
 
-Quando("eu clicar em {str}") do |str|
-	if str == "Agendamentos" then
-		visit("/rooms/#{@room.id}?filter=appointments")
-	else
-		visit("/rooms/#{@room.id}?filter=history")
-	end
+Então("eu devo ser redirecionado para a página da sala") do
+	expect(current_path).to eq(room_path(@room.id))
 end
 
 Então("eu devo ver a lista com todos os agendamentos atuais da sala em questão") do
