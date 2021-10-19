@@ -5,7 +5,7 @@ RSpec.describe RoomsController, type: :controller do
     let(:user) { FactoryBot.create(:user) }
 
     today = Date.today
-    p
+    
     describe "GET #show" do
         context "when there are some appointments for a room" do
             
