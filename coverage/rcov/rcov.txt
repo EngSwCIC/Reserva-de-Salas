@@ -60,13 +60,14 @@ metric_fu shift the first line
 --   end
 -- 
      def update
-!!     @appointment = Appointment.find(params[:id])
-!!     if @appointment.update(appointment_params)
-!!       redirect_to all_appointments_path
-!!       flash.now[:notice] = "O aluguél foi editado com sucesso!"
+       @appointment = Appointment.find(params[:id])
+       byebug
+       if @appointment.update(appointment_params)
+         redirect_to all_appointments_path
+         flash.now[:notice] = "O aluguél foi editado com sucesso!"
 --     else
-!!       flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
-!!       render 'edit'
+         flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
+         render 'edit'
 --     end
 --   end
 -- 
@@ -76,7 +77,7 @@ metric_fu shift the first line
 --   end
 -- 
      def all_appointments
-!!     @appointments = Appointment.all
+       @appointments = Appointment.all
 -- 
 --   end
 -- 
@@ -90,7 +91,7 @@ metric_fu shift the first line
      private
 -- 
      def appointment_params
-!!     params.require(:appointment).permit(:status)
+       params.require(:appointment).permit(:status)
 --   end
 -- end
 
@@ -100,6 +101,7 @@ metric_fu shift the first line
    class RoomsController < ApplicationController
    	before_action :signed_in?
    	before_action :is_admin?, only: [:new, :create, :destroy]
+   	skip_before_action :verify_authenticity_token
    	def new
    		@room = Room.new
 -- 	end
@@ -117,32 +119,32 @@ metric_fu shift the first line
 -- 	end
 -- 
    	def update
-!! 		@room = Room.find(params[:id])
-!! 		if @room.update(room_params)
-!! 			redirect_to @room
-!! 			flash[:notice] = "A sala foi editada com sucesso!"
+   		@room = Room.find(params[:id])
+   		if @room.update(room_params)
+   			redirect_to @room
+   			flash[:notice] = "A sala foi editada com sucesso!"
 -- 		else
-!! 			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
-!! 			render 'edit'
+   			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+   			render 'edit'
 -- 		end
 -- 	end
 -- 
    	def create
-!! 		@room = Room.new(room_params)
-!! 		if @room.save
-!! 			flash[:notice] = "A sala foi criada com sucesso!"
-!! 			redirect_to backoffice_path
+   		@room = Room.new(room_params)
+   		if @room.save
+   			flash[:notice] = "A sala foi criada com sucesso!"
+   			redirect_to backoffice_path
 -- 		else
-!! 			flash[:danger] = "A sala não pôde ser criada!"
-!! 			redirect_to backoffice_path
+   			flash[:danger] = "A sala não pôde ser criada!"
+   			redirect_to backoffice_path
 -- 		end
 -- 	end
 -- 
    	def destroy
-!! 		@room = Room.find(params[:id])
-!! 		@room.destroy
-!! 		flash[:danger] = "A sala foi excluída"
-!! 		redirect_to backoffice_path
+   		@room = Room.find(params[:id])
+   		@room.destroy
+   		flash[:danger] = "A sala foi excluída"
+   		redirect_to backoffice_path
 -- 	end
 -- 
 -- 
@@ -173,7 +175,7 @@ metric_fu shift the first line
 -- 	# Assim como para renderizar na view do usuário, e assim um usuário não administrador
 -- 	# poder ver a capacidade máxima da sala
    	def room_params
-!! 		params.require(:room).permit(:name, :location, :students)
+   		params.require(:room).permit(:name, :location, :students)
 -- 	end
 -- end
 
@@ -282,6 +284,7 @@ metric_fu shift the first line
      belongs_to :user
      validates_presence_of :start_time
      validates_presence_of :appointment_date
+     validates_presence_of :status
 -- end
 
 ================================================================================
@@ -875,6 +878,7 @@ metric_fu shift the first line
        factory :appointment do
            appointment_date {'22-06-2018'}
            start_time {'10:00:00'}
+           status {0}
 --     end
 -- end
 
@@ -1108,6 +1112,22 @@ metric_fu shift the first line
 --         end
 --     end
 -- 
+       describe 'GET #all_appointments' do
+           context 'params are valid' do
+               before do 
+                   sign_in user
+                   @room = FactoryBot.create(:room)
+                   @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                   @appointment2 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                   get '/all-appointments'
+--             end
+--             
+               it 'renders my appointments template' do
+                   expect(response).to render_template(:all_appointments)
+--             end
+--         end
+--     end
+-- 
        describe 'DELETE #destroy' do
            context 'when appointment exists' do
                let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
@@ -1120,6 +1140,79 @@ metric_fu shift the first line
 -- 
                it 'deletes a appointment' do
                    expect(Appointment.find_by(appointment_date: appointment_params[:appointment_date])).not_to be_truthy
+--             end
+--         end
+--     end
+-- 
+--     # describe 'PATCH #update' do    
+--     #     context 'when appointment exists' do
+--     #         let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
+--     #         before do
+--     #             sign_in user
+--     #             @room = FactoryBot.create(:room)
+--     #             @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+--     #             post "/appointments", params: @appointment
+-- 
+--     #             @appointment_data = FactoryBot.attributes_for(:appointment, :start_time => '12:00:00')
+--     #             patch "/appointments/#{@appointment.id}", params: @appointment_data
+--     #         end
+-- 
+--     #         it 'should persist through database' do
+--     #             expect(Appointment.find_by(:start_time => @appointment_data[:start_time])).to be_truthy
+--     #         end
+-- 
+--     #         context 'when params are valid' do
+--     #             before do
+--     #                 @appointment_credentials = FactoryBot.attributes_for(:appointment, :start_time => '12:00:00')
+--     #                 patch "/appointments/#{@appointment.id}", params: @appointment_credentials
+--     #             end
+-- 
+--     #             it 'should persist through database' do
+--     #                 expect(Appointment.find_by(:start_time => @appointment_credentials[:start_time])).to be_truthy
+--     #             end
+-- 
+--     #             it 'should render a success flash message' do
+--     #                 expect(flash[:notice]).not_to be_nil
+--     #             end
+--     #         end
+--     #     end
+--     # end
+-- 
+       describe 'PUT #update' do
+           before do
+               sign_in user
+               @room = FactoryBot.create(:room)
+--         end
+-- 
+           let(:appointment) { FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id) }
+-- 
+           context 'when params are valid' do        
+               let(:appointment_credentials) { FactoryBot.attributes_for(:appointment, :status => 1) }
+               before do
+                   put "/appointments/#{appointment.id}", params: { :appointment => appointment_credentials }
+--             end
+-- 
+               it 'should persist through database' do
+                   expect(Appointment.find_by(:status => appointment_credentials[:status])).to be_truthy
+--             end
+-- 
+               it 'should render a flash success message' do
+                   expect(flash[:notice]).not_to be_nil
+--             end
+--         end
+-- 
+           context 'when params are not valid' do
+               let(:appointment_credentials) { FactoryBot.attributes_for(:appointment, :status => nil) }
+               before do
+                   put "/appointments/#{appointment.id}", params: { :appointment => appointment_credentials }
+--             end
+-- 
+               it 'should not persist through database' do
+                   expect(Appointment.find_by(:status => appointment_credentials[:status])).not_to be_truthy
+--             end
+--             
+               it 'should render a flash danger message' do
+                   expect(flash[:danger]).not_to be_nil
 --             end
 --         end
 --     end

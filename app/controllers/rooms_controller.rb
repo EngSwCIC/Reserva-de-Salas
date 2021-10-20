@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
 	before_action :signed_in?
 	before_action :is_admin?, only: [:new, :create, :destroy]
+	skip_before_action :verify_authenticity_token
 	def new
 		@room = Room.new
 	end

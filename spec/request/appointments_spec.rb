@@ -79,6 +79,22 @@ RSpec.describe 'Appointment API', type: :request do
         end
     end
 
+    describe 'GET #all_appointments' do
+        context 'params are valid' do
+            before do 
+                sign_in user
+                @room = FactoryBot.create(:room)
+                @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                @appointment2 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                get '/all-appointments'
+            end
+            
+            it 'renders my appointments template' do
+                expect(response).to render_template(:all_appointments)
+            end
+        end
+    end
+
     describe 'DELETE #destroy' do
         context 'when appointment exists' do
             let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
@@ -91,6 +107,45 @@ RSpec.describe 'Appointment API', type: :request do
 
             it 'deletes a appointment' do
                 expect(Appointment.find_by(appointment_date: appointment_params[:appointment_date])).not_to be_truthy
+            end
+        end
+    end
+
+    describe 'PUT #update' do
+        before do
+            sign_in user
+            @room = FactoryBot.create(:room)
+        end
+
+        let(:appointment) { FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id) }
+
+        context 'when params are valid' do        
+            let(:appointment_credentials) { FactoryBot.attributes_for(:appointment, :status => 1) }
+            before do
+                put "/appointments/#{appointment.id}", params: { :appointment => appointment_credentials }
+            end
+
+            it 'should persist through database' do
+                expect(Appointment.find_by(:status => appointment_credentials[:status])).to be_truthy
+            end
+
+            it 'should render a flash success message' do
+                expect(flash[:notice]).not_to be_nil
+            end
+        end
+
+        context 'when params are not valid' do
+            let(:appointment_credentials) { FactoryBot.attributes_for(:appointment, :status => nil) }
+            before do
+                put "/appointments/#{appointment.id}", params: { :appointment => appointment_credentials }
+            end
+
+            it 'should not persist through database' do
+                expect(Appointment.find_by(:status => appointment_credentials[:status])).not_to be_truthy
+            end
+            
+            it 'should render a flash danger message' do
+                expect(flash[:danger]).not_to be_nil
             end
         end
     end
