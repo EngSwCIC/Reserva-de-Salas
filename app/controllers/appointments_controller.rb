@@ -1,4 +1,6 @@
 class AppointmentsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def new
     @appointment = Appointment.new
     @room = Room.find(params[:id])
