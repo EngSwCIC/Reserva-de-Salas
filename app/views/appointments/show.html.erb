@@ -2,30 +2,6 @@
 <h3>Location: <%=@room.location %></h3>
 <p><%= @room.name%> : <%= @room.location%></p>
 
-<%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label>Dia do aluguel</label>
-      <%= form.date_field :appointment_date, class: 'form-control'  %>
-    </div>
-    <div class="form-group col-md-6">
-      <label>Horário</label>
-      <%= form.select :start_time, options_for_select([['6:00 - 8:00', "6:00"], ['8:00 - 10:00', "8:00"], ['10:00 - 12:00', "10:00"],
-                                                       ['12:00 - 14:00', "12:00"], ['14:00 - 16:00', "14:00"], ['16:00 - 18:00', "16:00"], ['18:00 - 20:00', "18:00"], ['20:00 - 22:00', "20:00"],
-                                                       ['22:00 - 24:00', "22:00"]]),
-                      {}, class: "form-control" %>
-    </div >
-
-    <div class="form-group col-md-12">
-        <label> Descrição </label>
-        <%= form.text_area :description, rows: 3, class:"form-control" %>
-    </div>
-
-    <div class="form-group col-md-6">
-      <%= form.submit "Alugar", class: 'btn btn-success' %>
-    </div>
-  </div>
-<% end %>
 <br>
 <div class="table-responsive">
   <table class="table table-bordered">
@@ -50,21 +26,25 @@
             <% app = appointment.start_time.hour.minutes.to_i  %>
             <% if appointment.appointment_date == date and app >= Time.parse("0#{start_t.to_s}:00").hour.minutes.to_i and app < Time.parse("0#{end_t.to_s}:00").hour.minutes.to_i %>
               <td class="text-center align-middle">
-                  <span>
-                    <% if appointment.status == 1 %>
-                      Situação: <span style="color: CadetBlue" >Solicitado</span>
-                    <% elsif appointment.status == 2 %>
-                      Situação: <span style="color: green" >Aprovado</span>
-                    <% else %>
-                      Situação: <span style="color: red" >Reprovado</span>
-                    <% end %>
-                  </span>
+                  <button type="button" class="btn btn-danger disabled">    
+                    <span>
+                      <% if appointment.status == 1 %>
+                        Indisponível
+                      <% elsif appointment.status == 2 %>
+                        Aprovado
+                      <% else %>
+                        Reprovado
+                      <% end %>
+                    </span>
+                  </button>
               </td>
               <% found = true %>
             <% end %>
           <% end %>
           <% if found == false %>
-            <td class="text-center align-middle" style="color: green">Vago!</td>
+            <td class="text-center align-middle" style="color: green">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Reservar</button>
+            </td>
           <% end %>
         <% end %>
       </tr>
@@ -78,3 +58,47 @@
 </div>
 <br>
 <%= link_to 'Voltar', rooms_path, class: 'btn btn-secondary' %>
+
+<!-- Modal para reservar sala -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reservar sala - <%=@room.name %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Dia do aluguel</label>
+            <%= form.date_field :appointment_date, class: 'form-control'  %>
+          </div>
+          <div class="form-group col-md-6">
+            <label>Horário</label>
+            <%= form.select :start_time, options_for_select([['6:00 - 8:00', "6:00"], ['8:00 - 10:00', "8:00"], ['10:00 - 12:00', "10:00"],
+                                                            ['12:00 - 14:00', "12:00"], ['14:00 - 16:00', "14:00"], ['16:00 - 18:00', "16:00"], ['18:00 - 20:00', "18:00"], ['20:00 - 22:00', "20:00"],
+                                                            ['22:00 - 24:00', "22:00"]]),
+                            {}, class: "form-control" %>
+          </div >
+    
+          <div class="form-group col-md-12">
+              <label> Descrição </label>
+              <%= form.text_area :description, rows: 3, class:"form-control" %>
+          </div>
+    
+          <div class="form-group col-md-6">
+            <%= form.submit "Alugar", class: 'btn btn-success' %>
+          </div>
+        </div>
+      <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Reservar</button>
+      </div>
+    </div>
+  </div>
+</div>
