@@ -1,6 +1,7 @@
 			#language: pt
 			#encoding: utf-8
 
+		@wip
 		Funcionalidade: Listar todas as salas do sistema
 			Como Administrador do sistema
 			Eu quero ver uma lista de todas as salas disponíveis no sistema
@@ -11,13 +12,14 @@
 
 		# Caminho Feliz
 			Esquema do Cenario: Listar todas as salas
-			E que exista uma sala com nome "<name>", locaização "<location>" e capacidade da sala "<students>"
-			Quando eu clicar no link "Todos as salas"
+			Dado que existam salas com nome "<name>", locaização "<location>" e capacidade da sala "<students>"
+			Então aparece um numero "<rooms>" mostrando a quantidade de salas no sistema
+			E eu clicar no link "Todos as salas"
 			Então eu devo ver uma tabela com os dados:
 
-			| name     | <name>     |
-			| location | <location> |
-			| students | <students> |
+			| name               | <name>     |
+			| location           | <location> |
+			| students           | <students> |
 
 			Exemplos:
 			| name                   | location                                                | students |
