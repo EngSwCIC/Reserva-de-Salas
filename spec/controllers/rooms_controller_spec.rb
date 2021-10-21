@@ -53,5 +53,19 @@ RSpec.describe RoomsController, type: :controller do
             end
             
         end
+
+        context "when the user tries to access a non-existent room" do
+            before do
+                get :show, params: {id: -1}
+            end
+
+            it "redirects to the index page" do
+                expect(response).to redirect_to(rooms_path)
+            end
+
+            it "shows an error message" do
+                expect(page).to have_content("A sala procurada não existe!")
+            end
+        end
     end
 end
