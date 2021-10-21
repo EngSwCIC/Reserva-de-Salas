@@ -20,12 +20,7 @@ metric_fu shift the first line
 ================================================================================
    class AppointmentsController < ApplicationController
      skip_before_action :verify_authenticity_token
--- 
-     def new
-!!     @appointment = Appointment.new
-!!     @room = Room.find(params[:id])
---   end
--- 
+--   
 --   ##
 --   # POST /appointments
 --   # registra o aluguel de uma sala, feito pelo usuário autenticado e
@@ -56,12 +51,11 @@ metric_fu shift the first line
 --   end
 -- 
      def edit
-!!     @appointment = Appointment.find(params[:id])
+       @appointment = Appointment.find(params[:id])
 --   end
 -- 
      def update
        @appointment = Appointment.find(params[:id])
-       byebug
        if @appointment.update(appointment_params)
          redirect_to all_appointments_path
          flash.now[:notice] = "O aluguél foi editado com sucesso!"
@@ -297,6 +291,7 @@ metric_fu shift the first line
    	has_many :users, :through => :appointments
    	validates :name, presence: true, length: {minimum: 3, maximum: 50}
    	validates :location, presence: true, length: {minimum: 3, maximum: 50}
+   	validates :students, presence: true
 -- end
 
 ================================================================================
@@ -1128,6 +1123,21 @@ metric_fu shift the first line
 --         end
 --     end
 -- 
+       describe 'GET #edit' do
+           context 'params are valid' do
+               before do 
+                   sign_in user
+                   @room = FactoryBot.create(:room)
+                   @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                   get "/appointments/#{@appointment.id}/edit"
+--             end
+--             
+               it 'renders edit template' do
+                   expect(response).to render_template(:edit)
+--             end
+--         end
+--     end
+-- 
        describe 'DELETE #destroy' do
            context 'when appointment exists' do
                let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
@@ -1143,40 +1153,6 @@ metric_fu shift the first line
 --             end
 --         end
 --     end
--- 
---     # describe 'PATCH #update' do    
---     #     context 'when appointment exists' do
---     #         let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
---     #         before do
---     #             sign_in user
---     #             @room = FactoryBot.create(:room)
---     #             @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
---     #             post "/appointments", params: @appointment
--- 
---     #             @appointment_data = FactoryBot.attributes_for(:appointment, :start_time => '12:00:00')
---     #             patch "/appointments/#{@appointment.id}", params: @appointment_data
---     #         end
--- 
---     #         it 'should persist through database' do
---     #             expect(Appointment.find_by(:start_time => @appointment_data[:start_time])).to be_truthy
---     #         end
--- 
---     #         context 'when params are valid' do
---     #             before do
---     #                 @appointment_credentials = FactoryBot.attributes_for(:appointment, :start_time => '12:00:00')
---     #                 patch "/appointments/#{@appointment.id}", params: @appointment_credentials
---     #             end
--- 
---     #             it 'should persist through database' do
---     #                 expect(Appointment.find_by(:start_time => @appointment_credentials[:start_time])).to be_truthy
---     #             end
--- 
---     #             it 'should render a success flash message' do
---     #                 expect(flash[:notice]).not_to be_nil
---     #             end
---     #         end
---     #     end
---     # end
 -- 
        describe 'PUT #update' do
            before do

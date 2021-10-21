@@ -95,6 +95,21 @@ RSpec.describe 'Appointment API', type: :request do
         end
     end
 
+    describe 'GET #edit' do
+        context 'params are valid' do
+            before do 
+                sign_in user
+                @room = FactoryBot.create(:room)
+                @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                get "/appointments/#{@appointment.id}/edit"
+            end
+            
+            it 'renders edit template' do
+                expect(response).to render_template(:edit)
+            end
+        end
+    end
+
     describe 'DELETE #destroy' do
         context 'when appointment exists' do
             let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
