@@ -4,4 +4,4 @@ class HomeController < ApplicationController
 		redirect_to backoffice_path
 	  end
 	end
-  end
+end
