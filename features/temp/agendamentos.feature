@@ -15,31 +15,31 @@ Funcionalidade: Eu, como administrador, estando na página "Salas Existentes", g
     #   5) Por que melhorar a qualidade de ensino da instituição? Melhorar o futuro da nação.
     # T : Cronometrado, pois possui 3 pontos no Tracker. Caso a dificuldade se demonstre maior do que a esperada, é possível dividir a feature em dois ciclos: um para exibir os agendamentos atuais e outro para os passados.
 
-    Cenário de fundo: 
+    Contexto:  
         Dado que o banco possui ao menos uma sala cadastrada
         E que o usuário esteja logado como administrador
         E que o usuário esteja na página "Salas Existentes"
-        Quando eu clicar no nome da sala 
-        Então eu devo ser redirecionado para a página da sala
+        
     
     # Caminho Feliz
     Cenário: Ver agendamentos atuais de uma sala
+        Quando eu clicar no nome da sala 
+        Então eu devo ser redirecionado para a página da sala
+        Dado que a sala possua um agendamento às "10" horas para daqui a "7" dias a contar do dia de hoje
+        E que a sala possua um agendamento às "12" horas para daqui a "15" dias a contar do dia de hoje
         Quando eu clicar em "Agendamentos"
-        Então eu devo ver a lista com todos os agendamentos atuais da sala em questão
+        Então eu devo ver uma lista que contenha esses dois agendamentos
 
     Cenário: Ver histórico de agendamentos de uma sala
-        Quando eu clicar em "Histórico de Agendamentos"
-        Então eu devo ver a lista com todos os agendamentos passados da sala em questão
+        Quando eu clicar no nome da sala 
+        Então eu devo ser redirecionado para a página da sala
+        Dado que a sala possua um agendamento às "10" horas há "7" dias
+        E que a sala possua um agendamento às "12" horas há "6" dias
+        Quando eu clicar em "Histórico"
+        Então eu devo ver uma lista que contenha esses dois agendamentos
 
     # Caminho Triste
     Cenário: Acessar as informações de uma sala 
-        Dado que o banco possui ao menos uma sala cadastrada
-        E que o usuário esteja logado como administrador
-        E que o usuário esteja na página "Salas Existentes"
         Quando eu manualmente digitar a URL no navegador para acessar a página de uma sala
         E não existir um registro correspondente a URL
-        Então eu devo ser redirecionado para uma página que informe ao usuário que a sala em questão não existe.
-
-    
-
-    
+        Então eu devo ser redirecionado para página "Salas Existentes" e informado do erro.

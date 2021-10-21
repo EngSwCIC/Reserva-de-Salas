@@ -25,5 +25,3 @@ Funcionalidade: Eu como usuário (normal/admin) gostaria de, ao efetuar o login,
         Dado que o usuário efetuou o login utilizando credenciais inválidas
         Então ele deve permanecer na página de login
         E deve ser avisado de que as credenciais são inválidas.
-
-    

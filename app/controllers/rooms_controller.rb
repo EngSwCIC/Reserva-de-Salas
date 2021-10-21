@@ -10,20 +10,20 @@ class RoomsController < ApplicationController
 	end
 
 	def show
-		begin
-			@room = Room.find(params[:id])
-		rescue
+		@room = Room.where("id = ?", params[:id])
+		
+		if @room.blank? then
 			flash[:alert] = "A sala procurada não existe!"
 			redirect_to rooms_path
-			return
-		end
-		if params.has_key?(:filter) and params[:filter] == "history"
-			@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all.order("appointment_date DESC, start_time DESC")
 		else
-			@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all.order("appointment_date ASC, start_time ASC")
+			if params.has_key?(:filter) and params[:filter] == "history"
+				@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date DESC, start_time DESC")
+			else
+				@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date ASC, start_time ASC")
+			end
+		
+			@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }	
 		end
-	
-		@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
 	end
 	
 	def edit
