@@ -99,10 +99,10 @@ RSpec.configure do |config|
 
   SimpleCov.formatter = SimpleCov::Formatter::MetricFu
   # or
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(Array([
     SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::MetricFu
-    ]
+    ]))
   SimpleCov.start
 
 end

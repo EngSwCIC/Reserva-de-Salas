@@ -9,18 +9,20 @@ Funcionalidade: Ver todos os horários reservados para o dia atual
 
   Contexto:
     Dado que eu sou administrador do sistema com email "admin@admin.com" senha "admin123"
-    E que eu esteja na pagina backoffice
+    E meu usuário admin é válido
 
   # Caminho Feliz
   Esquema do Cenario: Ver 1 horário
-    Dado que eu tenha aprovado uma reserva de um usuário no <dia> e horario <horario>
+    Dado que eu tenha aprovado uma reserva de um usuário para hoje no horario <horario>
+    E que eu esteja na pagina backoffice
     Então eu devo ver <horario> na tabela de horários
     Exemplos:
-    |dia |horario |
-    |Hoje|14:00|
-    |Hoje|16:00|
+    |horario |
+    |14:00|
+    |16:00|
 
   # Caminho Triste
   Cenário: Ver 0 horários
-    Então devo ver "Não há horários reservados hoje."
+    E que eu esteja na pagina backoffice
+    Então devo ver "Não há horários reservados para hoje."
 
