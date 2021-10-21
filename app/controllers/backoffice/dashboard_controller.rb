@@ -1,5 +1,3 @@
-require 'date'
-
 class Backoffice::DashboardController < BackofficeController
 	helper 'backoffice/dashboard'
 
