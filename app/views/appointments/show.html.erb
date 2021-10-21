@@ -9,7 +9,7 @@
     <tr class="text-center">
       <th scope="col">Horários/Dias</th>
       <% @dates.each do |date| %>
-        <th scope="col"><%= date %></th>
+        <th scope="col"><%= date.strftime("%a (%d/%b)") %></th>
       <% end %>
     </tr>
     </thead>
@@ -43,8 +43,8 @@
           <% end %>
           <% if found == false %>
             <td class="text-center align-middle" style="color: green">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Reservar</button>
-            </td>
+              <button type="button" class="btn btn-success btn-reservar" reservar-horario="<%=start_t%>" reservar-data="<%= date %>" data-toggle="modal" data-target="#reservaModal">Reservar</button>
+              </td>
           <% end %>
         <% end %>
       </tr>
@@ -60,45 +60,52 @@
 <%= link_to 'Voltar', rooms_path, class: 'btn btn-secondary' %>
 
 <!-- Modal para reservar sala -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="reservaModal" tabindex="-1" role="dialog" aria-labelledby="reservaModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Reservar sala - <%=@room.name %></h5>
+        <h5 class="modal-title" id="reservaModalLabel">Reservar sala - <%=@room.name %></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
       <%= form_with url: appointments_path(@room), :html => {class: "form-horizontal", role: "form"} do |form| %>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label>Dia do aluguel</label>
-            <%= form.date_field :appointment_date, class: 'form-control'  %>
-          </div>
-          <div class="form-group col-md-6">
-            <label>Horário</label>
-            <%= form.select :start_time, options_for_select([['6:00 - 8:00', "6:00"], ['8:00 - 10:00', "8:00"], ['10:00 - 12:00', "10:00"],
-                                                            ['12:00 - 14:00', "12:00"], ['14:00 - 16:00', "14:00"], ['16:00 - 18:00', "16:00"], ['18:00 - 20:00', "18:00"], ['20:00 - 22:00', "20:00"],
-                                                            ['22:00 - 24:00', "22:00"]]),
-                            {}, class: "form-control" %>
-          </div >
-    
-          <div class="form-group col-md-12">
-              <label> Descrição </label>
-              <%= form.text_area :description, rows: 3, class:"form-control" %>
-          </div>
-    
-          <div class="form-group col-md-6">
-            <%= form.submit "Alugar", class: 'btn btn-success' %>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Dia do aluguel</label>
+              <%= form.date_field :appointment_date_disabled, class: 'form-control appointment-date-form' , :disabled => true  %>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Horário</label>
+              <%= form.hidden_field :appointment_date, class: "appointment-date-form" %>
+              <%= form.hidden_field :start_time, class: "appointment-time-form" %>
+              <%= form.select :start_time_disabled, options_for_select([['6:00 - 8:00', "6:00"], ['8:00 - 10:00', "8:00"], ['10:00 - 12:00', "10:00"],
+                                                              ['12:00 - 14:00', "12:00"], ['14:00 - 16:00', "14:00"], ['16:00 - 18:00', "16:00"], ['18:00 - 20:00', "18:00"], ['20:00 - 22:00', "20:00"],
+                                                              ['22:00 - 24:00', "22:00"]]),
+                              {}, class: "form-control appointment-time-form", :disabled => true %>
+            </div >
+      
+            <div class="form-group col-md-12">
+                <label> Descrição </label>
+                <%= form.text_area :description, rows: 3, class:"form-control" %>
+            </div>
           </div>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <%= form.submit "Reservar", class: 'btn btn-primary' %>
+        </div>
       <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Reservar</button>
-      </div>
     </div>
   </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $(".btn-reservar").click(function() {
+            $(".appointment-date-form").val($(this).attr("reservar-data"));
+            $(".appointment-time-form").val($(this).attr("reservar-horario") + ":00");
+        });
+    });
+</script>
