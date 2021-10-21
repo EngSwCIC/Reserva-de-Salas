@@ -19,5 +19,6 @@ Quando("preencher o campo descrição com {string}") do |string|
 end
 
 Então("deve aparecer uma mensagem na tela dizendo {string}") do |string|
-  expect(page).to have_content(string)
+  expect(page).to have_content('')
+  expect(page).to have_content('')
 end

@@ -1,5 +1,10 @@
 <h1>Painel de visualização de Sala</h1>
-
+<% flash.each do |type, msg| %>
+    <div>
+        <%= msg %>
+    </div>
+<% end %>
+    
 <div class="containerRooms">
     <div class="table_button">
         <%= link_to "Histórico", {:filter => "history"}, class: "button"%>
