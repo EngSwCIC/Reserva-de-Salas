@@ -8,7 +8,7 @@ Dado("que eu esteja logado como administrador") do
     click_button "Log in"
 end
 
-E("que eu esteja na pagina principal") do
+E("que eu esteja na página principal") do
     visit dashboard_path
     expect(page).to have_text("Signed in as... admin@admin.admin")
 end
@@ -23,7 +23,7 @@ Quando("eu clico em {string}") do |string|
     click_link (string)
 end
 
-Então("eu devo estar na pagina {string}") do |string|
+Então("eu devo estar na página {string}") do |string|
     expect(current_path).to eq("#{string}")
 end
 
@@ -37,7 +37,7 @@ Quando("eu clico em {string}") do |string|
     click_link (string)
 end
 
-Então("eu devo estar na pagina {string}") do |string|
+Então("eu devo estar na página {string}") do |string|
     expect(current_path).to eq("#{string}")
 end
 
@@ -45,11 +45,11 @@ Dado("que a página {string} existe") do |page|
     expect(get "index", :params => {:page => page}).not_to raise_error(Pagy::Overflow)
 end
 
-Quando("eu clico em pagina {string}") do |page|
+Quando("eu clico em página {string}") do |page|
     click_link (page)
 end
 
-Então("eu devo estar na pagina {string}") do |page|
+Então("eu devo estar na página {string}") do |page|
     expect(current_path).to eq("/rooms?page=#{page}")
 end
 
@@ -63,7 +63,7 @@ Quando("eu clico em {string}") do |string|
     click_link (string)
 end
 
-Então("eu devo estar na pagina {string}") do |page|
+Então("eu devo estar na página {string}") do |page|
     expect(current_path).to eq("/rooms?page=#{page}")
 end
 
@@ -75,7 +75,7 @@ Então("eu devo estar na página {string}") do |page|
     expect(current_path).to eq("/rooms?page=#{page}")
 end
 
-Quando("eu tento acessar a pagina {string}") do |page|
+Quando("eu tento acessar a página {string}") do |page|
     visit("/rooms?page=#{page}")
 end
 
