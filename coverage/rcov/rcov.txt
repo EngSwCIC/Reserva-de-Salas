@@ -25,7 +25,6 @@ metric_fu shift the first line
    		@users = User.all
    		@rooms = Room.all
    		@appointments = Appointment.all
-   		@appointments_aprove = Appointment.where(status: 2)
 -- 	end
 -- end
 
@@ -34,26 +33,6 @@ metric_fu shift the first line
 ================================================================================
    class BackofficeController < ApplicationController
    	layout 'backoffice'
--- 
--- 	# def user_list
---  #    	@users = User.all
---  #  	end
--- 
--- 	# def new
---  #  		@user = User.new
---  #  		# @user.is_admin = true
--- 	# end
--- 
--- 	# def edit
---  #  		@user = User.find(params[:id])
--- 	# end
--- 
--- 	# def destroy
---  #  		@user = User.find(params[:id])
---  #  		@user.destroy
---  
--- 	# 	redirect_to backoffice
--- 	# end
 -- end
 
 ================================================================================
@@ -701,31 +680,41 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ./spec/controllers/dashboard_controller_spec.rb
+ ./spec/controllers/backoffice/dashboard_controller_spec.rb
 ================================================================================
    require 'rails_helper'
 -- 
    RSpec.describe Backoffice::DashboardController, type: :controller do
-       describe "GET #index" do 
-           it "returns http success" do
-               get :index
-               expect(response).to have_http_status(:success)
---         end
+     describe "GET #index" do
+       it "returns http success" do
+         get :index
+         expect(response).to have_http_status(:success)
 --     end
--- end
 -- 
--- #RSpec.describe Backoffice::DashboardController do
--- #    describe "number of reserved times" do
--- #        it "returns number of reserved timas appointments from" do
--- #
--- #            room = FactoryBot.build(:room, name: 'Sala 1')
--- #
--- #            expect(Room).to receive(:all).with(room.id).and_return(room)
--- #
--- #            expect(assigns(:number_appointments)). to eq(expected_result)
--- #        end
--- #    end
--- #end
+       context "when counting the amount of users" do
+         let(:users) { User.all }
+-- 
+         context "when there are some users" do
+           before do
+             user1 = create(:user, email: "user1@gmail.com", username: "user1")
+             user2 = create(:user, email: "user2@gmail.com", username: "user2")
+             user3 = create(:user, email: "user3@gmail.com", username: "user3")
+             user4 = create(:user, email: "user4@gmail.com", username: "user4")
+--         end
+-- 
+           it 'shows the correct amount of users' do
+             expect(users.count).to eq(4)
+--         end
+--       end
+-- 
+         context "when there are no users" do
+           it 'shows 0 users' do
+             expect(users.count).to eq(0)
+--         end
+--       end
+--     end
+--   end
+-- end
 
 ================================================================================
  ./spec/factories/appointment.rb
@@ -745,7 +734,7 @@ metric_fu shift the first line
            name {'Fake-123'}
            location {'Fake Location'}
            students {40}
-           id {1}
+-- 
 --     end
 -- end
 
@@ -769,6 +758,8 @@ metric_fu shift the first line
 -- # This file is copied to spec/ when you run 'rails generate rspec:install'
    require 'shoulda/matchers'
    require 'spec_helper'
+   require 'support/factory_bot'
+-- 
    ENV['RAILS_ENV'] ||= 'test'
    require File.expand_path('../../config/environment', __FILE__)
 -- # Prevent database truncation if the environment is production
@@ -835,5 +826,14 @@ metric_fu shift the first line
 --     end
 --   end
 -- 
+-- end
+
+================================================================================
+ ./spec/support/factory_bot.rb
+================================================================================
+   require 'factory_bot'
+-- 
+   RSpec.configure do |config|
+     config.include FactoryBot::Syntax::Methods
 -- end
 
