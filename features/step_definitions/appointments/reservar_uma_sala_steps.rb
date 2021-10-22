@@ -21,3 +21,33 @@ end
 Então("deve aparecer uma mensagem na tela dizendo {string}") do |string|
   expect(page).to have_content(string)
 end
+
+E("eu esteja na página principal") do
+  visit("/")
+end
+
+Quando('clicar na célula verde correspondente ao horário de {string} de segunda-feira') do |horario|
+  dia = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).first.strftime("%Y-%m-%d")
+  hora = /\d+/.match(horario)
+  click_button('Reservar', { :title => "#{hora}_#{dia}" })
+end
+
+Quando('clicar na célula vermelha correspondente ao horário de {string} de segunda-feira') do |horario|
+  dia = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).first.strftime("%Y-%m-%d")
+  hora = /\d+/.match(horario)
+  click_button('Indisponível', { :title => "#{hora}_#{dia}" })
+end
+
+Então('deve aparecer uma modal na tela com a sala {string} e o horário de {string} de segunda-feira') do |nome, horario|
+  within('#reservaModal') do
+    expect(page).to have_content(horario)
+    expect(page).to have_content(nome)
+    # expect(page).to have_field('start_time_disabled', disabled: true, with: horario)
+  end
+end
+
+E('clicar no botão Reservar') do
+  within('#reservaModal') do
+    click_button('Reservar')
+  end
+end

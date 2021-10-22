@@ -1,9 +1,6 @@
 class AppointmentsController < ApplicationController
-  def new
-    @appointment = Appointment.new
-    @room = Room.find(params[:id])
-  end
-
+  skip_before_action :verify_authenticity_token
+  
   ##
   # POST /appointments
   # registra o aluguel de uma sala, feito pelo usuário autenticado e
@@ -20,7 +17,7 @@ class AppointmentsController < ApplicationController
     @appointment.status = 1
     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
       redirect_to backoffice_path
-      flash[:notice] = "Alguel realizado com sucesso!"
+      flash[:notice] = "Sala reservada com sucesso!"
     else
       redirect_to backoffice_path
       flash[:danger] = "Algo deu errado!"
@@ -30,7 +27,7 @@ class AppointmentsController < ApplicationController
   def show
     @room = Room.find(params[:id])
     @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
-    @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
+    @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6)
   end
 
   def edit
