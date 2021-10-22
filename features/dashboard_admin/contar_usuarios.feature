@@ -9,12 +9,12 @@ Funcionalidade: contar todos os usuarios do sistema
         Dado que eu sou administrador do sistema com email "admin@admin.com" senha "admin123"
         E que eu esteja na pagina backoffice
 
-        Esquema do Cenário: Contar todos os usuários
+        Cenário: Contar todos os usuários
             E que existam vários usuário no sistema
             Quando eu entrar no dashboard de admin
             Então eu devo ver a contagem de todos os usuários
 
-        Esquema do Cenário: Contagem de usuários quando não tiver usuários
+        Cenário: Contagem de usuários quando não tiver usuários
             E que não tenha nenhum usuário no sistema
             Quando eu entrar no dashboard de admin
             Então nenhum usuário deve ser mostrado

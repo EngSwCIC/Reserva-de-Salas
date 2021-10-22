@@ -21,3 +21,6 @@
 /config/master.key
 .byebug_history
 .idea/
+
+/coverage
+/config/database.yml
