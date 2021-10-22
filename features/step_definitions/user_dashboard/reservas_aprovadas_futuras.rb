@@ -30,9 +30,9 @@ Dado("a reserva tenha sido aprovada") do
 end
 
 Então("eu devo ver três tabelas") do
-  expect(page).to have_table('aprovados')
+  expect(page).to have_table('aprovadas')
   expect(page).to have_table('pendentes')
-  expect(page).to have_table('expirados')
+  expect(page).to have_table('expiradas')
 end
 
 Então("eu devo ver um tabela com título {string}") do |string|

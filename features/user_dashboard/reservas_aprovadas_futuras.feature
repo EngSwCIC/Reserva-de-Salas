@@ -21,8 +21,7 @@ Funcionalidade: Visualização de reservas aprovadas com datas futuras
 
   Cenário: Um usuário falha em visualizar suas reservas aprovadas com datas futuras
     Dado que exista uma sala cadastrada no sistema
-    E a reserva desta sala tenha sido realizado pelo o usuáro para o dia atual
-    E a reserva tenha sido aprovada 
+    E a reserva desta sala tenha sido realizado pelo o usuáro para o dia atual 
     Então eu devo ver três tabelas
     E eu devo ver um tabela com título "Reservas Aprovadas"
     E eu não devo ver nenhuma reserva nessa tabela com data futura 	
