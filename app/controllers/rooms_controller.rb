@@ -10,12 +10,11 @@ class RoomsController < ApplicationController
 	end
 
 	def show
-		@room = Room.where("id = ?", params[:id])
-		
-		if @room.blank? then
+		if ! Room.exists?(id: params[:id]) then
 			flash[:alert] = "A sala procurada não existe!"
 			redirect_to rooms_path
 		else
+			@room = Room.where("id = ?", params[:id])
 			if params.has_key?(:filter) and params[:filter] == "history"
 				@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date DESC, start_time DESC")
 			else

@@ -72,7 +72,7 @@ end
 
 
 Quando("eu manualmente digitar a URL no navegador para acessar a página de uma sala") do
-	@room_path = room_path("-1")
+	@room_path = room_path("X")
 end
 
 Quando("não existir um registro correspondente a URL") do

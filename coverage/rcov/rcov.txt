@@ -27,15 +27,19 @@ metric_fu shift the first line
 -- 	end
 -- 
    	def show
-   		@room = Room.find(params[:id])
--- 
-   		if params.has_key?(:filter) and params[:filter] == "history"
-   			@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all.order("appointment_date DESC, start_time DESC")
+   		if ! Room.exists?(id: params[:id]) then
+   			flash[:alert] = "A sala procurada não existe!"
+   			redirect_to rooms_path
 -- 		else
-   			@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all.order("appointment_date ASC, start_time ASC")
+   			@room = Room.where("id = ?", params[:id])
+   			if params.has_key?(:filter) and params[:filter] == "history"
+   				@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date DESC, start_time DESC")
+-- 			else
+   				@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date ASC, start_time ASC")
+-- 			end
+-- 		
+   			@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }	
 -- 		end
--- 	
-   		@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
 -- 	end
 -- 	
    	def edit
@@ -49,6 +53,7 @@ metric_fu shift the first line
 !! 			flash[:notice] = "A sala foi editada com sucesso!"
 -- 		else
 !! 			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+!! 			flash.keep(:danger)
 !! 			render 'edit'
 -- 		end
 -- 	end
@@ -769,7 +774,7 @@ metric_fu shift the first line
        let(:user) { FactoryBot.create(:user) }
 -- 
        today = Date.today
-       p
+--     
        describe "GET #show" do
            context "when there are some appointments for a room" do
 --             
@@ -816,6 +821,17 @@ metric_fu shift the first line
 --                 end
 --             end
 --             
+--         end
+-- 
+           context "when the user tries to access a non-existent room" do
+               before do
+                   sign_in user
+                   get :show, params: {id: 'X'}
+--             end
+-- 
+               it "redirects to the index page" do
+                   expect(response).to redirect_to(rooms_path)
+--             end
 --         end
 --     end
 -- end

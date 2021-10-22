@@ -2,6 +2,12 @@
   <%= stylesheet_link_tag 'header' %>
 <% end %>
 
+<% flash.each do |type, msg| %>
+  <div>
+    <%= msg %>
+  </div>
+<% end %>
+
 <h1>Listagem de salas</h1>
 <table class="table table-bordered">
   <thead>
