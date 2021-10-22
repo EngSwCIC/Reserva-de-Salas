@@ -8,37 +8,23 @@ Dado("que eu sou administrador do sistema  com o email {string} e a senha {strin
   click_button "Log in"
 end
 
-Dado("eu esteja no {string}") do |string|
-  expect(current_path).to eq("/#{string}")
+Dado("que as salas estejam cadstradas como {string}, {string}, {int}") do |name, location, students|
+  @room = Room.create(name: name, location: location, students: students)
+end
+
+Quando("tiverem sido criadas três salas no sistema") do |name, location, students|
+  @room1 = Room.create(name: name, location: location, students: students)
+  @room2 = Room.create(name: name, location: location, students: students)
+  @room3 = Room.create(name: name, location: location, students: students)
+end
+
+Então("eu devo ver a contagem de 3 salas no backoffice") do
+  expect(Room.all).to eq(3)
 end
 
 
-Dado('que existam salas com nome {string}, locaização {string} e capacidade da sala {int}') do |string, string2, int|
-    @room = Room.new
-    @room.name = string1
-    @room.students = int
-    @room.location = string2
-    @room.save
-end
 
-Então('aparece um numero {int} mostrando a quantidade de salas no sistema') do |int|
-	@rooms = Room.all
-	@rooms_qnt = @rooms.length
-end
 
-E("eu clicar no botão {string}") do |string|
-  click_link (string)
-end
-
-Então("eu devo estar em uma página com uma lista contendo a sala {string}, a capacidade {int}, localizada no {string}") do |string,int, string3|
-  expect(page).to have_content(string).to be true
-  expect(page).to have_content(int).to be true
-  expect(page).to have_content(string3).to be true
-end
-
-Então('nenhuma sala deve ser mostrada') do 
-    expect(page.has_content?).to be true
-end
 
 
 
