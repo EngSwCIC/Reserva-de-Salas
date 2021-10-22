@@ -4,7 +4,7 @@ class Backoffice::DashboardController < BackofficeController
 	def index
 
 		@todays_appointments = Appointment.todays_appointments
-		@users = User.all
+		@users = User.where(is_admin: false)
 		@rooms = Room.all
 		@appointments = Appointment.all
 

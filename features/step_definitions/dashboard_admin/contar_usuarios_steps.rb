@@ -1,23 +1,37 @@
-Dado("que eu esteja logado como admin com o email {string} e a senha {string}") do |email, password|
-  User.create(username: 'yangalli', email: string, password: password,
-    registration: "160149207", course: "CIC", is_admin: true
+Dado('que eu sou o administrador do sistema com email {string} senha {string}') do |string, string2|
+  User.create(username: 'admin', email: string, password: string2,
+    registration: "15015296", course: "CIC", is_admin: true
   )
+
+  visit new_user_session_path
+
+  fill_in :user_email, with: string
+  fill_in :user_password, with: string2
+  click_button "Log in"
+end
+
+E("que eu esteja na pagina {string}") do |string|
+  visit(backoffice_path)
+  expect(page).to have_content(string)
+end
+
+Dado('que existam vários usuário no sistema') do
+  @user1 = User.create(username: "user1", password: "123456", email: "user1@gmail.com", registration: "160149207", course: "CIC", is_admin: false)
+  @user2 = User.create(username: "user2", password: "123456", email: "user2@gmail.com", registration: "160149207", course: "CIC", is_admin: false)
+  @user3 = User.create(username: "user3", password: "123456", email: "user3@gmail.com", registration: "160149207", course: "CIC", is_admin: false)
+end
+
+Quando('eu entrar no dashboard de admin') do
   visit backoffice_path
-  fill_in :user_email, with: email
-  fill_in :user_password, with: password
 end
 
-Dado("que eu esteja cadastrado como usuario {string}, {string}, {string}, {string}, {string}") do |email, password, course, registration, username|
-  @user = User.create(username: username, password: password,
-  email: email, registration: registration, course: course, is_admin: false)
+Então('eu devo ver a contagem de todos os usuários') do
+  expect(page.has_content?("Nº de Usuários 3")).to be true
 end
 
-Quando("tiverem sido criados três usuários no sistema") do |password, registration, course|
-  @user1 = User.create(username: "user1", password: password, email: "user1@gmail.com", registration: registration, course: course, is_admin: false)
-  @user2 = User.create(username: "user2", password: password, email: "user2@gmail.com", registration: registration, course: course, is_admin: false)
-  @user3 = User.create(username: "user3", password: password, email: "user3@gmail.com", registration: registration, course: course, is_admin: false)
+Dado('que não tenha nenhum usuário no sistema') do
 end
 
-Então("eu devo ver a contagem de 3 usuários no backoffice") do
-  expect(User.all).to eq(3)
+Então('nenhum usuário deve ser mostrado') do
+  expect(page.has_content?("Nº de Usuários 0")).to be true
 end

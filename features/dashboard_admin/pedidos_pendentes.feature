@@ -16,7 +16,7 @@ Para poder aceitar ou recusar um pedido.
         Quando eu clicar em "Mostrar os Pedidos Pendentes".
         Então eu devo ver uma tabela com todas as salas e horários reservados:
         |#número de reservas|Localização|Sala|Data|Horário da reserva|Usuário|Capacidade|Editar|
-        | Quantidade |<room_location>|<room_name>|<appointment_date>|<time>|<username>|<edit>|
+        | Quantidade |<room_location>|<room_name>|<appointment_date>|<time>|<username>|<capacity>|<edit>|
         E quando clicar na sala reservada se direcionar para o link de horários da sala
         E quando eu clicar no usuário ser direcionado para o link do perfil do usuário
         E quando eu clicar em editar, poder aceitar ou recusar a reserva..

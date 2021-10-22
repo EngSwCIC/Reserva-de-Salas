@@ -22,5 +22,5 @@
 .byebug_history
 .idea/
 
-/coverage/*
+/coverage
 /config/database.yml
