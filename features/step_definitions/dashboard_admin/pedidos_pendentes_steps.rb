@@ -6,21 +6,25 @@ Dado("que eu seja admin do sistema com email {string} e senha {string}") do |str
         registration: "15015296", course: "CIC", is_admin: true
     )
     visit new_user_session_path
-    fill_in :user_email, with: string
-    fill_in :user_password, with: string2
+    fill_in :user_email, with: @admin.email
+    fill_in :user_password, with: @admin.password
     click_button "Log in"
 end
 
-E("que eu esteja na pagina backoffice") do
+E("que eu esteja na pagina {string}") do |string|
     visit(backoffice_path)
-end
+    expect(page).to have_content(string)
+ end
 
 E("eu clicar no link {string}") do |string|
     click_link "#{string}"
-  end
+ end
 
+Quando("eu clicar no link {string}") do |string|
+    click_link "#{string}"
+end
 
-Então("eu devo estar em uma página com uma lista contendo os pedidos pendentes numero da reserva {int}, localizacao {string}, sala {string}, data {string}, horario da reserva {string}, usuario {string}, capacidade{int} e editar {string}") do |int ,string1, string2, string3, string4, string 5, string 6|
+Então("eu devo estar em uma página com uma lista contendo os pedidos pendentes numero da reserva {int}, localizacao {string}, sala {string}, data {string}, horario da reserva {string}, usuario {string}, capacidade{int} e editar {string}") do |int ,string1, string2, string3, string4, string5, string6|
     expect(page).to have_content(int)
     expect(page).to have_content(string1)
     expect(page).to have_content(string2)
@@ -31,11 +35,23 @@ Então("eu devo estar em uma página com uma lista contendo os pedidos pendentes
     expect(page).to have_content(string7) 
 end
 
-Quando("eu clicar no botao {string}") do |string|
+E("eu clicar em {string}") do |string|
     click_link("#{string}")
   end
-  
-  
-  Então("eu devo ver uma mensagem {string}") do |string|
+
+Entao("eu posso aceitar a reserva") do |field, value|
+   fill_in field, :value
+ end 
+ 
+ Quando("eu clicar no link {string}") do |string|
+  click_link "#{string}"
+end
+
+Entao("que eu esteja na pagina {string}") do |string|
+  visit(backoffice_path)
+  expect(page).to have_content(string)
+end
+
+Então("eu devo ver uma mensagem {string}") do |string|
     page.has_content?("#{string}")
   end
