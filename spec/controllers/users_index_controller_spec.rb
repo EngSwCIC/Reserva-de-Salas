@@ -36,7 +36,7 @@ describe UsersController do
             end
 
             it "should not be possible to redirect to page 2" do
-                #expect(get "show", :params => {:page => "2"}).to raise_error( overflow: :exception )
+                expect {get "show", :params => {:page => "2"}}.to raise_error(Pagy::OverflowError)
             end 
             
         end
