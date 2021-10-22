@@ -7,7 +7,7 @@ Funcionalidade: paginação do index do usuário
     Eu quero que o index de usuários tenha paginação, sendo exibidos N usuários por página.
 
 Contexto:
-   Dado que eu esteja cadastrado como administrador com o email "admin@admin.admin" e a senha "adminseed"
+   Dado que eu esteja logado como administrador com o email "admin@admin.admin" e a senha "adminseed"
    E que eu esteja logado
    E que eu quero acessar a lista dos usuarios existentes
 
