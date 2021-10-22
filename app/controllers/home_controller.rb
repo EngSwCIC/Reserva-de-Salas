@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   end
 
   def approved_appointments
-    Appointment.where(status: 2)
+    Appointment.where(status: 2).order('appointment_date ASC')
   end
 
 end

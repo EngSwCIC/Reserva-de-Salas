@@ -40,7 +40,7 @@ Então("eu devo ver um tabela com título {string}") do |string|
 end
 
 Então("eu devo ver pelo menos uma reserva nessa tabela com data futura") do
-  page.all('table#aprovados tr').count.should >= 1
+  page.all('table#aprovadas tr').count.should > 1
 end
 
 Dado("a reserva desta sala tenha sido realizado pelo o usuáro para o dia atual") do
@@ -48,5 +48,5 @@ Dado("a reserva desta sala tenha sido realizado pelo o usuáro para o dia atual"
 end
 
 Então("eu não devo ver nenhuma reserva nessa tabela com data futura") do
-  page.all('table#aprovados tr').count.should == 0
+  page.all('table#aprovadas tr').count.should == 1
 end
