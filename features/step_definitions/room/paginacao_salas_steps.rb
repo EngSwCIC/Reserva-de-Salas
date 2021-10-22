@@ -79,7 +79,7 @@ end
 
 Então("eu devo estar numa página vazia") do
     @rooms = Room.all
-    expect(@rooms.length).to_be === 0
+    expect(@rooms.length).to_be == 0
 end
 
 
