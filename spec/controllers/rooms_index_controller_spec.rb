@@ -40,7 +40,7 @@ describe RoomsController do
                 end
 
                 it "should not be possible to redirect to page 2"
-                    #expect(get "index", :params => {:page => "2"}).to raise_error( overflow: :exception )
+                    expect {get "index", :params => {:page => "2"}}.to raise_error(Pagy::OverflowError)
                 end
 
             end
@@ -60,7 +60,7 @@ describe RoomsController do
                 end
 
                 it "should not be possible to redirect to page 3"
-                    #expect(get "index", :params => {:page => "3"}).to raise_error( overflow: :exception )
+                    expect {get "index", :params => {:page => "2"}}.to raise_error(Pagy::OverflowError)
                 end
                 
             end
