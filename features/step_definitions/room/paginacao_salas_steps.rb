@@ -7,6 +7,15 @@ Dado("que eu esteja logado como administrador com o email {string} e a senha {st
     click_button "Log in"
 end
 
+E("que eu quero esteja logado") do
+    visit dashboard_path
+    expect(page).to have_text("Signed in as... admin@admin.admin")
+end
+
+E("que eu quero acessar a lista das salas existentes") do
+    expect(current_path).to eq("/backoffice")
+end
+
 Dado("que o banco possui até {int} salas") do |qtd|
     @rooms = Room.all
     expect(@rooms.length).to_be <= qtd
