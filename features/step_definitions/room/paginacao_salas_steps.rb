@@ -45,3 +45,42 @@ end
 Então("eu devo estar na página {int}") do |page|
     expect(current_path).to eq("/users/show?page=#{string}")
 end
+
+# Sad Path {int} salas 
+
+Dado("que o banco possui até {int} salas") do |qtd|
+    @rooms = Room.all
+    expect(@rooms.length).to_be <= qtd
+end
+
+Quando("eu clico em {string}") do |string|
+    click_link (string)
+end
+
+Então("eu devo estar na página {int}") do |page|
+    expect(current_path).to eq("/users/show?page=#{string}")
+end
+
+Quando("eu clico em {string}") do |string|
+    click_link (string)
+end
+
+Então("eu devo estar na próxima página de Lista de salas") do
+    expect(current_path).to eq("/users/show?page=2")
+end
+
+Quando("eu clico em {string}") do |string|
+    click_link (string)
+end
+
+E("todas as salas já foram exibidas") do
+    click_link (string)
+end
+
+Então("eu devo estar numa página vazia") do
+    @rooms = Room.all
+    expect(@rooms.length).to_be === 0
+end
+
+
+

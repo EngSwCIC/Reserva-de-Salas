@@ -33,5 +33,6 @@ Cenário: A lista é exibida com paginação, mas são exibidas páginas vazias 
    Então eu devo estar na página 1 de Lista de salas 
    Quando eu clico em "Próxima página"
    Então eu devo estar na próxima página de Lista de salas
-   Quando eu clico em "Próxima página", mas todas as salas já foram exibidas
+   Quando eu clico em "Próxima página"
+   E todas as salas já foram exibidas
    Então eu devo estar numa página vazia
