@@ -26,8 +26,7 @@
             <% app = appointment.start_time.hour.minutes.to_i  %>
             <% if appointment.appointment_date == date and app >= Time.parse("0#{start_t.to_s}:00").hour.minutes.to_i and app < Time.parse("0#{end_t.to_s}:00").hour.minutes.to_i %>
               <td class="text-center align-middle">
-                  <button type="button" class="btn btn-danger disabled">    
-                    <span>
+                  <button type="button" class="btn btn-danger disabled" title="<%= "#{start_t}_#{date}" %>">    
                       <% if appointment.status == 1 %>
                         Indisponível
                       <% elsif appointment.status == 2 %>
@@ -35,7 +34,6 @@
                       <% else %>
                         Reprovado
                       <% end %>
-                    </span>
                   </button>
               </td>
               <% found = true %>
@@ -43,7 +41,7 @@
           <% end %>
           <% if found == false %>
             <td class="text-center align-middle" style="color: green">
-              <button type="button" class="btn btn-success btn-reservar" reservar-horario="<%=start_t%>" reservar-data="<%= date %>" data-toggle="modal" data-target="#reservaModal">Reservar</button>
+              <button type="button" class="btn btn-success btn-reservar" reservar-horario="<%=start_t%>" reservar-data="<%= date %>" title="<%= "#{start_t}_#{date}" %>" data-toggle="modal" data-target="#reservaModal">Reservar</button>
               </td>
           <% end %>
         <% end %>
