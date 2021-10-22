@@ -7,7 +7,7 @@ Dado("que eu esteja logado como administrador com o email {string} e a senha {st
     click_button "Log in"
 end
 
-E("que eu quero esteja logado") do
+E("que eu esteja logado") do
     visit dashboard_path
     expect(page).to have_text("Signed in as... admin@admin.admin")
 end
