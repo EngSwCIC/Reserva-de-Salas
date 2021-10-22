@@ -11,7 +11,7 @@ end
 
 #RSpec.describe Backoffice::DashboardController do
 #    describe "number of reserved times" do
-#        it "returns number of reserved timas appointments from" do
+#        it "returns number of reserved times appointments from" do
 #
 #            room = FactoryBot.build(:room, name: 'Sala 1')
 #
