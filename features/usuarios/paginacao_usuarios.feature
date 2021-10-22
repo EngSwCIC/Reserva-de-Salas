@@ -7,31 +7,27 @@ Funcionalidade: paginação do index do usuário
     Eu quero que o index de usuários tenha paginação, sendo exibidos N usuários por página.
 
 Contexto:
-   Dado que eu esteja logado como administrador com o email "admin@admin.admin" e a senha "adminseed"
-   E que eu esteja logado
-   E que eu quero acessar a lista dos usuarios existentes
-
-Cenário de Fundo:
-    Dado que o banco possui até 5 usuários
+   Dado que eu esteja logado como administrador
+   E que eu esteja na página principal
 
 Cenário: A lista é exibida corretamente com 1 página (Happy Path)
-    Quando eu clico em "Todos os Usuários"
-    Então eu devo estar na página "/users/show"
+   Dado que o banco possui até 5 usuários
+   Quando eu clico em "Todos os Usuários"
+   Então eu devo estar na página "/users/show"
     
-Cenário de Fundo:
+Cenário: A lista é exibida corretamente com paginação (Happy Path)
+   Dado que o banco possui até 10 usuários
+   Quando eu clico em "Todos os Usuários"
+   Então eu devo estar na página "/users/show" 
+   Dado que a página "2" existe
+   Quando eu clico em página "2"
+   Então eu devo estar na página "2"
+
+Cenário: Tento acessar uma página que não existe (Sad Path)
     Dado que o banco possui até 10 usuários
-
-Cenário: A lista é exibida corretamente com 2 páginas (Happy Path)
     Quando eu clico em "Todos os Usuários"
-    Então eu devo estar na página "/users/show" de Lista de salas 
-    Dado que a página 2 existe
-    Quando eu clico em página 2
-    Então eu devo estar na página 2 de Lista de Usuários
-
-Cenário: A lista é exibida com paginação, mas são exibidas páginas vazias (Sad Path)
-    Quando eu clico em "Todos os Usuários"
-    Então eu devo estar na página 1 de Lista de Usuários 
-    Quando eu clico em "Próxima página"
-    Então eu devo estar na próxima página de Lista de Usuários
-    Quando eu clico em "Próxima página" mas todos os usuários já foram exibidos
-    Então eu devo estar numa página vazia
+    Então eu devo estar na página "1"
+    Quando eu clico em "next"
+    Então eu devo estar na página "2"
+    Quando eu tento acessar a página "3"
+    Então devo receber um erro
