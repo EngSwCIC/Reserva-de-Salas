@@ -6,15 +6,16 @@ Dado("que eu seja admin do sistema com email {string} e senha {string}") do |str
         registration: "15015296", course: "CIC", is_admin: true
     )
     visit new_user_session_path
-    fill_in :user_email, with: @admin.email
-    fill_in :user_password, with: @admin.password
+    fill_in :user_email, with: string
+    fill_in :user_password, with: string2
     click_button "Log in"
 end
 
 E("que eu esteja na pagina {string}") do |string|
     visit(backoffice_path)
     expect(page).to have_content(string)
- end
+end
+ 
 
 E("eu clicar no link {string}") do |string|
     click_link "#{string}"
@@ -55,3 +56,38 @@ end
 Então("eu devo ver uma mensagem {string}") do |string|
     page.has_content?("#{string}")
   end
+
+
+  Dado('que esteja na página “backoffice”') do
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
+  Quando('eu clicar em {string}.') do |string|
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
+  Então('eu devo ver uma tabela com todas as salas e horários reservados:') do |table|
+    # table is a Cucumber::MultilineArgument::DataTable
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
+  Então('quando eu clicar em editar,') do
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
+  Entao('poder aceitar ou recusar a reserva..') do
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
+  Quando('eu clicar em “Mostrar os Pedidos Pendentes” no dashboard do administrador') do
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
+  Então('eu permaneço no dashboard do administrador') do
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
+  Então('deve aparecer um alerta de nenhum pedido pendente.') do
+    pending # Write code here that turns the phrase above into concrete actions
+  end
+  
