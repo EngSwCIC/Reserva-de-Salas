@@ -55,7 +55,14 @@ class AppointmentsController < ApplicationController
 
   def all_appointments
     @appointments = Appointment.all
+  end
 
+  def pending_appointments
+    @appointments = Appointment.where(status: 1)
+  end
+
+  def accepted_appointments
+    @appointments = Appointment.where(status: 2)
   end
 
   def destroy

@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   
   get 'users/show'
 
+  get '/pending_appointments', to: 'appointments#pending_appointments'
+  get '/accepted_appointments', to: 'appointments#accepted_appointments'
+
+
   root 'home#index'
 
   devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
