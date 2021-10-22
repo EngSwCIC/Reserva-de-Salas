@@ -30,6 +30,7 @@ Dado("a reserva tenha sido aprovada") do
 end
 
 Então("eu devo ver três tabelas") do
+  visit(root_path)
   expect(page).to have_table('aprovadas')
   expect(page).to have_table('pendentes')
   expect(page).to have_table('expiradas')

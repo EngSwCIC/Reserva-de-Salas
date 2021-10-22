@@ -58,20 +58,18 @@
 			</div>
 
       <table id="aprovadas">
-        
         <caption> Reservas Aprovadas</caption>
         <tr> 
-          <th> Sala </th> 
+          <th> Nome da Sala </th> 
           <th> Data </th> 
         </tr>
-
          <% @approved.each do |appointment| %>
           <tr>
             <% if appointment.appointment_date == Date.today  %>
-              <td class="font-weight-bold" id="destaque"><%= appointment.room_id %></td>
+              <td class="font-weight-bold" id="destaque"><%= appointment.room.name %></td>
               <td class="font-weight-bold" id="destaque"><%= appointment.appointment_date %></td>
             <% else %>              
-              <td><%= appointment.room_id %></td>
+              <td><%= appointment.room.name %></td>
               <td><%= appointment.appointment_date %></td>
             <% end %>
           </tr>
