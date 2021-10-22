@@ -52,9 +52,52 @@
 	<div class="content-wrapper">
 		<div class="container-fluid">
 			<h1 class='text-center'>Home</h1>
-			<div class="col-xs-10 col-xs-offset-5">
+
+      <div class="col-xs-10 col-xs-offset-5">
 				<div>Bem-vindo <%= current_user.email %></div>
 			</div>
+      
+      <table id="aprovadas">
+        <caption> Reservas Aprovadas</caption>
+        <tr> 
+          <th> Titulo </th> 
+          <th> Data </th> 
+        </tr> 
+        <tr>
+          <td id="destaque"> Reserva do João </td>
+          <td id="destaque"> 10/04/2020 </td>
+        </tr>
+        <tr>
+          <td> Reserva do João 2 </td>
+          <td> 10/05/2020 </td>
+        </tr>
+      </table>
+
+      <table id="pendentes">
+        <caption> Reservas Pendentes</caption>
+        <tr> 
+          <th> Titulo </th> 
+          <th> Data </th> 
+        </tr> 
+        <tr>
+          <td> Reserva do João 2 </td>
+          <td> 10/05/2020 </td>
+        </tr>
+      </table>
+      
+      <table id="expiradas">
+        <caption> Reservas Expiradas</caption>
+        <tr> 
+          <th> Titulo </th> 
+          <th> Data </th> 
+        </tr> 
+        <tr>
+          <td> Reserva do João 2 </td>
+          <td> 10/05/2020 </td>
+        </tr>
+      </table>
+
+			
 		</div>
 	</div>
 <% end %>
