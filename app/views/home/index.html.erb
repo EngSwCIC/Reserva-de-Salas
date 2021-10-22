@@ -95,14 +95,9 @@
           <th> Data </th> 
         </tr>
          <% @expired.each do |appointment| %>
-          <tr>
-            <% if appointment.appointment_date < Date.today  %>
-              <td class="font-weight-bold" id="destaque"><%= appointment.room.name %></td>
-              <td class="font-weight-bold" id="destaque"><%= appointment.appointment_date %></td>
-            <% else %>              
-              <td><%= appointment.room.name %></td>
-              <td><%= appointment.appointment_date %></td>
-            <% end %>
+          <tr>           
+            <td><%= appointment.room.name %></td>
+            <td><%= appointment.appointment_date %></td>
           </tr>
         <% end %>
       </table>
