@@ -1,6 +1,6 @@
 metric_fu shift the first line
 ================================================================================
- ../controllers.lication_controller.rb
+ ./app/controllers/application_controller.rb
 ================================================================================
    class ApplicationController < ActionController::Base
      protect_from_forgery with: :exception
@@ -16,192 +16,33 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ../controllers.ointments_controller.rb
+ ./app/controllers/backoffice/dashboard_controller.rb
 ================================================================================
-   class AppointmentsController < ApplicationController
-     def new
-!!     @appointment = Appointment.new
-!!     @room = Room.find(params[:id])
---   end
--- 
---   ##
---   # POST /appointments
---   # registra o aluguel de uma sala, feito pelo usuário autenticado e
---   # contendo obrigatoriamente a data e horário do aluguel.
---   # O motivo (description) é opcional.
-     def create
-!!     room_id = params[:format]
-!!     @appointment = Appointment.new
-!!     @appointment.room_id = params[:format]
-!!     @appointment.user_id = current_user.id
-!!     @appointment.appointment_date = params[:appointment_date]
-!!     @appointment.start_time = params[:start_time]
-!!     @appointment.description = params[:description]
-!!     @appointment.status = 1
-!!     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
-!!       redirect_to backoffice_path
-!!       flash[:notice] = "Alguel realizado com sucesso!"
---     else
-!!       redirect_to backoffice_path
-!!       flash[:danger] = "Algo deu errado!"
---     end
---   end
--- 
-     def show
-       @room = Room.find(params[:id])
-       @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
-       @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
---   end
--- 
-     def edit
-!!     @appointment = Appointment.find(params[:id])
---   end
--- 
-     def update
-!!     @appointment = Appointment.find(params[:id])
-!!     if @appointment.update(appointment_params)
-!!       redirect_to all_appointments_path
-!!       flash.now[:notice] = "O aluguél foi editado com sucesso!"
---     else
-!!       flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
-!!       render 'edit'
---     end
---   end
--- 
-     def my_appointments
-       @user = current_user
-       @my_appointments = @user.appointments
---   end
--- 
-     def all_appointments
-!!     @appointments = Appointment.all
--- 
---   end
--- 
-     def destroy
-!!     @appointment = Appointment.find(params[:id])
-!!     @appointment.destroy
-!!     flash[:danger] = "O Aluguel foi cancelado com suceso"
-!!     redirect_to root_path
---   end
--- 
-     private
--- 
-     def appointment_params
-!!     params.require(:appointment).permit(:status)
---   end
--- end
-
-================================================================================
- ../controllers/rooms_controller.rb
-================================================================================
-   class RoomsController < ApplicationController
-   	before_action :signed_in?
-   	before_action :is_admin?, only: [:new, :create, :destroy]
-   	def new
-   		@room = Room.new
--- 	end
+   class Backoffice::DashboardController < BackofficeController
+   	helper 'backoffice/dashboard'
 -- 
    	def index
+   		@users = User.all
    		@rooms = Room.all
--- 	end
--- 
-   	def show
-   		@room = Room.find(params[:id])
--- 	end
--- 
-   	def edit
-   		@room = Room.find(params[:id])
--- 	end
--- 
-   	def update
-!! 		@room = Room.find(params[:id])
-!! 		if @room.update(room_params)
-!! 			redirect_to @room
-!! 			flash[:notice] = "A sala foi editada com sucesso!"
--- 		else
-!! 			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
-!! 			render 'edit'
--- 		end
--- 	end
--- 
-   	def create
-!! 		@room = Room.new(room_params)
-!! 		if @room.save
-!! 			flash[:notice] = "A sala foi criada com sucesso!"
-!! 			redirect_to backoffice_path
--- 		else
-!! 			flash[:danger] = "A sala não pôde ser criada!"
-!! 			redirect_to backoffice_path
--- 		end
--- 	end
--- 
-   	def destroy
-!! 		@room = Room.find(params[:id])
-!! 		@room.destroy
-!! 		flash[:danger] = "A sala foi excluída"
-!! 		redirect_to backoffice_path
--- 	end
--- 
--- 
-   	private
--- 
-   	def signed_in?
-   		if current_user
-   			true
--- 		else
-   			flash[:danger] = "Você não pode acessar essa página"
-   			return redirect_to '/'
--- 		end
---   	end
--- 
-   	def is_admin?
-   		if current_user.is_admin
-   			true
--- 		else
-   			flash[:danger] = "Você não pode acessar essa página"
-   			return redirect_to '/'
--- 		end
--- 	end
--- 
--- 	##
--- 	# GET /rooms/new
--- 	# Parâmetros permitidos para a criação dos campos nome, local e capacidade da sala
--- 	# POST /rooms
--- 	# Assim como para renderizar na view do usuário, e assim um usuário não administrador
--- 	# poder ver a capacidade máxima da sala
-   	def room_params
-!! 		params.require(:room).permit(:name, :location, :students)
+   		@appointments = Appointment.all
 -- 	end
 -- end
 
 ================================================================================
- ../controllers/users_controller.rb
+ ./app/controllers/backoffice_controller.rb
 ================================================================================
-   class UsersController < ApplicationController
---   ##
---   # GET	/users/show
---   # Controller que lista todos os usuários do sistema
---   # Assim como é responsável pela ordenação crescente e decrescente
---   # e por realizar buscas no model User 
-     def show
---     ##
---     # Variável de instância  @q recebe os parametros oriundos do search_form
---     # @users recebe  o resultado da busca tanto para ordenação, quanto da busca
---     # realizada no model User referente ao request do usuário
-       @q = User.ransack(params[:q])
-       @users = @q.result(distinct: true)
---   end
+   class BackofficeController < ApplicationController
+   	layout 'backoffice'
 -- end
 
 ================================================================================
- ../helpers/admins_helper.rb
+ ./app/helpers/admins_helper.rb
 ================================================================================
    module AdminsHelper
 -- end
 
 ================================================================================
- ../helpers.lication_helper.rb
+ ./app/helpers/application_helper.rb
 ================================================================================
    module ApplicationHelper
        def resource_name
@@ -218,7 +59,7 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ../helpers/backoffice/dashboard_helper.rb
+ ./app/helpers/backoffice/dashboard_helper.rb
 ================================================================================
    module Backoffice::DashboardHelper
    	def resource_name
@@ -239,38 +80,38 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ../helpers/backoffice_helper.rb
+ ./app/helpers/backoffice_helper.rb
 ================================================================================
    module BackofficeHelper
 -- end
 
 ================================================================================
- ../helpers/room_helper.rb
+ ./app/helpers/room_helper.rb
 ================================================================================
    module RoomHelper
 -- end
 
 ================================================================================
- ../helpers/rooms_helper.rb
+ ./app/helpers/rooms_helper.rb
 ================================================================================
    module RoomsHelper
 -- end
 
 ================================================================================
- ../helpers/users_helper.rb
+ ./app/helpers/users_helper.rb
 ================================================================================
    module UsersHelper
 -- end
 
 ================================================================================
- ../models.lication_record.rb
+ ./app/models/application_record.rb
 ================================================================================
    class ApplicationRecord < ActiveRecord::Base
      self.abstract_class = true
 -- end
 
 ================================================================================
- ../models.ointment.rb
+ ./app/models/appointment.rb
 ================================================================================
 -- # Classe que registra o aluguel de uma sala,
 -- # que pode ser feito por um usuário ou administrador,
@@ -283,7 +124,7 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ../models/room.rb
+ ./app/models/room.rb
 ================================================================================
 -- # Classe que declara uma sala disponível para aluguel
 -- # cadastrada com os dados "nome", "capacidade" e "local"
@@ -295,7 +136,7 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ../models/user.rb
+ ./app/models/user.rb
 ================================================================================
    class User < ApplicationRecord
 --   # Include default devise modules. Others available are:
@@ -308,12 +149,12 @@ metric_fu shift the first line
 --          :recoverable, :rememberable, :trackable, :validatable
 -- 
      def is_admin?
-     	self.is_admin
+!!   	self.is_admin
 --   end
 -- end
 
 ================================================================================
- ./config.lication.rb
+ ./config/application.rb
 ================================================================================
    require_relative 'boot'
 -- 
@@ -364,65 +205,53 @@ metric_fu shift the first line
    Rails.application.initialize!
 
 ================================================================================
- ./config/environments/development.rb
+ ./config/environments/test.rb
 ================================================================================
    Rails.application.configure do
 --   # Settings specified here will take precedence over those in config/application.rb.
 -- 
---   # In the development environment your application's code is reloaded on
---   # every request. This slows down response time but is perfect for development
---   # since you don't have to restart the web server when you make code changes.
-     config.cache_classes = false
+--   # The test environment is used exclusively to run your application's
+--   # test suite. You never need to work with it otherwise. Remember that
+--   # your test database is "scratch space" for the test suite and is wiped
+--   # and recreated between test runs. Don't rely on the data there!
+     config.cache_classes = true
 -- 
---   # Do not eager load code on boot.
+--   # Do not eager load code on boot. This avoids loading your whole application
+--   # just for the purpose of running a single test. If you are using a tool that
+--   # preloads Rails for running tests, you may have to set it to true.
      config.eager_load = false
 -- 
---   # Show full error reports.
-     config.consider_all_requests_local = true
+--   # Configure public file server for tests with Cache-Control for performance.
+     config.public_file_server.enabled = true
+     config.public_file_server.headers = {
+--     'Cache-Control' => "public, max-age=#{1.hour.seconds.to_i}"
+--   }
 -- 
---   # Enable/disable caching. By default caching is disabled.
-     if Rails.root.join('tmp/caching-dev.txt').exist?
-!!     config.action_controller.perform_caching = true
+--   # Show full error reports and disable caching.
+     config.consider_all_requests_local       = true
+     config.action_controller.perform_caching = false
 -- 
-!!     config.cache_store = :memory_store
-!!     config.public_file_server.headers = {
---       'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
---     }
---   else
-       config.action_controller.perform_caching = false
+--   # Raise exceptions instead of rendering exception templates.
+     config.action_dispatch.show_exceptions = false
 -- 
-       config.cache_store = :null_store
---   end
--- 
---   # Don't care if the mailer can't send.
-     config.action_mailer.raise_delivery_errors = false
--- 
+--   # Disable request forgery protection in test environment.
+     config.action_controller.allow_forgery_protection = false
      config.action_mailer.perform_caching = false
 -- 
---   # Print deprecation notices to the Rails logger.
-     config.active_support.deprecation = :log
+--   # Tell Action Mailer not to deliver emails to the real world.
+--   # The :test delivery method accumulates sent emails in the
+--   # ActionMailer::Base.deliveries array.
+     config.action_mailer.delivery_method = :test
 -- 
---   # Raise an error on page load if there are pending migrations.
-     config.active_record.migration_error = :page_load
--- 
---   # Debug mode disables concatenation and preprocessing of assets.
---   # This option may cause significant delays in view rendering with a large
---   # number of complex assets.
-     config.assets.debug = true
--- 
---   # Suppress logger output for asset requests.
-     config.assets.quiet = true
+--   # Print deprecation notices to the stderr.
+     config.active_support.deprecation = :stderr
 -- 
 --   # Raises error for missing translations
 --   # config.action_view.raise_on_missing_translations = true
--- 
---   # Use an evented file watcher to asynchronously detect changes in source code,
---   # routes, locales, etc. This feature depends on the listen gem.
-     config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 -- end
 
 ================================================================================
- ./config/initializers.lication_controller_renderer.rb
+ ./config/initializers/application_controller_renderer.rb
 ================================================================================
 -- # Be sure to restart your server when you modify this file.
 -- 
@@ -851,23 +680,44 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ./spec/controllers/users_controller_spec.rb
+ ./spec/controllers/backoffice/dashboard_controller_spec.rb
 ================================================================================
    require 'rails_helper'
 -- 
-   RSpec.describe UsersController, type: :controller do
--- 
-     describe "GET #show" do
+   RSpec.describe Backoffice::DashboardController, type: :controller do
+     describe "GET #index" do
        it "returns http success" do
-         get :show
+         get :index
          expect(response).to have_http_status(:success)
 --     end
---   end
 -- 
+       context "when counting the amount of users" do
+         let(:users) { User.all }
+-- 
+         context "when there are some users" do
+           before do
+             user1 = create(:user, email: "user1@gmail.com", username: "user1")
+             user2 = create(:user, email: "user2@gmail.com", username: "user2")
+             user3 = create(:user, email: "user3@gmail.com", username: "user3")
+             user4 = create(:user, email: "user4@gmail.com", username: "user4")
+--         end
+-- 
+           it 'shows the correct amount of users' do
+             expect(users.count).to eq(4)
+--         end
+--       end
+-- 
+         context "when there are no users" do
+           it 'shows 0 users' do
+             expect(users.count).to eq(0)
+--         end
+--       end
+--     end
+--   end
 -- end
 
 ================================================================================
- ./spec/factories.ointment.rb
+ ./spec/factories/appointment.rb
 ================================================================================
    FactoryBot.define do
        factory :appointment do
@@ -903,57 +753,13 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ./spec/helpers/users_helper_spec.rb
-================================================================================
-   require 'rails_helper'
--- 
--- # Specs in this file have access to a helper object that includes
--- # the UsersHelper. For example:
--- #
--- # describe UsersHelper do
--- #   describe "string concat" do
--- #     it "concats two strings with spaces" do
--- #       expect(helper.concat_strings("this","that")).to eq("this that")
--- #     end
--- #   end
--- # end
-   RSpec.describe UsersHelper, type: :helper do
-     pending "add some examples to (or delete) #{__FILE__}"
--- end
-
-================================================================================
- ./spec/models.ointment_spec.rb
-================================================================================
-   require 'rails_helper'
--- 
-   RSpec.describe Appointment, type: :model do
-     let (:appointment) { FactoryBot.build(:appointment) }
-     it { is_expected.to validate_presence_of(:start_time) }
-     it { is_expected.to validate_presence_of(:appointment_date) }
-     it { is_expected.to belong_to(:room) }
-     it { is_expected.to belong_to(:user) }
--- end
-
-================================================================================
- ./spec/models/room_spec.rb
-================================================================================
-   require 'rails_helper'
--- 
-   RSpec.describe Room, type: :model do
-     let (:room) { FactoryBot.build(:room) }
-     it { is_expected.to validate_presence_of(:name) }
-     it { is_expected.to validate_presence_of(:location) }
-     it { is_expected.to validate_presence_of(:students) }
-     it { is_expected.to have_many(:appointments) }
-     it { is_expected.to have_many(:users) }
--- end
-
-================================================================================
  ./spec/rails_helper.rb
 ================================================================================
 -- # This file is copied to spec/ when you run 'rails generate rspec:install'
    require 'shoulda/matchers'
    require 'spec_helper'
+   require 'support/factory_bot'
+-- 
    ENV['RAILS_ENV'] ||= 'test'
    require File.expand_path('../../config/environment', __FILE__)
 -- # Prevent database truncation if the environment is production
@@ -1023,354 +829,11 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ./spec/request.ointments_spec.rb
+ ./spec/support/factory_bot.rb
 ================================================================================
-   require 'rails_helper'
+   require 'factory_bot'
 -- 
-   RSpec.describe 'Appointment API', type: :request do
-       let(:user) { FactoryBot.create(:user, :email => '123@123.com') }
--- 
-       describe 'POST #create' do
-           context 'when user is signed in' do
-               before do
-                   sign_in user
-                   @room = FactoryBot.create(:room)
---             end
-               context 'when params are valid' do
-                   before do
-                       @appointment_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :format => @room.id)
-                       post "/appointments", params: @appointment_credentials
---                 end
--- 
-                   it 'should persist through database' do
-                       expect(Appointment.find_by(:appointment_date => @appointment_credentials[:appointment_date], :room_id => @appointment_credentials[:room_id])).to be_truthy
---                 end
--- 
-                   it 'should render a success flash message' do
-                       expect(flash[:notice]).not_to be_nil
---                 end
---             end
--- 
-               context 'when params are not valid' do
-                   before do
-                       @appointment_fake_credentials = FactoryBot.attributes_for(:appointment, :room_id => @room.id, :start_time => '')
-                       post "/appointments", params: @appointment_fake_credentials
---                 end
--- 
-                   it 'should not persist through database' do
-                       expect(Appointment.find_by(:appointment_date => @appointment_fake_credentials[:appointment_date], :room_id => @appointment_fake_credentials[:room_id])).to be_nil
---                 end
--- 
-                   it 'should render a danger flash message' do
-                       expect(flash[:danger]).not_to be_nil
---                 end
---             end
---         end
---     end
--- 
--- 
-       describe 'GET #show' do
-           context 'when user is signed in' do
-               before do
-                   sign_in user
-                   @room = FactoryBot.create(:room)
-                   @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-                   get "/appointments/#{@room.id}"
---             end
--- 
-               it 'should render show template' do
-                   expect(response).to render_template(:show)
---             end
---         end
---     end
--- 
--- 
--- 
-       describe 'GET #my_appointments' do
-           context 'params are valid' do
-               before do 
-                   sign_in user
-                   @room = FactoryBot.create(:room)
-                   @appointment1 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-                   @appointment2 = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-                   get '/my-appointments'
---             end
---             
-               it 'expects a few appointments in my appointment historic' do
-                   expect(assigns(:my_appointments)).to match_array([@appointment1,@appointment2])
---             end
--- 
-               it 'renders my appointments template' do
-                   expect(response).to render_template(:my_appointments)
---             end
---         end
---     end
--- 
-       describe 'DELETE #destroy' do
-           context 'when appointment exists' do
-               let(:appointment_params) {FactoryBot.attributes_for(:appointment)}
-               before do
-                   sign_in user
-                   @room = FactoryBot.create(:room)
-                   @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
-                   delete "/appointments/#{@appointment.id}"
---             end
--- 
-               it 'deletes a appointment' do
-                   expect(Appointment.find_by(appointment_date: appointment_params[:appointment_date])).not_to be_truthy
---             end
---         end
---     end
--- end
-
-================================================================================
- ./spec/request/rooms_spec.rb
-================================================================================
-   require 'rails_helper'
--- 
-   RSpec.describe 'Rooms API', type: :request do
-       let(:user) { FactoryBot.create(:user) }
-       let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
---     
-       describe 'GET #new' do
-           context 'when user is admin' do
-               before do
-                   sign_in admin_user
-                   get '/rooms/new'
---             end
--- 
-               it 'should render the new template' do
-                   expect(response).to render_template(:new)
---             end
---         end
--- 
-           context 'when user is not admin' do
-               before do
-                   sign_in user
-                   get '/rooms/new'
---             end
--- 
-               it 'should render a flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
---     end
--- 
-       describe 'GET #index' do
-           context 'when user is signed in' do 
-               before do
-                   sign_in user
-                   get '/rooms'
---             end
---             
-               it 'should render a collection of rooms' do
-                   expect(assigns(:rooms)).not_to be_nil
---             end
---             
-               it 'should render index template' do
-                   expect(response).to render_template(:index)
---             end
---         end
---         
-           context 'when user is not signed in' do
-               before do
-                   get '/rooms'
---             end
---             
-               it 'should render a flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
---     end
---     
-       describe 'GET #show' do
-           let(:room) {FactoryBot.create(:room)}
-           context 'when user is signed in' do
-               before do
-                   sign_in user
-                   get "/rooms/#{room.id}"
---             end
---             
-               it 'should get a instance of Room' do
-                   expect(assigns(:room)).to be_a_instance_of(Room)
---             end
---             
-               it 'should render show template' do
-                   expect(response).to render_template(:show)
---             end
---         end
---         
-           context 'when user is not signed in' do
-               before do
-                   get "/rooms/#{room.id}"
---             end
-               it 'should render a flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
---     end
--- 
-       describe 'GET #edit' do
-           let(:room) {FactoryBot.create(:room)}
-           context 'when user is signed in' do
-               before do
-                   sign_in user
-                   get "/rooms/#{room.id}/edit"
---             end
--- 
-               it 'should get a room instance' do
-                   expect(assigns(:room)).to be_a_instance_of(Room)
---             end
--- 
-               it 'should render edit template' do
-                   expect(response).to render_template(:edit)
---             end
---         end
--- 
-           context 'when user is not signed in' do
-               before do
-                   get "/rooms/#{room.id}"
---             end
-               it 'should render a flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
---     end
--- 
-       describe 'POST #create' do
-           context 'when user is admin' do
-               before do
-                   sign_in admin_user
---             end
-               context 'when params are valid' do
-                   let(:rooms_credentials) {FactoryBot.attributes_for(:room)}
-                   before do
-                       post '/rooms', params: { :room => rooms_credentials }
---                 end
-                   it 'should persist through database' do
-                       expect(Room.find_by(:name => rooms_credentials[:name])).to be_truthy
---                 end
--- 
-                   it 'should render a flash success message' do
-                       expect(flash[:notice]).not_to be_nil
---                 end
---             end
-               context 'when params are not valid' do
-                   let(:rooms_credentials) {FactoryBot.attributes_for(:room, :name => '')}
-                   before do
-                       post '/rooms', params: { :room => rooms_credentials }
---                 end
-                   it 'should not persist through database' do
-                       expect(Room.find_by(:name => rooms_credentials[:name])).not_to be_truthy
---                 end
---                 
-                   it 'should render a flash danger message' do
-                       expect(flash[:danger]).not_to be_nil
---                 end
---             end
---         end
---         
-           context 'when user is not admin' do
-               let(:rooms_credentials) {FactoryBot.attributes_for(:room, :name => '')}
-               before do
-                   sign_in user
-                   post '/rooms', params: { :room => rooms_credentials }
---             end
--- 
-               it 'should render a flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
---     end
--- 
-       describe 'PUT #update' do
-           let(:room) { FactoryBot.create(:room) }
-           context 'when user is admin' do
-               before do
-                   sign_in admin_user
---             end
---             
-               context 'when params are valid' do        
-                   let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => 'New Fake Name', :location => 'New Fake Location', :students => 40) }
-                   before do
-                       put "/rooms/#{room.id}", params: { :room => rooms_credentials }
---                 end
-                   it 'should persist through database' do
-                       expect(Room.find_by(:name => rooms_credentials[:name])).to be_truthy
---                 end
--- 
-                   it 'should render a flash success message' do
-                       expect(flash[:notice]).not_to be_nil
---                 end
---             end
--- 
-               context 'when params are not valid' do
-                   let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => '', :location => 'New Fake Location', :students => 40) }
-                   before do
-                       put "/rooms/#{room.id}", params: { :room => rooms_credentials }
---                 end
-                   it 'should not persist through database' do
-                       expect(Room.find_by(:name => rooms_credentials[:name])).not_to be_truthy
---                 end
---                 
-                   it 'should render a flash danger message' do
-                       expect(flash[:danger]).not_to be_nil
---                 end
---             end
---         end
---         
-           context 'when user is not admin' do
-               let(:rooms_credentials) { FactoryBot.attributes_for(:room, :name => 'New Fake Name', :location => 'New Fake Location', :students => 40) }
-               before do
-                   sign_in user
-                   post '/rooms', params: { :room => rooms_credentials }
---             end
--- 
-               it 'should render a flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
---     end
--- 
-       describe 'DELETE #destroy' do
-           let(:room) { FactoryBot.create(:room) }
-           context 'when user is admin' do
-               before do
-                   sign_in admin_user
-                   delete "/rooms/#{room.id}"
---             end
---             
-               it 'should persist through database' do
-                   expect(Room.find_by(:name => room.name)).to be_nil
---             end            
---             
-               it 'should render a danger flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
-           context 'when user is not admin' do
-               before do
-                   sign_in user
-                   delete "/rooms/#{room.id}"
---             end
--- 
-               it 'should not persist through database' do
-                   expect(Room.find_by(:name => room.name)).not_to be_nil
---             end            
---             
-               it 'should render a danger flash message' do
-                   expect(flash[:danger]).not_to be_nil
---             end
---         end
---     end
--- end
-
-================================================================================
- ./spec/views/users/show.html.erb_spec.rb
-================================================================================
-   require 'rails_helper'
--- 
-   RSpec.describe "users/show.html.erb", type: :view do
-     pending "add some examples to (or delete) #{__FILE__}"
+   RSpec.configure do |config|
+     config.include FactoryBot::Syntax::Methods
 -- end
 
