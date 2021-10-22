@@ -14,7 +14,7 @@ Dado("que eu esteja cadastrado como usuario {string}, {string}, {string}, {strin
 end
 
 Dado("exista a sala {string}, {string}, {string} cadastrada no sistema") do |name, students, location|
-  @room = Room.create(name: name, students: students, location: location)
+  @room = Room.where(name: name, students: students, location: location).first_or_create
 end
 
 Então("eu devo estar em uma página com uma tabela com os dados:") do |table|

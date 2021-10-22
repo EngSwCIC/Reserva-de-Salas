@@ -27,13 +27,13 @@ E("eu esteja na página principal") do
 end
 
 Quando('clicar na célula verde correspondente ao horário de {string} de segunda-feira') do |horario|
-  dia = Date.commercial(Date.today.year,Date.today.cwday.modulo(4)+Date.today.cweek, 1).strftime("%Y-%m-%d")
+  dia = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).first.strftime("%Y-%m-%d")
   hora = /\d+/.match(horario)
   click_button('Reservar', { :title => "#{hora}_#{dia}" })
 end
 
 Quando('clicar na célula vermelha correspondente ao horário de {string} de segunda-feira') do |horario|
-  dia = Date.commercial(Date.today.year,Date.today.cwday.modulo(4)+Date.today.cweek, 1).strftime("%Y-%m-%d")
+  dia = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).first.strftime("%Y-%m-%d")
   hora = /\d+/.match(horario)
   click_button('Indisponível', { :title => "#{hora}_#{dia}" })
 end
