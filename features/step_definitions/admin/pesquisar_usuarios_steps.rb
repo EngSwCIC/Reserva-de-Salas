@@ -3,8 +3,8 @@ Dado("que eu sou administrador do sistema com email {string} senha {string}")do 
         registration: "15015296", course: "CIC", is_admin: true
     )
     visit new_user_session_path
-    fill_in :user_email, with: string
-    fill_in :user_password, with: string2
+    fill_in :user_email, with: @admin.email
+    fill_in :user_password, with: @admin.password
     click_button "Log in"
 end
 

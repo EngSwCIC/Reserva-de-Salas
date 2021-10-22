@@ -1,11 +1,14 @@
+#language: pt
+#encoding: utf-8
+
 Funcionalidade: Quantidade de horários reservados
     Eu como administrador do sistema,
     Quero poder ver a quantidade de horários reservados
     Para ter uma noção melhor de quantos horários tem de sobra.
 
 Contexto:
-    Dado que eu sou administrador do sistema logado que esteja na página "backoffice" quando 
-    eu clicar no link "Mostrar os horários reservados"
+    Dado que eu sou administrador do sistema logado que esteja na página "backoffice"
+    Quando eu clicar no link "Mostrar os horários reservados"
 
 # Caminho Feliz
 Cenário: Mostra a quamtodade de horários reservados.
