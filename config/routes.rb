@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   
   get 'users/show'
 
+  get '/pending_appointments', to: 'appointments#pending_appointments'
+  get '/accepted_appointments', to: 'appointments#accepted_appointments'
+
+
   root 'home#index'
 
   devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
@@ -26,6 +30,5 @@ Rails.application.routes.draw do
   get 'all-appointments' => 'appointments#all_appointments'
   get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_user', to: 'backoffice/dashboard#signup_user'
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
