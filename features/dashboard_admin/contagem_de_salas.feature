@@ -7,11 +7,11 @@
 	eu quero ver quantas salas existem dentro do sistema
 
 	Contexto:
-	Dado que eu sou administrador do sistema com email "admin@admin.com" senha "admin123"
+	Dado que eu sou o administrador do sistema com email "admin@admin.com" senha "admin123"
 	E que eu esteja na pagina backoffice
 
 	Esquema do Cenário: Contar todas as salas
-	E que existam várias salas no sistema
+	Dado que existam três salas 
 	Quando eu entrar no dashboard de admin
 	Então eu devo ver a contagem de todas os salas
 
