@@ -21,12 +21,3 @@ end
 Então("eu devo ver a contagem de 3 salas no backoffice") do
   expect(Room.all).to eq(3)
 end
-
-
-
-
-
-
-
-
-
