@@ -1,4 +1,8 @@
 module ApplicationHelper
+    include Pagy::Frontend
+    require 'capybara/rails'
+    #Capybara.app = MyRackApp
+
     def resource_name
         :user
     end

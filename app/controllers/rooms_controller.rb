@@ -6,11 +6,12 @@ class RoomsController < ApplicationController
 	end
 
 	def index
-		@rooms = Room.all
+		@pagy, @rooms = pagy(Room.all)
 	end
 
 	def show
 		@room = Room.find(params[:id])
+		#@pagy, @rooms_params = pagy(@room)
 	end
 
 	def edit
