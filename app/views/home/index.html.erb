@@ -79,13 +79,20 @@
       <table id="pendentes">
         <caption> Reservas Pendentes</caption>
         <tr> 
-          <th> Titulo </th> 
+          <th> Nome da Sala </th> 
           <th> Data </th> 
         </tr> 
-        <tr>
-          <td> Reserva do João 2 </td>
-          <td> 10/05/2020 </td>
-        </tr>
+		<% @pendent.each do |appointment| %>
+			<tr>
+			  <% if appointment.appointment_date == Date.today  %>
+				<td class="font-weight-bold" id="destaque"><%= appointment.room.name %></td>
+				<td class="font-weight-bold" id="destaque"><%= appointment.appointment_date %></td>
+			  <% else %>              
+				<td><%= appointment.room.name %></td>
+				<td><%= appointment.appointment_date %></td>
+			  <% end %>
+			</tr>
+		  <% end %>
       </table>
 
 	<table id="expiradas">
