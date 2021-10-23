@@ -23,10 +23,11 @@ Dado('que o usuário já tenha feito um pedido de sala') do
   start_time = Time.new(2000, 1, 1, 10, 0, 0, "UTC")
   appointment = Appointment.create(room_id: room.id, user_id: User.where(is_admin: true).first.id, appointment_date: today_date, start_time: start_time, description: 'Horario de teste', status: 1)
   appointment.save!
-  expect(Appointment.all.length).to eq 1
+  expect(Appointment.where(status: 1).length).to eq 1
 end
 
 Entao('eu devo ver a quantidade de pedidos pendentes') do
+  expect(Appointment.where(status: 1).length).to eq 1
   expect(page.has_content?("Nº Pedidos Pendentes 1")).to be true
 end
 

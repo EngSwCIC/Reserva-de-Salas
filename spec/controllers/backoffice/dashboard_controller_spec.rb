@@ -44,7 +44,7 @@ RSpec.describe Backoffice::DashboardController, type: :controller do
           # puts start_time.strftime("%H:%M")
           # puts appoint_1.start_time.strftime("%H:%M")
 
-          expect(Appointment).to receive(:where).and_return([appoint_1])
+          allow(Appointment).to receive(:where).and_return([appoint_1])
           expect(Room).to receive(:find).with(room.id).and_return(room)
           expected_result = [{room_name: room.name, time: start_time.strftime("%H:%M"), id: appoint_1.id }]
 
@@ -54,30 +54,31 @@ RSpec.describe Backoffice::DashboardController, type: :controller do
     end
 
     describe ".pending appointments" do
-     context "when counting the amount of appointments" do
-        let(:appointments) { Appointment.all }
+     context "when counting the amount of pending appointments" do
+        let(:pending_appointments) { Appointment.where(status: 1) }
     
-        context "when there are some appointments" do
+        context "when there are some pending appointments" do
           before do
             room = build(:room, name: 'Sala 1')
             today_date = Time.new(Date.today.year, Date.today.month, Date.today.day, 0, 0, 0, "+00:00")
             start_time = Time.new(2000, 1, 1, 16, 0, 0, "+00:00")
             user = create(:user)
-            appoint_1 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 1, appointment_date: today_date, start_time: start_time)
-            appoint_2 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 2, appointment_date: today_date, start_time: start_time)
-            appoint_3 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 3, appointment_date: today_date, start_time: start_time)
-            appoint_4 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 4, appointment_date: today_date, start_time: start_time)
+            #O primeiro appointment já foi aprovado
+            appoint_1 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 1, appointment_date: today_date, start_time: start_time, status: 2)
+            appoint_2 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 2, appointment_date: today_date, start_time: start_time, status: 1)
+            appoint_3 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 3, appointment_date: today_date, start_time: start_time, status: 1) 
+            appoint_4 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 4, appointment_date: today_date, start_time: start_time, status: 1)
     
           end
     
-          it 'shows the correct amount of appointments' do
-            expect(appointments.count).to eq(4)
+          it 'shows the correct amount of pending ppointments' do
+            expect(pending_appointments.count).to eq(3)
           end
         end
     
-        context "when there are no appointments" do
+        context "when there are no pending appointments" do
           it 'shows 0 appointments' do
-            expect(appointments.count).to eq(0)
+            expect(pending_appointments.count).to eq(0)
           end
         end
       end
