@@ -1,35 +1,21 @@
-			#language: pt
-			#encoding: utf-8
+	#language: pt
+	#encoding: utf-8
 
-		Funcionalidade: Listar todas as salas do sistema
-			Como Administrador do sistema
-			Eu quero ver uma lista de todas as salas disponíveis no sistema
+	@wip
+	Funcionalidade: Contar todas as salas do sistema
+	Como Administrador do Sistema
+	eu quero ver quantas salas existem dentro do sistema
 
-		Contexto:
-			Dado que eu sou administrador do sistema com email "admin@admin.com" senha "admin123"
-			E que eu esteja na pagina backoffice
+	Contexto:
+	Dado que eu sou administrador do sistema com email "admin@admin.com" senha "admin123"
+	E que eu esteja na pagina backoffice
 
-		# Caminho Feliz
-			Esquema do Cenario: Listar todas as salas
-			E que exista uma sala com nome "<name>", locaização "<location>" e capacidade da sala "<students>"
-			Quando eu clicar no link "Todos as salas"
-			Então eu devo ver uma tabela com os dados:
+	Esquema do Cenário: Contar todas as salas
+	E que existam várias salas no sistema
+	Quando eu entrar no dashboard de admin
+	Então eu devo ver a contagem de todas os salas
 
-			| name     | <name>     |
-			| location | <location> |
-			| students | <students> |
-
-			Exemplos:
-			| name                   | location                                                | students |
-			| Auditorio do CIC       | Prédio de Ciência da Computação e Estatística - CIC/EST | 200      |
-			| Multuso do CIC         | Prédio de Ciência da Computação e Estatística - CIC/EST | 50       |
-			| Centro Comunitário A.B | Campus Universitario Darcy Ribeiro                      | 2.000    |
-
-		# Caminho Triste
-			Esquema do Cenário: Listar salas quando não tiver nenhuma sala
-			E que não tiver nenhuma sala cadastrada no sistema
-			Quando eu clicar no link "Todos as salas"
-			Então nenhuma sala deve ser mostrada
-
-			Exemplos:
-			| name | location | students |
+	Esquema do Cenário: Contagem de salas quando não tiver nenhuma sala
+	E que não tenha nenhuma sala no sistema
+	Quando eu entrar no dashboard de admin
+	Então nenhuma sala deve ser mostrada

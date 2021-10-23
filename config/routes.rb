@@ -30,6 +30,5 @@ Rails.application.routes.draw do
   get 'all-appointments' => 'appointments#all_appointments'
   get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_user', to: 'backoffice/dashboard#signup_user'
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
