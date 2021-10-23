@@ -1,6 +1,6 @@
 #language: pt
 #encoding: utf-8
-@wip
+# @wip
 Funcionalidade: Quantidade de horários reservados
     Eu como administrador do sistema,
     Quero poder ver a quantidade de horários reservados
