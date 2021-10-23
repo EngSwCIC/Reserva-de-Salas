@@ -1,93 +1,41 @@
-# This is the steps file referred to pedidos_pendentes feature
-# Place your code relative to that feature here
+Dado("que eu sou administrador do sistema com email{string} e senha {string}") do |string, string2|
+  User.create(username: 'admin', email: string, password: string2,
+    registration: "15015296", course: "CIC", is_admin: true
+  )
 
-Dado("que eu seja admin do sistema com email {string} e senha {string}") do |string, string2|
-    User.create(username: 'admin', email: string, password: string2,
-        registration: "15015296", course: "CIC", is_admin: true
-    )
-    visit new_user_session_path
-    fill_in :user_email, with: string
-    fill_in :user_password, with: string2
-    click_button "Log in"
+  visit new_user_session_path
+
+  fill_in :user_email, with: string
+  fill_in :user_password, with: string2
+  click_button "Log in"
 end
 
-E("que eu esteja na pagina {string}") do |string|
-    visit(backoffice_path)
-    expect(page).to have_content(string)
-end
- 
+Dado('que eu esteja na página {string}') do |string|
+  visit(backoffice_path)
+  expect(page).to have_content(string)
+end 
 
-E("eu clicar no link {string}") do |string|
-    click_link "#{string}"
- end
-
-Quando("eu clicar no link {string}") do |string|
-    click_link "#{string}"
-end
-
-Então("eu devo estar em uma página com uma lista contendo os pedidos pendentes numero da reserva {int}, localizacao {string}, sala {string}, data {string}, horario da reserva {string}, usuario {string}, capacidade{int} e editar {string}") do |int ,string1, string2, string3, string4, string5, string6|
-    expect(page).to have_content(int)
-    expect(page).to have_content(string1)
-    expect(page).to have_content(string2)
-    expect(page).to have_content(string3)
-    expect(page).to have_content(string4)
-    expect(page).to have_content(string5)
-    expect(page).to have_content(int)
-    expect(page).to have_content(string7) 
+Dado('que o usuário já tenha feito um pedido de sala') do
+  room = Room.create(name: 'Sala 1', location: 'CIC',  students: 100)
+  require 'date'
+  today = Date.today
+  today_date = Time.new(today.year, today.month, today.day, 0, 0, 0, "UTC")
+  start_time = Time.new(2000, 1, 1, 10, 0, 0, "UTC")
+  appointment = Appointment.create(room_id: room.id, user_id: User.where(is_admin: true).first.id, appointment_date: today_date, start_time: start_time, description: 'Horario de teste', status: 1)
+  appointment.save!
+  expect(Appointment.all.length).to eq 1
 end
 
-E("eu clicar em {string}") do |string|
-    click_link("#{string}")
-  end
-
-Entao("eu posso aceitar a reserva") do |field, value|
-   fill_in field, :value
- end 
- 
- Quando("eu clicar no link {string}") do |string|
-  click_link "#{string}"
+Entao('eu devo ver a quantidade de pedidos pendentes') do
+  expect(page.has_content?("Nº Pedidos Pendentes 1")).to be true
 end
 
-Entao("que eu esteja na pagina {string}") do |string|
+Dado('que eu esteja na página {string}') do |string|
   visit(backoffice_path)
   expect(page).to have_content(string)
 end
 
-Então("eu devo ver uma mensagem {string}") do |string|
-    page.has_content?("#{string}")
-  end
+Entao('eu devo ver nenhum numero de pedidos pendentes') do
+  expect(page.has_content?("Nº Pedidos Pendentes 0")).to be true
+end
 
-
-  Dado('que esteja na página “backoffice”') do
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
-  Quando('eu clicar em {string}.') do |string|
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
-  Então('eu devo ver uma tabela com todas as salas e horários reservados:') do |table|
-    # table is a Cucumber::MultilineArgument::DataTable
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
-  Então('quando eu clicar em editar,') do
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
-  Entao('poder aceitar ou recusar a reserva..') do
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
-  Quando('eu clicar em “Mostrar os Pedidos Pendentes” no dashboard do administrador') do
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
-  Então('eu permaneço no dashboard do administrador') do
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
-  Então('deve aparecer um alerta de nenhum pedido pendente.') do
-    pending # Write code here that turns the phrase above into concrete actions
-  end
-  
