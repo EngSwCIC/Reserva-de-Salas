@@ -1,8 +1,7 @@
     #language: pt
     #encoding: utf-8
 
-    @wip
-
+   
     Funcionalidade: Quantidade de pedidos pendentes
     Eu como administrador
     Quero poder ver a quantidade de pedidos pendentes
