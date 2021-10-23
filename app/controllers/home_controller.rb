@@ -10,7 +10,7 @@ class HomeController < ApplicationController
   end
 
   def pendent_appointments
-    Appointment.whele(status: 1).order("appointment_data ASC")
+    Appointment.where(status: 1).order("appointment_date ASC")
   end
   
   def expired_appointments

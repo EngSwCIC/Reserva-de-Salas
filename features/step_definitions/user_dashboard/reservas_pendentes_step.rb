@@ -18,5 +18,5 @@ end
 
 Então("eu não devo ver nenhuma reserva nessa tabela") do
     visit(root_path)
-    page.all('table#aprovados tr').count.should == 1
+    page.all('table#aprovados tr').count.should == 0
 end
