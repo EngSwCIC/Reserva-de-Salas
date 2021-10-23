@@ -12,47 +12,7 @@
 				<% end %>
 		</div>
 
-		<section class="pb-4 d-flex w-100 justify-content-between">
-			<div class="card align-items-center justify-content-center" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title text-center">Nº de Usuários</h5>
-					<h1 class="card-text text-center"><%= @users.count %></h1>
-					<a href="#" class="btn btn-primary d-flex text-center">
-						<h6 class="w-100 m-0">Ver usuários</h6>
-					</a>
-				</div>
-			</div>
-
-			<div class="card align-items-center justify-content-center" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title text-center">Nº de Salas</h5>
-					<h1 class="card-text text-center"><%= @rooms.count %></h1>
-					<a href="#" class="btn btn-primary d-flex text-center">
-						<h6 class="w-100 m-0">Ver Salas</h6>
-					</a>
-				</div>
-			</div>
-
-			<div class="card align-items-center justify-content-center" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title text-center">Nº Pedidos Pendentes</h5>
-					<h1 class="card-text text-center"><%= @pending_appointments %></h1>
-					<a href="#" class="btn btn-primary d-flex text-center">
-						<h6 class="w-100 m-0">Ver Pendentes</h6>
-					</a>
-				</div>
-			</div>
-
-			<div class="card align-items-center justify-content-center" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title text-center">Nº Reservas Confirmadas</h5>
-					<h1 class="card-text text-center"><%= @accepted_appointments %></h1>
-					<a href="#" class="btn btn-primary d-flex text-center">
-						<h6 class="w-100 m-0">Ver Confirmadas</h6>
-					</a>
-				</div>
-			</div>
-		</section>
+		
 
 		<% if user_signed_in? %>
 			<% if current_user.is_admin? %>
@@ -62,7 +22,54 @@
 				<%= link_to 'Cadastrar um novo usuário', signup_user_path, class: 'btn btn-primary' %>
 				<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-primary' %>
 
-				<h1>Horários de Hoje </h1>
+				
+				
+			<% end %>
+		<% end %>
+
+		<section class="pb-4 d-flex w-100 justify-content-between">
+			<div class="card align-items-center justify-content-center" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title text-center">Nº de Usuários</h5>
+					<h1 class="card-text text-center"><%= @users.count %></h1>
+					<a href="users/show" class="btn btn-primary d-flex text-center">
+						<h6 class="w-100 m-0">Ver usuários</h6>
+					</a>
+				</div>
+			</div>
+
+			<div class="card align-items-center justify-content-center" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title text-center">Nº de Salas</h5>
+					<h1 class="card-text text-center"><%= @rooms.count %></h1>
+					<a href="rooms" class="btn btn-primary d-flex text-center">
+						<h6 class="w-100 m-0">Ver Salas</h6>
+					</a>
+				</div>
+			</div>
+
+			<div class="card align-items-center justify-content-center" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title text-center">Nº Pedidos Pendentes</h5>
+					<h1 class="card-text text-center"><%= @pending_appointments %></h1>
+					<a href="pending_appointments" class="btn btn-primary d-flex text-center">
+						<h6 class="w-100 m-0">Ver Pendentes</h6>
+					</a>
+				</div>
+			</div>
+
+			<div class="card align-items-center justify-content-center" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title text-center">Nº Reservas Confirmadas</h5>
+					<h1 class="card-text text-center"><%= @accepted_appointments %></h1>
+					<a href="accepted_appointments" class="btn btn-primary d-flex text-center">
+						<h6 class="w-100 m-0">Ver Confirmadas</h6>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<h1>Horários de Hoje </h1>
 				<% if @todays_appointments.length > 0 %>				
 					<% @todays_appointments.each do |appointment| %>						
 						<%= link_to ("#{appointment[:time]} na #{appointment[:room_name]}"), edit_appointment_path(appointment[:id]) %>
@@ -71,8 +78,5 @@
 				<% else %>
 					<p>Não há horários reservados para hoje.</p>
 				<% end %>
-				
-			<% end %>
-		<% end %>
 	</div>
 </div>
