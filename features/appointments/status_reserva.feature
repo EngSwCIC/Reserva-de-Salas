@@ -15,7 +15,7 @@ página recarregue para cada agendamento
 
   # Cenario Triste aprovado apos vencimento
   Cenario: Um Administrador aprova uma requisição após a data de seu vencimento
-  Dado que exista a sala "PAT-45", "2021-09-23" no horario "00:00:00 UTC"
+  Dado que exista a sala "Pat-45", "2021-09-23" no horario "00:00:00 UTC"
   E que a data e horário atual sejam após "2021-09-23 00:00:00 UTC"
   Quando eu clicar no botão "Aprovado"
   Então deve aparecer uma mensagem na tela dizendo "Requisição vencida!"
@@ -30,13 +30,13 @@ página recarregue para cada agendamento
   # Cenario Feliz aluguel aprovado
   Cenario: Um Administrador aprova uma requisição
   Dado que exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
-  E que a sala "Pat-45", "50", "PAT-AT" não possua requisições no horário de "8:00 - 10:00"
+  E que a sala "Pat-45" não possua requisições no horário de "8:00 - 10:00"
   Quando eu clicar no botão "Aprovado"
   Então deve aparecer uma mensagem na tela dizendo "Aprovado com sucesso!"
 
   # Cenario Feliz aluguel reprovado
   Cenario: Um Administrador reprova uma requisição
   Dado que exista a sala "Pat-45", "50", "PAT-AT" cadastrada no sistema
-  E que a sala "Pat-45", "50", "PAT-AT" possua requisições no horário de "14:00 - 16:00"
+  E que a sala "Pat-45" possua requisições no horário de "14:00 - 16:00"
   Quando eu clicar no botão "Reprovado"
   Então deve aparecer uma mensagem na tela dizendo "Reprovado, a sala está já está reservada!"
