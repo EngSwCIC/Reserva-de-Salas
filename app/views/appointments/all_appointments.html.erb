@@ -22,8 +22,8 @@
       <td class="appointment-data"> <%= appointment.start_time %> </td>
       <td>
         <%= form_for(appointment) do |r| %>    
-          <%= link_to "Aprovar", change_status_path, :id=>appointment.id, class:'btn btn-secondary' %>
-          <%= r.submit "Reprovado"%>
+          <%= link_to "Aprovar", change_status_path, :id=>appointment.id, :value=>2, class:'btn btn-secondary' %>
+          <%= link_to "Reprovar", change_status_path, :id=>appointment.id, :value=>0, class:'btn btn-secondary' %>
           <% if appointment.status == 0 %>
             <%= r.label "REPROVADO" %>
           <% elsif appointment.status == 1 %>
