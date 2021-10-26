@@ -33,12 +33,16 @@ class AppointmentsController < ApplicationController
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end
 
-  # function to control button in view
-  # 0 = reprovado, 1 = solicitado, 2 = aprovado
-  def status 
-    @appointment = Appointment.find(params[:id]) 
-    respond_to do
-      format.js
+  def status
+    # Atualiza o status e salva
+    @appointment = Appointment.find(params[:id])
+    @appointment.status = params[:status]
+    @appointment.save
+
+    # TODO: fazer ajax funcionar?
+    # Redireciona para a propria pagina
+    respond_to do |format|
+      format.html { redirect_to all_appointments_path }
     end
   end
 
@@ -64,7 +68,6 @@ class AppointmentsController < ApplicationController
 
   def all_appointments
     @appointments = Appointment.all
-
   end
 
   def destroy
