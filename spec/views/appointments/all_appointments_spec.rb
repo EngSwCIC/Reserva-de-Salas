@@ -14,23 +14,14 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
       
       # Checks if appointment status is approved
       it 'Estado muda para aprovado' do
-<<<<<<< HEAD
-        pending(':status == 2')
-=======
         @appointment.status = 2
         expect(@appointment.status).to eq(2)
->>>>>>> e7f34d155b1730214f1524927c744c14d2b1ed1d
       end
   
       # Rafael
       it 'Estado muda para reprovado' do
-<<<<<<< HEAD
-        app = Appointment.new(:status => 0)
-        expect(app.status).to eq(0)
-=======
         @appointment.status = 0
         expect(@appointment.status).to eq(0)
->>>>>>> e7f34d155b1730214f1524927c744c14d2b1ed1d
       end
 
       # Tong
