@@ -36,8 +36,10 @@ class AppointmentsController < ApplicationController
   # function to control button in view
   # 0 = reprovado, 1 = solicitado, 2 = aprovado
   def status 
-    # recupera o id do appointment
-    # @appointment = Appointment.find(params[:id])
+    @appointment = Appointment.find(params[:id]) 
+    respond_to do
+      format.js
+    end
   end
 
   def edit

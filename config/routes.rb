@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     put 'users/:id', to: 'users/registrations#update', as: :""
     get 'users/:id/edit', to: 'users/registrations#edit', as: :"edit_user_registration"
 
-  end
+  end  
 
   resources :rooms
   resources :appointments
@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'all-appointments' => 'appointments#all_appointments'
   get 'backoffice', to: 'backoffice/dashboard#index'
   get 'signup_user', to: 'backoffice/dashboard#signup_user'
+  get 'change_status' => 'appointments#status'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

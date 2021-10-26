@@ -7,8 +7,6 @@
     <th scope="col">Sala</th>
     <th scope="col">Data do aluguel</th>
     <th scope="col">Início</th>
-    <%# TODO %>
-    <%# Change col to Status%>
     <th scope="col">Status</th>
 
     <th scope="col"></th>
@@ -19,18 +17,12 @@
     <tr>
       <th scope="row">1</th>
       <td class="appointment-data"> <%= appointment.user.username %> </td>
-      <%# <td class="appointment-data"> <%= appointment.room.name %>
+      <td class="appointment-data"> <%= appointment.room.name %> </td>
       <td class="appointment-data"> <%= appointment.appointment_date %> </td>
       <td class="appointment-data"> <%= appointment.start_time %> </td>
-      <%# TODO %>
-      <%# Change link_to to two buttons (Aprovado, Reprovado)%>
       <td>
-      <%# form_with model: @like, url: create_like_path, class: "float-right", remote: true do |f| %>
-        <%# <%= f.submit "clear", :type => "reset" %>
-
-        <%# TODO: Mudar valor do status e executar o AJAX %>
         <%= form_for(appointment) do |r| %>    
-          <%= r.submit "Aprovado" %>
+          <%= link_to "Aprovar", change_status_path, :id=>appointment.id, class:'btn btn-secondary' %>
           <%= r.submit "Reprovado"%>
           <% if appointment.status == 0 %>
             <%= r.label "REPROVADO" %>
