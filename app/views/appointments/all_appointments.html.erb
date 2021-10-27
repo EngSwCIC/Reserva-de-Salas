@@ -22,15 +22,14 @@
       <td class="appointment-data"> <%= appointment.start_time %> </td>
       <td>
         <%= form_for(appointment) do |r| %>    
-          <%= appointment.status.inspect %>
-          <%= link_to "Aprovar", change_status_path(id: appointment.id, status: 2), class:'btn btn-secondary' %>
-          <%= link_to "Reprovar", change_status_path(id: appointment.id, status: 0), class:'btn btn-secondary' %>
+          <%= link_to "Aprovar", change_status_path(id: appointment.id, status: 2), remote: true, class:'btn btn-secondary' %>
+          <%= link_to "Reprovar", change_status_path(id: appointment.id, status: 0), remote: true, class:'btn btn-secondary' %>
           <% if appointment.status == 0 %>
-            <%= r.label "REPROVADO" %>
+            <%= r.label "REPROVADO", :id => "status#{appointment.id}" %>
           <% elsif appointment.status == 1 %>
-            <%= r.label "SOLICITADO" %>
+            <%= r.label "SOLICITADO", :id => "status#{appointment.id}" %>
           <% else %>
-            <%= r.label "APROVADO" %>
+            <%= r.label "APROVADO", :id => "status#{appointment.id}" %>
           <% end %>
         <% end %> 
       </td>

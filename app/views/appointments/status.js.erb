@@ -1,0 +1,12 @@
+var id = "<%= @appointment.id %>"
+var status = "<%= @appointment.status %>"
+
+// Reprovado (olho nos tipos!)
+if (status === '0') {
+  $('#status' + id).html('Reprovado')
+} 
+
+// Aprovado
+else {
+  $('#status' + id).html('Aprovado')
+}

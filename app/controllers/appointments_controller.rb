@@ -39,10 +39,8 @@ class AppointmentsController < ApplicationController
     @appointment.status = params[:status]
     @appointment.save
 
-    # TODO: fazer ajax funcionar?
-    # Redireciona para a propria pagina
     respond_to do |format|
-      format.html { redirect_to all_appointments_path }
+      format.js
     end
   end
 
