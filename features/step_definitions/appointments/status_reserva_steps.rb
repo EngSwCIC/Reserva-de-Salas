@@ -42,3 +42,7 @@ Dado("que a sala {string} não possua requisições no horário de {string}") do
  @appointment.room_id = Room.where(name: name).id
  @appointment.save
 end
+
+# Leo
+Entao("deve mudar blab blabla l") do ||
+end

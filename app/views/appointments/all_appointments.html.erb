@@ -15,6 +15,7 @@
   <tbody>
   <% @appointments.each do |appointment| %>
     <tr>
+    <%# Rafael %>
       <th scope="row">1</th>
       <td class="appointment-data"> <%= appointment.user.username %> </td>
       <td class="appointment-data"> <%= appointment.room.name %> </td>

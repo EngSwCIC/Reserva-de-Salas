@@ -12,13 +12,14 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
         @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
       end
       
+      # Marcus
       # Checks if appointment status is approved
       it 'Estado muda para aprovado' do
         @appointment.status = 2
         expect(@appointment.status).to eq(2)
       end
   
-      # Rafael
+      # Gustavo
       it 'Estado muda para reprovado' do
         @appointment.status = 0
         expect(@appointment.status).to eq(0)
