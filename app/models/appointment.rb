@@ -6,4 +6,8 @@ class Appointment < ApplicationRecord
   belongs_to :user
   validates_presence_of :start_time
   validates_presence_of :appointment_date
+
+  def self.status_names
+    ["Reprovado", "Solicitado", "Aprovado"]
+  end
 end

@@ -24,13 +24,8 @@
         <%= form_for(appointment) do |r| %>    
           <%= link_to "Aprovar", change_status_path(id: appointment.id, status: 2), remote: true, class:'btn btn-secondary' %>
           <%= link_to "Reprovar", change_status_path(id: appointment.id, status: 0), remote: true, class:'btn btn-secondary' %>
-          <% if appointment.status == 0 %>
-            <%= r.label "REPROVADO", :id => "status#{appointment.id}" %>
-          <% elsif appointment.status == 1 %>
-            <%= r.label "SOLICITADO", :id => "status#{appointment.id}" %>
-          <% else %>
-            <%= r.label "APROVADO", :id => "status#{appointment.id}" %>
-          <% end %>
+          <% @status_name = Appointment.status_names[appointment.status] %>
+          <%= r.label @status_name, id: "status#{appointment.id}" %>
         <% end %> 
       </td>
     </tr>
