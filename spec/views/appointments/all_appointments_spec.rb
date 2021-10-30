@@ -20,9 +20,16 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
       end
   
       # Gustavo
-      it 'Estado muda para reprovado' do
-        @appointment.status = 0
-        expect(@appointment.status).to eq(0)
+      describe "Routes", :type => :routing do
+        it 'Estado muda para reprovado' do
+          # Rota para status funciona
+          expect(:get => change_status_path).
+            to route_to(:controller => 'appointments', :action => 'status')  
+          # Mudança para reprovado é salva
+          @appointment.status = 0
+          @appointment.save
+          expect(@appointment.status).to eq(0)
+        end
       end
 
       # Tong
