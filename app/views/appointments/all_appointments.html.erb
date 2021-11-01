@@ -17,7 +17,7 @@
     <tr>
       <th scope="row"> <%= appointment.id %></th>
       <td class="appointment-data"> <%= appointment.user.username %> </td>
-      <%# <td class="appointment-data"> <%= appointment.room.name %>
+      <td class="appointment-data"> <%= appointment.room.name %> </td>
       <td class="appointment-data"> <%= appointment.appointment_date.strftime("%d/%m/%Y - %I:%M%p") %> </td>
       <td class="appointment-data"> <%= appointment.start_time.strftime("%d/%m/%Y - %I:%M%p") %> </td>
       <td>
