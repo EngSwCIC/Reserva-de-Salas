@@ -41,9 +41,17 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
       end
 
       # Tong
+      describe "Routes", :type => :routing do
       it 'Estado solicitado' do
+        # Rota para status funciona
+        expect(:get => change_status_path).
+            to route_to(:controller => 'appointments', :action => 'status')  
+        #salva solicitado
         @appointment.status = 1
+        @appointment.save
         expect(@appointment.status).to eq(1)
+        flash[:alert] = "Status solicitado"
+      end
       end  
     end
   end
