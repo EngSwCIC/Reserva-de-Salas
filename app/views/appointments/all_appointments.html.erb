@@ -17,9 +17,9 @@
     <tr>
       <th scope="row"> <%= appointment.id %></th>
       <td class="appointment-data"> <%= appointment.user.username %> </td>
-      <td class="appointment-data"> <%= appointment.room.name %> </td>
-      <td class="appointment-data"> <%= appointment.appointment_date.strftime("%m/%d/%Y") %> </td>
-      <td class="appointment-data"> <%= appointment.start_time.strftime("%m/%d/%Y") %> </td>
+      <%# <td class="appointment-data"> <%= appointment.room.name %>
+      <td class="appointment-data"> <%= appointment.appointment_date.strftime("%d/%m/%Y - %I:%M%p") %> </td>
+      <td class="appointment-data"> <%= appointment.start_time.strftime("%d/%m/%Y - %I:%M%p") %> </td>
       <td>
         <%= form_for(appointment) do |r| %>    
           <%= link_to "Aprovar", change_status_path(id: appointment.id, status: 2), remote: true, class:'btn btn-secondary' %>
