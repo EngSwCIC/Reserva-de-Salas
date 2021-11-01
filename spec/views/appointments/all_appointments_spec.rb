@@ -33,8 +33,10 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
       end
 
       # Tong
+      describe "Routes", :type => :routing do
       it 'Estado solicitado' do
-        @appointment.status = 1
+         @appointment.status = 1
+        @appointment.save
         expect(@appointment.status).to eq(1)
       end  
     end
