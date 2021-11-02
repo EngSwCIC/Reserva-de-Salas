@@ -34,7 +34,10 @@ class AppointmentsController < ApplicationController
   end
 
   ##
-  # TODO: Terminar documentaçao acerca do metodo status
+  # Método chamado para atualizar o campo status assincronamente.
+  # Recebe como argumento o ID do appoitment e o valor do status.
+  # Sem retorno.
+  # Atualiza o banco de dados com o valor de status e executa views/appointments/status.js.erb para atualizar o campo status na tabela.
   def status
     # Atualiza o status e salva
     @appointment = Appointment.find(params[:id])
