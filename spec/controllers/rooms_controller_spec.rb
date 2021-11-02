@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require 'rails_helper'
 require 'date'
 
@@ -12,8 +15,8 @@ RSpec.describe RoomsController, type: :controller do
             history_list = Array.new(5)
             appointments_list = Array.new(5)
             
+            # Happy Path
             before do
-                #@user = FactoryBot.create(:user)
                 sign_in user
                 @room = FactoryBot.create(:room)
 
@@ -53,7 +56,8 @@ RSpec.describe RoomsController, type: :controller do
             end
             
         end
-
+        
+        # Sad Path
         context "when the user tries to access a non-existent room" do
             before do
                 sign_in user

@@ -1,5 +1,21 @@
 metric_fu shift the first line
 ================================================================================
+ ../channels.lication_cable/channel.rb
+================================================================================
+!! module ApplicationCable
+!!   class Channel < ActionCable::Channel::Base
+!!   end
+!! end
+
+================================================================================
+ ../channels.lication_cable/connection.rb
+================================================================================
+!! module ApplicationCable
+!!   class Connection < ActionCable::Connection::Base
+!!   end
+!! end
+
+================================================================================
  ../controllers.lication_controller.rb
 ================================================================================
    class ApplicationController < ActionController::Base
@@ -13,89 +29,234 @@ metric_fu shift the first line
 --   
 
 ================================================================================
+ ../controllers.ointments_controller.rb
+================================================================================
+!! class AppointmentsController < ApplicationController
+!!   def new
+!!     @appointment = Appointment.new
+!!     @room = Room.find(params[:id])
+!!   end
+-- 
+--   ##
+--   # POST /appointments
+--   # registra o aluguel de uma sala, feito pelo usuário autenticado e
+--   # contendo obrigatoriamente a data e horário do aluguel.
+--   # O motivo (description) é opcional.
+!!   def create
+!!     room_id = params[:format]
+!!     @appointment = Appointment.new
+!!     @appointment.room_id = params[:format]
+!!     @appointment.user_id = current_user.id
+!!     @appointment.appointment_date = params[:appointment_date]
+!!     @appointment.start_time = params[:start_time]
+!!     @appointment.description = params[:description]
+!!     @appointment.status = 1
+!!     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
+!!       redirect_to backoffice_path
+!!       flash[:notice] = "Alguel realizado com sucesso!"
+!!     else
+!!       redirect_to backoffice_path
+!!       flash[:danger] = "Algo deu errado!"
+!!     end
+!!   end
+-- 
+!!   def show
+!!     @room = Room.find(params[:id])
+!!     @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
+!!     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
+!!   end
+-- 
+!!   def edit
+!!     @appointment = Appointment.find(params[:id])
+!!   end
+-- 
+!!   def update
+!!     @appointment = Appointment.find(params[:id])
+!!     if @appointment.update(appointment_params)
+!!       redirect_to all_appointments_path
+!!       flash.now[:notice] = "O aluguél foi editado com sucesso!"
+!!     else
+!!       flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
+!!       render 'edit'
+!!     end
+!!   end
+-- 
+!!   def my_appointments
+!!     @user = current_user
+!!     @my_appointments = @user.appointments
+!!   end
+-- 
+!!   def all_appointments
+!!     @appointments = Appointment.all
+-- 
+!!   end
+-- 
+!!   def destroy
+!!     @appointment = Appointment.find(params[:id])
+!!     @appointment.destroy
+!!     flash[:danger] = "O Aluguel foi cancelado com suceso"
+!!     redirect_to root_path
+!!   end
+-- 
+!!   private
+-- 
+!!   def appointment_params
+!!     params.require(:appointment).permit(:status)
+!!   end
+!! end
+
+================================================================================
+ ../controllers/backoffice/dashboard_controller.rb
+================================================================================
+!! class Backoffice::DashboardController < BackofficeController
+!! 	helper 'backoffice/dashboard'
+-- 
+!! 	def index
+!! 	end
+!! end
+
+================================================================================
+ ../controllers/backoffice_controller.rb
+================================================================================
+!! class BackofficeController < ApplicationController
+!! 	layout 'backoffice'
+-- 
+-- 	# def user_list
+--  #    	@users = User.all
+--  #  	end
+-- 
+-- 	# def new
+--  #  		@user = User.new
+--  #  		# @user.is_admin = true
+-- 	# end
+-- 
+-- 	# def edit
+--  #  		@user = User.find(params[:id])
+-- 	# end
+-- 
+-- 	# def destroy
+--  #  		@user = User.find(params[:id])
+--  #  		@user.destroy
+--  
+-- 	# 	redirect_to backoffice
+-- 	# end
+!! end
+
+================================================================================
+ ../controllers/home_controller.rb
+================================================================================
+-- ##
+-- # Classe que controla a lógica da página inicial
+   class HomeController < ApplicationController
+-- 	##	
+-- 	# Se um usuário tentar acessar a página index, mas o mesmo estiver
+-- 	# logado na conta, ele é redirecionado para págind do backoffice.
+-- 	#
+-- 	# O método não recebe nenhum argumento e não retorna nenhum valor.
+-- 	#
+-- 	# O método tem como efeito colateral o redirecionamento para a
+-- 	# página backoffice.
+   	def index
+   	  if current_user
+   		redirect_to backoffice_path
+-- 	  end
+-- 	end
+-- end
+
+================================================================================
  ../controllers/rooms_controller.rb
 ================================================================================
-   class RoomsController < ApplicationController
-   	before_action :signed_in?
-   	before_action :is_admin?, only: [:new, :create, :destroy]
-   	def new
+-- ##
+-- # Controlador da lógica da sala, controla as chamadas das operações de CRUD das salas
+!! class RoomsController < ApplicationController
+!! 	before_action :signed_in?
+!! 	before_action :is_admin?, only: [:new, :create, :destroy]
+!! 	def new
 !! 		@room = Room.new
--- 	end
+!! 	end
 -- 
-   	def index
+!! 	def index
 !! 		@rooms = Room.all
--- 	end
+!! 	end
 -- 
-   	def show
-   		if ! Room.exists?(id: params[:id]) then
-   			flash[:alert] = "A sala procurada não existe!"
-   			redirect_to rooms_path
--- 		else
-   			@room = Room.where("id = ?", params[:id])
-   			if params.has_key?(:filter) and params[:filter] == "history"
-   				@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date DESC, start_time DESC")
--- 			else
-   				@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date ASC, start_time ASC")
--- 			end
--- 		
-   			@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }	
--- 		end
--- 	end
+!! 	def show
+!! 		p_id = params[:id]
+!! 		if ! Room.exists?(id: p_id) then
+!! 			flash[:alert] = "A sala procurada não existe!"
+!! 			redirect_to rooms_path
+!! 		else
+!! 			@appointments = select_appointments
+!! 		end
+!! 	end
 -- 	
-   	def edit
+!! 	def edit
 !! 		@room = Room.find(params[:id])
--- 	end
+!! 	end
 -- 
-   	def update
+!! 	def update
 !! 		@room = Room.find(params[:id])
 !! 		if @room.update(room_params)
 !! 			redirect_to @room
 !! 			flash[:notice] = "A sala foi editada com sucesso!"
--- 		else
-!! 			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
-!! 			flash.keep(:danger)
-!! 			render 'edit'
--- 		end
--- 	end
+!! 		else
+!! 			danger_update
+!! 		end
+!! 	end
 -- 
-   	def create
+!! 	def create
 !! 		@room = Room.new(room_params)
 !! 		if @room.save
 !! 			flash[:notice] = "A sala foi criada com sucesso!"
-!! 			redirect_to backoffice_path
--- 		else
+!! 		else
 !! 			flash[:danger] = "A sala não pôde ser criada!"
-!! 			redirect_to backoffice_path
--- 		end
--- 	end
+!! 		end
 -- 
-   	def destroy
-!! 		@room = Room.find(params[:id])
-!! 		@room.destroy
+!! 		redirect_to backoffice_path
+!! 	end
+-- 
+!! 	def destroy
+!! 		Room.find(params[:id]).destroy
 !! 		flash[:danger] = "A sala foi excluída"
 !! 		redirect_to backoffice_path
--- 	end
+!! 	end
 -- 
 -- 
-   	private
+!! 	private
 -- 
-   	def signed_in?
-   		if current_user
-   			true
--- 		else
+!! 	def signed_in?
+!! 		if current_user
+!! 			true
+!! 		else
 !! 			flash[:danger] = "Você não pode acessar essa página"
 !! 			return redirect_to '/'
--- 		end
---   	end
+!! 		end
+!!   	end
 -- 
-   	def is_admin?
+!! 	def is_admin?
 !! 		if current_user.is_admin
 !! 			true
--- 		else
+!! 		else
 !! 			flash[:danger] = "Você não pode acessar essa página"
 !! 			return redirect_to '/'
--- 		end
--- 	end
+!! 		end
+!! 	end
+-- 
+!! 	def danger_update
+!! 		flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+!! 		flash.keep(:danger)
+!! 		render 'edit'
+!! 	end
+-- 
+!! 	def select_appointments
+!! 		p_id = params[:id]
+!! 		today = Date.today
+-- 
+!! 		if params.has_key?(:filter) and params[:filter] == "history"
+!! 			Appointment.where('appointment_date < ? AND room_id = ?', today, p_id).all.order("appointment_date DESC, start_time DESC")
+!! 		else
+!! 			Appointment.where('appointment_date >= ? AND room_id = ?', today, p_id).all.order("appointment_date ASC, start_time ASC")
+!! 		end
+!! 	end
 -- 
 -- 	##
 -- 	# GET /rooms/new
@@ -103,10 +264,300 @@ metric_fu shift the first line
 -- 	# POST /rooms
 -- 	# Assim como para renderizar na view do usuário, e assim um usuário não administrador
 -- 	# poder ver a capacidade máxima da sala
-   	def room_params
+!! 	def room_params
 !! 		params.require(:room).permit(:name, :location, :students)
--- 	end
--- end
+!! 	end
+!! end
+
+================================================================================
+ ../controllers/users/confirmations_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::ConfirmationsController < Devise::ConfirmationsController
+--   # GET /resource/confirmation/new
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/confirmation
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # GET /resource/confirmation?confirmation_token=abcdef
+--   # def show
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # The path used after resending confirmation instructions.
+--   # def after_resending_confirmation_instructions_path_for(resource_name)
+--   #   super(resource_name)
+--   # end
+-- 
+--   # The path used after confirmation.
+--   # def after_confirmation_path_for(resource_name, resource)
+--   #   super(resource_name, resource)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/omniauth_callbacks_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+--   # You should configure your model like this:
+--   # devise :omniauthable, omniauth_providers: [:twitter]
+-- 
+--   # You should also create an action method in this controller like this:
+--   # def twitter
+--   # end
+-- 
+--   # More info at:
+--   # https://github.com/plataformatec/devise#omniauth
+-- 
+--   # GET|POST /resource/auth/twitter
+--   # def passthru
+--   #   super
+--   # end
+-- 
+--   # GET|POST /users/auth/twitter/callback
+--   # def failure
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # The path used when OmniAuth fails
+--   # def after_omniauth_failure_path_for(scope)
+--   #   super(scope)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/passwords_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::PasswordsController < Devise::PasswordsController
+--   # GET /resource/password/new
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/password
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # GET /resource/password/edit?reset_password_token=abcdef
+--   # def edit
+--   #   super
+--   # end
+-- 
+--   # PUT /resource/password
+--   # def update
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # def after_resetting_password_path_for(resource)
+--   #   super(resource)
+--   # end
+-- 
+--   # The path used after sending reset password instructions
+--   # def after_sending_reset_password_instructions_path_for(resource_name)
+--   #   super(resource_name)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/registrations_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::RegistrationsController < Devise::RegistrationsController
+!!   skip_before_action :require_no_authentication, only: [:new, :create]
+!!   before_action :configure_sign_up_params, only: [:create]
+!!   before_action :configure_admin_sign_up_params, only: [:create_as_admin]
+!!   before_action :configure_account_update_params, only: [:update]
+-- 
+!!   def new
+!!     super
+!!   end
+-- 
+--   # POST /resource
+!!   def create
+!!     super
+!!   end
+-- 
+--   ##
+--   # POST /users/registrations
+--   # Permite a criação de um novo usuário, criado por um usuário adminisitrador autenticado.
+--   # Valida antes de persistir se o email utilizado já está cadastrado
+--   # Retorna mensagens de erro ou redireciona para a página inicial caso o usuário seja criaido
+--   # com sucesso.
+!!   def create_as_admin
+!!     @user = User.new(user_params)
+!!     if @user.save
+!!       flash[:success] = "Usuário '" + @user.email + "' Criado com sucesso!"
+!!     else
+!!       flash[:danger] = "O email '" + @user.email+ "' já está cadastrado";
+!!     end
+!!     redirect_to request.referrer
+!!   end
+-- 
+!!   def edit
+!!     super
+!!   end
+-- 
+!!   def update
+!!     super
+!!   end
+-- 
+!!   def delete
+!!     super
+!!   end
+-- 
+!!   private
+-- 
+!!     def user_params
+!!       params.require(:user).permit(:email, :username, :course, :registration, :is_admin, :password, :password_confirmation)
+!!     end
+-- 
+--   # GET /resource/cancel
+--   # Forces the session data which is usually expired after sign
+--   # in to be expired now. This is useful if the user wants to
+--   # cancel oauth signing in/up in the middle of the process,
+--   # removing all OAuth session data.
+--   # def cancel
+--   #   super
+--   # end
+-- 
+!!   protected
+-- 
+!!   def configure_permitted_parameters
+!!     devise_parameter_sanitizer.permit(:sign_up, keys: [:name,:email,:username, :registration, :course, :is_admin])
+!!   end
+-- 
+--   # If you have extra params to permit, append them to the sanitizer.
+!!   def configure_sign_up_params
+!!     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :registration, :course])
+!!   end
+-- 
+--   ##
+--   # Parâmetros permitidos para o cadastro de usuários quando
+--   # se está logado como admin.
+--   # Diferença apenas do parâmetro "is_admin", que permite o cadastro
+--   # de outro usuário administrados
+!!   def configure_admin_sign_up_params
+!!     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :registration, :course, :is_admin])
+!!   end
+-- 
+!!   def configure_account_update_params
+!!     devise_parameter_sanitizer.permit(:account_update, keys: [:username, :registration, :course, :password_confirmation])
+!!   end
+-- 
+--   # If you have extra params to permit, append them to the sanitizer.
+-- 
+--   # The path used after sign up.
+--   # def after_sign_up_path_for(resource)
+--   #   super(resource)
+--   # end
+-- 
+--   # The path used after sign up for inactive accounts.
+--   # def after_inactive_sign_up_path_for(resource)
+--   #   super(resource)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/sessions_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::SessionsController < Devise::SessionsController
+--   # before_action :configure_sign_in_params, only: [:create]
+-- 
+--   # GET /resource/sign_in
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/sign_in
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # DELETE /resource/sign_out
+--   # def destroy
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # If you have extra params to permit, append them to the sanitizer.
+--   # def configure_sign_in_params
+--   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/unlocks_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::UnlocksController < Devise::UnlocksController
+--   # GET /resource/unlock/new
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/unlock
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # GET /resource/unlock?unlock_token=abcdef
+--   # def show
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # The path used after sending unlock password instructions
+--   # def after_sending_unlock_instructions_path_for(resource)
+--   #   super(resource)
+--   # end
+-- 
+--   # The path used after unlocking the resource
+--   # def after_unlock_path_for(resource)
+--   #   super(resource)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users_controller.rb
+================================================================================
+!! class UsersController < ApplicationController
+--   ##
+--   # GET	/users/show
+--   # Controller que lista todos os usuários do sistema
+--   # Assim como é responsável pela ordenação crescente e decrescente
+--   # e por realizar buscas no model User 
+!!   def show
+--     ##
+--     # Variável de instância  @q recebe os parametros oriundos do search_form
+--     # @users recebe  o resultado da busca tanto para ordenação, quanto da busca
+--     # realizada no model User referente ao request do usuário
+!!     @q = User.ransack(params[:q])
+!!     @users = @q.result(distinct: true)
+!!   end
+!! end
 
 ================================================================================
  ../helpers/admins_helper.rb
@@ -177,6 +628,20 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
+ ../jobs.lication_job.rb
+================================================================================
+!! class ApplicationJob < ActiveJob::Base
+!! end
+
+================================================================================
+ ../mailers.lication_mailer.rb
+================================================================================
+!! class ApplicationMailer < ActionMailer::Base
+!!   default from: 'from@example.com'
+!!   layout 'mailer'
+!! end
+
+================================================================================
  ../models.lication_record.rb
 ================================================================================
    class ApplicationRecord < ActiveRecord::Base
@@ -189,24 +654,24 @@ metric_fu shift the first line
 -- # Classe que registra o aluguel de uma sala,
 -- # que pode ser feito por um usuário ou administrador,
 -- # informando obrigatoriamente a data e horário do aluguel
-   class Appointment < ApplicationRecord
-     belongs_to :room
-     belongs_to :user
-     validates_presence_of :start_time
-     validates_presence_of :appointment_date
--- end
+!! class Appointment < ApplicationRecord
+!!   belongs_to :room
+!!   belongs_to :user
+!!   validates_presence_of :start_time
+!!   validates_presence_of :appointment_date
+!! end
 
 ================================================================================
  ../models/room.rb
 ================================================================================
 -- # Classe que declara uma sala disponível para aluguel
 -- # cadastrada com os dados "nome", "capacidade" e "local"
-   class Room < ApplicationRecord
-   	has_many :appointments
-   	has_many :users, :through => :appointments
-   	validates :name, presence: true, length: {minimum: 3, maximum: 50}
-   	validates :location, presence: true, length: {minimum: 3, maximum: 50}
--- end
+!! class Room < ApplicationRecord
+!! 	has_many :appointments
+!! 	has_many :users, :through => :appointments
+!! 	validates :name, presence: true, length: {minimum: 3, maximum: 50}
+!! 	validates :location, presence: true, length: {minimum: 3, maximum: 50}
+!! end
 
 ================================================================================
  ../models/user.rb
@@ -224,725 +689,5 @@ metric_fu shift the first line
      def is_admin?
 !!   	self.is_admin
 --   end
--- end
-
-================================================================================
- ./config.lication.rb
-================================================================================
-   require_relative 'boot'
--- 
-   require "rails"
--- # Pick the frameworks you want:
-   require "active_model/railtie"
-   require "active_job/railtie"
-   require "active_record/railtie"
-   require "action_controller/railtie"
-   require "action_mailer/railtie"
-   require "action_view/railtie"
-   require "action_cable/engine"
-   require "sprockets/railtie"
--- # require "rails/test_unit/railtie"
--- 
--- # Require the gems listed in Gemfile, including any gems
--- # you've limited to :test, :development, or :production.
-   Bundler.require(*Rails.groups)
--- 
-   module ReservaDeSalas
-     class Application < Rails::Application
---     # Initialize configuration defaults for originally generated Rails version.
-       config.load_defaults 5.1
--- 
---     # Settings in config/environments/* take precedence over those specified here.
---     # Application configuration should go into files in config/initializers
---     # -- all .rb files in that directory are automatically loaded.
--- 
---     # Don't generate system test files.
-       config.generators.system_tests = nil
---   end
--- end
-
-================================================================================
- ./config/boot.rb
-================================================================================
-   ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
--- 
-   require 'bundler/setup' # Set up gems listed in the Gemfile.
-
-================================================================================
- ./config/environment.rb
-================================================================================
--- # Load the Rails application.
-   require_relative 'application'
--- 
--- # Initialize the Rails application.
-   Rails.application.initialize!
-
-================================================================================
- ./config/environments/development.rb
-================================================================================
-   Rails.application.configure do
---   # Settings specified here will take precedence over those in config/application.rb.
--- 
---   # In the development environment your application's code is reloaded on
---   # every request. This slows down response time but is perfect for development
---   # since you don't have to restart the web server when you make code changes.
-     config.cache_classes = false
--- 
---   # Do not eager load code on boot.
-     config.eager_load = false
--- 
---   # Show full error reports.
-     config.consider_all_requests_local = true
--- 
---   # Enable/disable caching. By default caching is disabled.
-     if Rails.root.join('tmp/caching-dev.txt').exist?
-!!     config.action_controller.perform_caching = true
--- 
-!!     config.cache_store = :memory_store
-!!     config.public_file_server.headers = {
---       'Cache-Control' => "public, max-age=#{2.days.seconds.to_i}"
---     }
---   else
-       config.action_controller.perform_caching = false
--- 
-       config.cache_store = :null_store
---   end
--- 
---   # Don't care if the mailer can't send.
-     config.action_mailer.raise_delivery_errors = false
--- 
-     config.action_mailer.perform_caching = false
--- 
---   # Print deprecation notices to the Rails logger.
-     config.active_support.deprecation = :log
--- 
---   # Raise an error on page load if there are pending migrations.
-     config.active_record.migration_error = :page_load
--- 
---   # Debug mode disables concatenation and preprocessing of assets.
---   # This option may cause significant delays in view rendering with a large
---   # number of complex assets.
-     config.assets.debug = true
--- 
---   # Suppress logger output for asset requests.
-     config.assets.quiet = true
--- 
---   # Raises error for missing translations
---   # config.action_view.raise_on_missing_translations = true
--- 
---   # Use an evented file watcher to asynchronously detect changes in source code,
---   # routes, locales, etc. This feature depends on the listen gem.
-     config.file_watcher = ActiveSupport::EventedFileUpdateChecker
--- end
-
-================================================================================
- ./config/initializers.lication_controller_renderer.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # ActiveSupport::Reloader.to_prepare do
--- #   ApplicationController.renderer.defaults.merge!(
--- #     http_host: 'example.org',
--- #     https: false
--- #   )
--- # end
-
-================================================================================
- ./config/initializers/assets.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # Version of your assets, change this if you want to expire all your assets.
-   Rails.application.config.assets.version = '1.0'
--- 
--- # Add additional assets to the asset load path.
--- # Rails.application.config.assets.paths << Emoji.images_path
--- # Add Yarn node_modules folder to the asset load path.
-   Rails.application.config.assets.paths << Rails.root.join('node_modules')
-   Rails.application.config.assets.precompile += %w( header.js )
-   Rails.application.config.assets.precompile += %w( header.css )
-   Rails.application.config.assets.precompile += %w( login-register-form.css )
-   Rails.application.config.assets.precompile += %w( form-utils.css )
--- # Precompile additional assets.
--- # application.js, application.css, and all non-JS/CSS in the app/assets
--- # folder are already added.
-   Rails.application.config.assets.precompile += %w(1.jpg 2.jpg 3.jpg bin.png edit.png calendar.png)
-
-================================================================================
- ./config/initializers/backtrace_silencers.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # You can add backtrace silencers for libraries that you're using but don't wish to see in your backtraces.
--- # Rails.backtrace_cleaner.add_silencer { |line| line =~ /my_noisy_library/ }
--- 
--- # You can also remove all the silencers if you're trying to debug a problem that might stem from framework code.
--- # Rails.backtrace_cleaner.remove_silencers!
-
-================================================================================
- ./config/initializers/cookies_serializer.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # Specify a serializer for the signed and encrypted cookie jars.
--- # Valid options are :json, :marshal, and :hybrid.
-   Rails.application.config.action_dispatch.cookies_serializer = :json
-
-================================================================================
- ./config/initializers/devise.rb
-================================================================================
--- # frozen_string_literal: true
--- 
--- # Use this hook to configure devise mailer, warden hooks and so forth.
--- # Many of these configuration options can be set straight in your model.
-   Devise.setup do |config|
---   # The secret key used by Devise. Devise uses this key to generate
---   # random tokens. Changing this key will render invalid all existing
---   # confirmation, reset password and unlock tokens in the database.
---   # Devise will use the `secret_key_base` as its `secret_key`
---   # by default. You can change it below and use your own secret key.
---   # config.secret_key = 'f9c55141d37b1008a6a501a9468a94aef6829684a773a6a1be7d3e8a0eda358c120bfa07b8ea7ae3f03864f363596b66818be31b462f901ee8ab2540e2297a8b'
---   
---   # ==> Controller configuration
---   # Configure the parent class to the devise controllers.
---   # config.parent_controller = 'DeviseController'
--- 
---   # ==> Mailer Configuration
---   # Configure the e-mail address which will be shown in Devise::Mailer,
---   # note that it will be overwritten if you use your own mailer class
---   # with default "from" parameter.
-     config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
--- 
---   # Configure the class responsible to send e-mails.
---   # config.mailer = 'Devise::Mailer'
--- 
---   # Configure the parent class responsible to send e-mails.
---   # config.parent_mailer = 'ActionMailer::Base'
--- 
---   # ==> ORM configuration
---   # Load and configure the ORM. Supports :active_record (default) and
---   # :mongoid (bson_ext recommended) by default. Other ORMs may be
---   # available as additional gems.
-     require 'devise/orm/active_record'
--- 
---   # ==> Configuration for any authentication mechanism
---   # Configure which keys are used when authenticating a user. The default is
---   # just :email. You can configure it to use [:username, :subdomain], so for
---   # authenticating a user, both parameters are required. Remember that those
---   # parameters are used only when authenticating and not when retrieving from
---   # session. If you need permissions, you should implement that in a before filter.
---   # You can also supply a hash where the value is a boolean determining whether
---   # or not authentication should be aborted when the value is not present.
---   # config.authentication_keys = [:email]
--- 
---   # Configure parameters from the request object used for authentication. Each entry
---   # given should be a request method and it will automatically be passed to the
---   # find_for_authentication method and considered in your model lookup. For instance,
---   # if you set :request_keys to [:subdomain], :subdomain will be used on authentication.
---   # The same considerations mentioned for authentication_keys also apply to request_keys.
---   # config.request_keys = []
--- 
---   # Configure which authentication keys should be case-insensitive.
---   # These keys will be downcased upon creating or modifying a user and when used
---   # to authenticate or find a user. Default is :email.
-     config.case_insensitive_keys = [:email]
--- 
---   # Configure which authentication keys should have whitespace stripped.
---   # These keys will have whitespace before and after removed upon creating or
---   # modifying a user and when used to authenticate or find a user. Default is :email.
-     config.strip_whitespace_keys = [:email]
--- 
---   # Tell if authentication through request.params is enabled. True by default.
---   # It can be set to an array that will enable params authentication only for the
---   # given strategies, for example, `config.params_authenticatable = [:database]` will
---   # enable it only for database (email + password) authentication.
---   # config.params_authenticatable = true
--- 
---   # Tell if authentication through HTTP Auth is enabled. False by default.
---   # It can be set to an array that will enable http authentication only for the
---   # given strategies, for example, `config.http_authenticatable = [:database]` will
---   # enable it only for database authentication. The supported strategies are:
---   # :database      = Support basic authentication with authentication key + password
---   # config.http_authenticatable = false
--- 
---   # If 401 status code should be returned for AJAX requests. True by default.
---   # config.http_authenticatable_on_xhr = true
--- 
---   # The realm used in Http Basic Authentication. 'Application' by default.
---   # config.http_authentication_realm = 'Application'
--- 
---   # It will change confirmation, password recovery and other workflows
---   # to behave the same regardless if the e-mail provided was right or wrong.
---   # Does not affect registerable.
---   # config.paranoid = true
--- 
---   # By default Devise will store the user in session. You can skip storage for
---   # particular strategies by setting this option.
---   # Notice that if you are skipping storage for all authentication paths, you
---   # may want to disable generating routes to Devise's sessions controller by
---   # passing skip: :sessions to `devise_for` in your config/routes.rb
-     config.skip_session_storage = [:http_auth]
--- 
---   # By default, Devise cleans up the CSRF token on authentication to
---   # avoid CSRF token fixation attacks. This means that, when using AJAX
---   # requests for sign in and sign up, you need to get a new CSRF token
---   # from the server. You can disable this option at your own risk.
---   # config.clean_up_csrf_token_on_authentication = true
--- 
---   # When false, Devise will not attempt to reload routes on eager load.
---   # This can reduce the time taken to boot the app but if your application
---   # requires the Devise mappings to be loaded during boot time the application
---   # won't boot properly.
---   # config.reload_routes = true
--- 
---   # ==> Configuration for :database_authenticatable
---   # For bcrypt, this is the cost for hashing the password and defaults to 11. If
---   # using other algorithms, it sets how many times you want the password to be hashed.
---   #
---   # Limiting the stretches to just one in testing will increase the performance of
---   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
---   # a value less than 10 in other environments. Note that, for bcrypt (the default
---   # algorithm), the cost increases exponentially with the number of stretches (e.g.
---   # a value of 20 is already extremely slow: approx. 60 seconds for 1 calculation).
-     config.stretches = Rails.env.test? ? 1 : 11
--- 
---   # Set up a pepper to generate the hashed password.
---   # config.pepper = 'f938ad6354619b7d6415157b9a901bd8f5a87315f93c154a851e436112c2e9521ba1579eeb57b6e143b51dd524a5e0439b32d3139bd158f3bb70e1df0742bd36'
--- 
---   # Send a notification to the original email when the user's email is changed.
---   # config.send_email_changed_notification = false
--- 
---   # Send a notification email when the user's password is changed.
---   # config.send_password_change_notification = false
--- 
---   # ==> Configuration for :confirmable
---   # A period that the user is allowed to access the website even without
---   # confirming their account. For instance, if set to 2.days, the user will be
---   # able to access the website for two days without confirming their account,
---   # access will be blocked just in the third day. Default is 0.days, meaning
---   # the user cannot access the website without confirming their account.
---   # config.allow_unconfirmed_access_for = 2.days
--- 
---   # A period that the user is allowed to confirm their account before their
---   # token becomes invalid. For example, if set to 3.days, the user can confirm
---   # their account within 3 days after the mail was sent, but on the fourth day
---   # their account can't be confirmed with the token any more.
---   # Default is nil, meaning there is no restriction on how long a user can take
---   # before confirming their account.
---   # config.confirm_within = 3.days
--- 
---   # If true, requires any email changes to be confirmed (exactly the same way as
---   # initial account confirmation) to be applied. Requires additional unconfirmed_email
---   # db field (see migrations). Until confirmed, new email is stored in
---   # unconfirmed_email column, and copied to email column on successful confirmation.
-     config.reconfirmable = true
--- 
---   # Defines which key will be used when confirming an account
---   # config.confirmation_keys = [:email]
--- 
---   # ==> Configuration for :rememberable
---   # The time the user will be remembered without asking for credentials again.
---   # config.remember_for = 2.weeks
--- 
---   # Invalidates all the remember me tokens when the user signs out.
-     config.expire_all_remember_me_on_sign_out = true
--- 
---   # If true, extends the user's remember period when remembered via cookie.
---   # config.extend_remember_period = false
--- 
---   # Options to be passed to the created cookie. For instance, you can set
---   # secure: true in order to force SSL only cookies.
---   # config.rememberable_options = {}
--- 
---   # ==> Configuration for :validatable
---   # Range for password length.
-     config.password_length = 6..128
--- 
---   # Email regex used to validate email formats. It simply asserts that
---   # one (and only one) @ exists in the given string. This is mainly
---   # to give user feedback and not to assert the e-mail validity.
-     config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
--- 
---   # ==> Configuration for :timeoutable
---   # The time you want to timeout the user session without activity. After this
---   # time the user will be asked for credentials again. Default is 30 minutes.
---   # config.timeout_in = 30.minutes
--- 
---   # ==> Configuration for :lockable
---   # Defines which strategy will be used to lock an account.
---   # :failed_attempts = Locks an account after a number of failed attempts to sign in.
---   # :none            = No lock strategy. You should handle locking by yourself.
---   # config.lock_strategy = :failed_attempts
--- 
---   # Defines which key will be used when locking and unlocking an account
---   # config.unlock_keys = [:email]
--- 
---   # Defines which strategy will be used to unlock an account.
---   # :email = Sends an unlock link to the user email
---   # :time  = Re-enables login after a certain amount of time (see :unlock_in below)
---   # :both  = Enables both strategies
---   # :none  = No unlock strategy. You should handle unlocking by yourself.
---   # config.unlock_strategy = :both
--- 
---   # Number of authentication tries before locking an account if lock_strategy
---   # is failed attempts.
---   # config.maximum_attempts = 20
--- 
---   # Time interval to unlock the account if :time is enabled as unlock_strategy.
---   # config.unlock_in = 1.hour
--- 
---   # Warn on the last attempt before the account is locked.
---   # config.last_attempt_warning = true
--- 
---   # ==> Configuration for :recoverable
---   #
---   # Defines which key will be used when recovering the password for an account
---   # config.reset_password_keys = [:email]
--- 
---   # Time interval you can reset your password with a reset password key.
---   # Don't put a too small interval or your users won't have the time to
---   # change their passwords.
-     config.reset_password_within = 6.hours
--- 
---   # When set to false, does not sign a user in automatically after their password is
---   # reset. Defaults to true, so a user is signed in automatically after a reset.
---   # config.sign_in_after_reset_password = true
--- 
---   # ==> Configuration for :encryptable
---   # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
---   # You can use :sha1, :sha512 or algorithms from others authentication tools as
---   # :clearance_sha1, :authlogic_sha512 (then you should set stretches above to 20
---   # for default behavior) and :restful_authentication_sha1 (then you should set
---   # stretches to 10, and copy REST_AUTH_SITE_KEY to pepper).
---   #
---   # Require the `devise-encryptable` gem when using anything other than bcrypt
---   # config.encryptor = :sha512
--- 
---   # ==> Scopes configuration
---   # Turn scoped views on. Before rendering "sessions/new", it will first check for
---   # "users/sessions/new". It's turned off by default because it's slower if you
---   # are using only default views.
---   # config.scoped_views = false
--- 
---   # Configure the default scope given to Warden. By default it's the first
---   # devise role declared in your routes (usually :user).
---   # config.default_scope = :user
--- 
---   # Set this configuration to false if you want /users/sign_out to sign out
---   # only the current scope. By default, Devise signs out all scopes.
---   # config.sign_out_all_scopes = true
--- 
---   # ==> Navigation configuration
---   # Lists the formats that should be treated as navigational. Formats like
---   # :html, should redirect to the sign in page when the user does not have
---   # access, but formats like :xml or :json, should return 401.
---   #
---   # If you have any extra navigational formats, like :iphone or :mobile, you
---   # should add them to the navigational formats lists.
---   #
---   # The "*/*" below is required to match Internet Explorer requests.
---   # config.navigational_formats = ['*/*', :html]
--- 
---   # The default HTTP method used to sign out a resource. Default is :delete.
-     config.sign_out_via = :delete
--- 
---   # ==> OmniAuth
---   # Add a new OmniAuth provider. Check the wiki for more information on setting
---   # up on your models and hooks.
---   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
--- 
---   # ==> Warden configuration
---   # If you want to use other strategies, that are not supported by Devise, or
---   # change the failure app, you can configure them inside the config.warden block.
---   #
---   # config.warden do |manager|
---   #   manager.intercept_401 = false
---   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
---   # end
--- 
---   # ==> Mountable engine configurations
---   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
---   # is mountable, there are some extra configurations to be taken into account.
---   # The following options are available, assuming the engine is mounted as:
---   #
---   #     mount MyEngine, at: '/my_engine'
---   #
---   # The router that invoked `devise_for`, in the example above, would be:
---   # config.router_name = :my_engine
---   #
---   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
---   # so you need to do it manually. For the users scope, it would be:
---   # config.omniauth_path_prefix = '/my_engine/users/auth'
--- end
-
-================================================================================
- ./config/initializers/filter_parameter_logging.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # Configure sensitive parameters which will be filtered from the log file.
-   Rails.application.config.filter_parameters += [:password]
-
-================================================================================
- ./config/initializers/inflections.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # Add new inflection rules using the following format. Inflections
--- # are locale specific, and you may define rules for as many different
--- # locales as you wish. All of these examples are active by default:
--- # ActiveSupport::Inflector.inflections(:en) do |inflect|
--- #   inflect.plural /^(ox)$/i, '\1en'
--- #   inflect.singular /^(ox)en/i, '\1'
--- #   inflect.irregular 'person', 'people'
--- #   inflect.uncountable %w( fish sheep )
--- # end
--- 
--- # These inflection rules are supported but not enabled by default:
--- # ActiveSupport::Inflector.inflections(:en) do |inflect|
--- #   inflect.acronym 'RESTful'
--- # end
-
-================================================================================
- ./config/initializers/mime_types.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # Add new mime types for use in respond_to blocks:
--- # Mime::Type.register "text/richtext", :rtf
-
-================================================================================
- ./config/initializers/wrap_parameters.rb
-================================================================================
--- # Be sure to restart your server when you modify this file.
--- 
--- # This file contains settings for ActionController::ParamsWrapper which
--- # is enabled by default.
--- 
--- # Enable parameter wrapping for JSON. You can disable this by setting :format to an empty array.
-   ActiveSupport.on_load(:action_controller) do
-     wrap_parameters format: [:json]
--- end
--- 
--- # To enable root element in JSON for ActiveRecord objects.
--- # ActiveSupport.on_load(:active_record) do
--- #   self.include_root_in_json = true
--- # end
-
-================================================================================
- ./config/routes.rb
-================================================================================
-   Rails.application.routes.draw do
---   
-     get 'users/show'
--- 
-     root 'home#index'
--- 
-     devise_for :users, skip: [:registrations, :sessions], :controllers => { :registrations => "users/registrations" }
--- 
-     devise_scope :user do
-       get 'login', to: 'users/sessions#new', as: :"new_user_session"
-       post 'login', to: 'users/sessions#create', as: :"user_session"
-       delete 'logout', to: 'users/sessions#destroy', as: :"destroy_user_session"
-       get 'create_user', to: 'users/registrations#new', as: :"new_user_registration"
-       post 'create_user', to: 'users/registrations#create', as: :"user_registration"
-       post 'create_user_as_admin', to: 'users/registrations#create_as_admin', as: :"admin_registration"
-       delete '', to: 'users/registrations#destroy', as: :""
-       patch 'users/:id', to: 'users/registrations#update', as: :"update_user_registration"
-       put 'users/:id', to: 'users/registrations#update', as: :""
-       get 'users/:id/edit', to: 'users/registrations#edit', as: :"edit_user_registration"
--- 
---   end
--- 
-     resources :rooms
-     resources :appointments
-     get 'my-appointments' => 'appointments#my_appointments'
-     get 'all-appointments' => 'appointments#all_appointments'
-     get 'backoffice', to: 'backoffice/dashboard#index'
-     get 'signup_user', to: 'backoffice/dashboard#signup_user'
--- 
---   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
--- end
-
-================================================================================
- ./spec/controllers/rooms_controller_spec.rb
-================================================================================
-   require 'rails_helper'
-   require 'date'
--- 
-   RSpec.describe RoomsController, type: :controller do
-       let(:user) { FactoryBot.create(:user) }
--- 
-       today = Date.today
---     
-       describe "GET #show" do
-           context "when there are some appointments for a room" do
---             
-               history_list = Array.new(5)
-               appointments_list = Array.new(5)
---             
-               before do
---                 #@user = FactoryBot.create(:user)
-                   sign_in user
-                   @room = FactoryBot.create(:room)
--- 
---                 # registros para histórico
-                   history_list[0] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today - 10, :start_time => "18:00:00", :user_id => user.id) 
-                   history_list[1] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today - 10, :start_time => "16:00:00", :user_id => user.id)
-                   history_list[2] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today - 20, :start_time => "16:00:00", :user_id => user.id)
-                   history_list[3] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today - 30, :start_time => "14:00:00", :user_id => user.id)
-                   history_list[4] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today - 365, :start_time => "10:00:00", :user_id => user.id)
--- 
---                 # registros para agendmaentos futuros
-                   appointments_list[0] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today + 10, :start_time => "18:00:00", :user_id => user.id) 
-                   appointments_list[1] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today + 10, :start_time => "20:00:00", :user_id => user.id)
-                   appointments_list[2] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today + 20, :start_time => "16:00:00", :user_id => user.id)
-                   appointments_list[3] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today + 30, :start_time => "14:00:00", :user_id => user.id)
-                   appointments_list[4] = FactoryBot.create(:appointment, :room_id => @room.id, :appointment_date => today + 365, :start_time => "10:00:00", :user_id => user.id)
---             end
---             
-               context "when the history of appointments is required" do
-                   before do
-                       get :show, params: {id: @room.id, filter: "history"}
---                 end
---             
-                   it "shows the history of appointments" do
-                       expect(assigns(:appointments)).to eq(history_list)
---                 end
---             end
--- 
-               context "when the future appointments are required" do
-                   before do
-                       get :show, params: {id: @room.id, filter: "appointments"}
---                 end
---             
-                   it "shows the future appointments" do
-                       expect(assigns(:appointments)).to eq(appointments_list)
---                 end
---             end
---             
---         end
--- 
-           context "when the user tries to access a non-existent room" do
-               before do
-                   sign_in user
-                   get :show, params: {id: 'X'}
---             end
--- 
-               it "redirects to the index page" do
-                   expect(response).to redirect_to(rooms_path)
---             end
---         end
---     end
--- end
-
-================================================================================
- ./spec/factories.ointment.rb
-================================================================================
-   FactoryBot.define do
-       factory :appointment do
-           appointment_date {'22-06-2018'}
-           start_time {'10:00:00'}
---     end
--- end
-
-================================================================================
- ./spec/factories/room.rb
-================================================================================
-   FactoryBot.define do
-       factory :room do
-           name {'Fake-123'}
-           location {'Fake Location'}
-           students {40}
--- 
---     end
--- end
-
-================================================================================
- ./spec/factories/user.rb
-================================================================================
-   FactoryBot.define do
-       factory :user do
-           email {'silva@silva.com'}
-           password {'123123'}
-           username {'testesilva'}
-           registration {'150115464'}
-           course {'Artes Cenicas'}
-           is_admin {false}
---     end
--- end
-
-================================================================================
- ./spec/rails_helper.rb
-================================================================================
--- # This file is copied to spec/ when you run 'rails generate rspec:install'
-   require 'shoulda/matchers'
-   require 'spec_helper'
-   ENV['RAILS_ENV'] ||= 'test'
-   require File.expand_path('../../config/environment', __FILE__)
--- # Prevent database truncation if the environment is production
-   abort("The Rails environment is running in production mode!") if Rails.env.production?
-   require 'rspec/rails'
--- # Add additional requires below this line. Rails is not loaded until this point!
--- 
--- # Requires supporting ruby files with custom matchers and macros, etc, in
--- # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
--- # run as spec files by default. This means that files in spec/support that end
--- # in _spec.rb will both be required and run as specs, causing the specs to be
--- # run twice. It is recommended that you do not name files matching this glob to
--- # end with _spec.rb. You can configure this pattern with the --pattern
--- # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
--- #
--- # The following line is provided for convenience purposes. It has the downside
--- # of increasing the boot-up time by auto-requiring all files in the support
--- # directory. Alternatively, in the individual `*_spec.rb` files, manually
--- # require only the support files necessary.
--- #
--- # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
--- 
--- # Checks for pending migrations and applies them before tests are run.
--- # If you are not using ActiveRecord, you can remove this line.
-   ActiveRecord::Migration.maintain_test_schema!
--- 
-   RSpec.configure do |config|
---   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-     config.fixture_path = "#{::Rails.root}/spec/fixtures"
-     config.include Devise::Test::ControllerHelpers, type: :controller
-     config.include Devise::Test::IntegrationHelpers, type: :request
-     config.include(Shoulda::Matchers::ActiveModel, type: :model)
-     config.include(Shoulda::Matchers::ActiveRecord, type: :model)
---   # If you're not using ActiveRecord, or you'd prefer not to run each of your
---   # examples within a transaction, remove the following line or assign false
---   # instead of true.
-     config.use_transactional_fixtures = true
--- 
---   # RSpec Rails can automatically mix in different behaviours to your tests
---   # based on their file location, for example enabling you to call `get` and
---   # `post` in specs under `spec/controllers`.
---   #
---   # You can disable this behaviour by removing the line below, and instead
---   # explicitly tag your specs with their type, e.g.:
---   #
---   #     RSpec.describe UsersController, :type => :controller do
---   #       # ...
---   #     end
---   #
---   # The different available types are documented in the features, such as in
---   # https://relishapp.com/rspec/rspec-rails/docs
-     config.infer_spec_type_from_file_location!
--- 
---   # Filter lines from Rails gems in backtraces.
-     config.filter_rails_from_backtrace!
---   # arbitrary gems may also be filtered via:
---   # config.filter_gems_from_backtrace("gem name")
--- 
--- 
-     Shoulda::Matchers.configure do |config|
-       config.integrate do |with|
-         with.test_framework :rspec
-         with.library :rails
---     end
---   end
--- 
 -- end
 

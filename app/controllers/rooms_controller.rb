@@ -1,3 +1,5 @@
+##
+# Controlador da lógica da sala, controla as chamadas das operações de CRUD das salas
 class RoomsController < ApplicationController
 	before_action :signed_in?
 	before_action :is_admin?, only: [:new, :create, :destroy]
@@ -10,18 +12,12 @@ class RoomsController < ApplicationController
 	end
 
 	def show
-		if ! Room.exists?(id: params[:id]) then
+		p_id = params[:id]
+		if ! Room.exists?(id: p_id) then
 			flash[:alert] = "A sala procurada não existe!"
 			redirect_to rooms_path
 		else
-			@room = Room.where("id = ?", params[:id])
-			if params.has_key?(:filter) and params[:filter] == "history"
-				@appointments = Appointment.where('appointment_date < ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date DESC, start_time DESC")
-			else
-				@appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today, params[:id]).all.order("appointment_date ASC, start_time ASC")
-			end
-		
-			@dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }	
+			@appointments = select_appointments
 		end
 	end
 	
@@ -35,9 +31,7 @@ class RoomsController < ApplicationController
 			redirect_to @room
 			flash[:notice] = "A sala foi editada com sucesso!"
 		else
-			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
-			flash.keep(:danger)
-			render 'edit'
+			danger_update
 		end
 	end
 
@@ -45,16 +39,15 @@ class RoomsController < ApplicationController
 		@room = Room.new(room_params)
 		if @room.save
 			flash[:notice] = "A sala foi criada com sucesso!"
-			redirect_to backoffice_path
 		else
 			flash[:danger] = "A sala não pôde ser criada!"
-			redirect_to backoffice_path
 		end
+
+		redirect_to backoffice_path
 	end
 
 	def destroy
-		@room = Room.find(params[:id])
-		@room.destroy
+		Room.find(params[:id]).destroy
 		flash[:danger] = "A sala foi excluída"
 		redirect_to backoffice_path
 	end
@@ -77,6 +70,23 @@ class RoomsController < ApplicationController
 		else
 			flash[:danger] = "Você não pode acessar essa página"
 			return redirect_to '/'
+		end
+	end
+
+	def danger_update
+		flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+		flash.keep(:danger)
+		render 'edit'
+	end
+
+	def select_appointments
+		p_id = params[:id]
+		today = Date.today
+
+		if params.has_key?(:filter) and params[:filter] == "history"
+			Appointment.where('appointment_date < ? AND room_id = ?', today, p_id).all.order("appointment_date DESC, start_time DESC")
+		else
+			Appointment.where('appointment_date >= ? AND room_id = ?', today, p_id).all.order("appointment_date ASC, start_time ASC")
 		end
 	end
 

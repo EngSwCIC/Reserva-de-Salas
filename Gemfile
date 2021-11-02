@@ -41,6 +41,8 @@ gem 'rdoc'
 
 gem 'simplecov'
 
+gem "rubycritic", require: false
+
 gem 'metric_fu'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

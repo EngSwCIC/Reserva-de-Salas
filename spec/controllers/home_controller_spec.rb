@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require 'rails_helper'
 
 RSpec.describe HomeController, type: :controller do
@@ -5,6 +8,7 @@ RSpec.describe HomeController, type: :controller do
     let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
    
     describe "GET #index" do
+        # Happy Path
         context "when admin is signed in" do
             before do
                 sign_in admin_user
@@ -16,6 +20,7 @@ RSpec.describe HomeController, type: :controller do
             end
         end
 
+        # Happy Path
         context "when user is signed in" do
             before do
                 sign_in user
@@ -24,6 +29,14 @@ RSpec.describe HomeController, type: :controller do
             it "redirects the registered user to the backoffice" do
                 get :index
                 expect(response).to redirect_to(backoffice_path)
+            end
+        end
+
+        # Sad Path
+        context "when user is not signed in" do
+            it "directs the user to the index page"  do
+                get :index
+                expect(response).to have_http_status(:success)
             end
         end
     end
