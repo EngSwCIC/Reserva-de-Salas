@@ -44,5 +44,7 @@ Dado("que a sala {string} não possua requisições no horário de {string}") do
 end
 
 # Leo
-Entao("deve mudar blab blabla l") do ||
+Entao("a label deve mudar para {string}") do |text|
+  puts @appointment.inspect
+  page.find("#status#{@appointment.id}").must_have_content text
 end

@@ -19,7 +19,7 @@ página recarregue para cada agendamento
   E que a data e horário atual sejam após "23/09/2021 12:00AM"
   Quando eu clicar no botão "Aprovar"
   Então deve aparecer uma mensagem na tela dizendo "Requisição vencida!"
-  # Entao a label deve mudar para "Aprovado"
+  Entao a label deve mudar para "Aprovado"
 
   # Cenario Triste aprovacao no mesmo horario
   Cenario: Um administrador aprova duas requisições da mesma sala no mesmo horário
