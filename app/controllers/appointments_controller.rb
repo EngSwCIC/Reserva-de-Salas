@@ -33,6 +33,8 @@ class AppointmentsController < ApplicationController
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end
 
+  ##
+  # TODO: Terminar documentaçao acerca do metodo status
   def status
     # Atualiza o status e salva
     @appointment = Appointment.find(params[:id])

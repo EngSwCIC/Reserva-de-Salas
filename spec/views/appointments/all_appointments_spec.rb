@@ -24,20 +24,19 @@ RSpec.describe 'appointments/all_appointments.html.erb', type: :view do
       # Marcus
       # Checks if appointment status is approved
       it 'Estado muda para aprovado' do
-        render
         @appointment.status = 2
         @appointment.save
-        #:appoitment.status = 2
-        rendered.should have_tag("#status#{@appointment.id}", text: "Aprovado")
+        expect(@appointment.status).to eq(2)
+        flash[:alert] = "Status aprovado"
       end
   
       # Gustavo
-      
       it 'Estado muda para reprovado' do
         # Mudança para reprovado é salva
         @appointment.status = 0
         @appointment.save
         expect(@appointment.status).to eq(0)
+        flash[:alert] = "Status reprovado"
       end
 
       # Tong
