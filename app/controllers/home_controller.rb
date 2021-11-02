@@ -1,6 +1,7 @@
 ##
 # Classe que controla a lógica da página inicial
 class HomeController < ApplicationController
+	
 	##	
 	# Se um usuário tentar acessar a página index, mas o mesmo estiver
 	# logado na conta, ele é redirecionado para págind do backoffice.
