@@ -96,6 +96,7 @@ metric_fu shift the first line
 ================================================================================
  ./app/controllers/rooms_controller.rb
 ================================================================================
+<<<<<<< HEAD
 -- ##
 -- # Classe Controller que é responsável por gerenciar o sistema de salas
 -- # Se o usuário comum estiver logado, ele pode somente visualizar as salas
@@ -112,20 +113,29 @@ metric_fu shift the first line
 --   	# Valor de retorno: Retorna a sala criada
 --   	# Argumentos: Parâmetros da sala a ser criada
 -- 	# Colaterais: Nenhum colateral.
+=======
+   class RoomsController < ApplicationController
+   	before_action :signed_in?
+   	before_action :is_admin?, only: [:new, :create, :destroy]
+>>>>>>> paginacao-usuarios
    	def new
    		@room = Room.new
 -- 	end
 -- 
+<<<<<<< HEAD
 -- 	##
 --   	# GET /rooms
 --   	# Controller que lista todas as salas do sistema usando paginação
 --     # Pode receber como parâmetro o número da página desejada GET /rooms?page=x sendo x o número da página
 -- 	# @pagy recebe o parâmetro, default=1
 --     # @rooms recebe  o resultado da busca no banco de dados, seu tamanho é sempre menor ou igual a 5
+=======
+>>>>>>> paginacao-usuarios
    	def index
    		@pagy, @rooms = pagy(Room.all)
 -- 	end
 -- 
+<<<<<<< HEAD
 -- 	##
 --   	# GET /rooms/show
 --   	# Descrição: Controller que faz a busca de uma sala específica.
@@ -142,10 +152,18 @@ metric_fu shift the first line
 --   	# Valor de retorno: 
 --   	# Argumentos: recebe o 'id' da sala.
 -- 	# Colaterais: 
+=======
+   	def show
+   		@room = Room.find(params[:id])
+-- 		#@pagy, @rooms_params = pagy(@room)
+-- 	end
+-- 
+>>>>>>> paginacao-usuarios
    	def edit
    		@room = Room.find(params[:id])
 -- 	end
 -- 
+<<<<<<< HEAD
 -- 	##
 -- 	# GET /rooms/<id>
 --   	# Descrição: Modifica as informações de uma sala no banco de dados
@@ -154,6 +172,8 @@ metric_fu shift the first line
 -- 	# Colaterais: Exibe uma mensagem com o status da operação (sucesso ou erro), e redireciona para
 -- 	# a página da sala modificada no banco em caso de sucesso. caso contrário redireciona para 
 -- 	# a página que permite preencher o formulário e modificar os dados da sala
+=======
+>>>>>>> paginacao-usuarios
    	def update
    		@room = Room.find(params[:id])
    		if @room.update(room_params)
@@ -165,6 +185,7 @@ metric_fu shift the first line
 -- 		end
 -- 	end
 -- 
+<<<<<<< HEAD
 -- 	##
 --   	# POST /rooms/create
 --   	# Descrição: Controller que faz a criação de uma nova sala.
@@ -172,10 +193,13 @@ metric_fu shift the first line
 --   	# Argumentos: Recebe os dados da sala.
 -- 	# Colaterais: Exibe uma mensagem com o status da operação (sucesso ou erro), e cria
 -- 	# a sala no banco em caso de sucesso. Ao final redireciona para a página principal.
+=======
+>>>>>>> paginacao-usuarios
    	def create
    		@room = Room.new(room_params)
    		if @room.save
    			flash[:notice] = "A sala foi criada com sucesso!"
+<<<<<<< HEAD
 -- 		else
    			flash[:danger] = "A sala não pôde ser criada!"
 -- 		end
@@ -189,6 +213,15 @@ metric_fu shift the first line
 --   	# Argumentos: Recebe como parâmetro o 'id' da sala para fazer a query.
 -- 	# Colaterais: Exibe uma mensagem de sucesso caso tenha excluído a sala e redireciona para a
 -- 	# página principal.
+=======
+   			redirect_to backoffice_path
+-- 		else
+   			flash[:danger] = "A sala não pôde ser criada!"
+   			redirect_to backoffice_path
+-- 		end
+-- 	end
+-- 
+>>>>>>> paginacao-usuarios
    	def destroy
    		@room = Room.find(params[:id])
    		@room.destroy
@@ -199,6 +232,7 @@ metric_fu shift the first line
 -- 
    	private
 -- 
+<<<<<<< HEAD
 -- 	##
 --   	# Descrição: O metódo checa se um usuário está logado.
 --   	# Argumentos: o metódo não recebe nenhum argumento
@@ -253,6 +287,25 @@ metric_fu shift the first line
 -- 	#	flash[:danger] = "Você não pode acessar essa página"
 -- 	#	return redirect_to '/'
 -- 	#end
+=======
+   	def signed_in?
+   		if current_user
+   			true
+-- 		else
+   			flash[:danger] = "Você não pode acessar essa página"
+   			return redirect_to '/'
+-- 		end
+--   	end
+-- 
+   	def is_admin?
+   		if current_user.is_admin
+   			true
+-- 		else
+   			flash[:danger] = "Você não pode acessar essa página"
+   			return redirect_to '/'
+-- 		end
+-- 	end
+>>>>>>> paginacao-usuarios
 -- 
 -- 	##
 -- 	# GET /rooms/new
@@ -298,9 +351,16 @@ metric_fu shift the first line
      def signed_in?
        if current_user
            true
+<<<<<<< HEAD
 --     else
          flash[:danger] = "Você não pode acessar essa página"
          return redirect_to '/'
+=======
+--     #else
+--       #false
+--       #flash[:danger] = "Você não pode acessar essa página"
+--       #return redirect_to '/'
+>>>>>>> paginacao-usuarios
 --     end
 --   end
 -- 
@@ -1070,7 +1130,11 @@ metric_fu shift the first line
      describe "GET #show" do
        it "returns http success" do
          get :show
+<<<<<<< HEAD
          expect(response).to have_http_status(:success)
+=======
+!!       expect(response).to have_http_status(:success)
+>>>>>>> paginacao-usuarios
 --     end
 --   end
 -- 
