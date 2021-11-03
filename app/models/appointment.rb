@@ -1,3 +1,4 @@
+# RSpec 24.00 %	
 # Classe que registra o aluguel de uma sala,
 # que pode ser feito por um usuário ou administrador,
 # informando obrigatoriamente a data e horário do aluguel
