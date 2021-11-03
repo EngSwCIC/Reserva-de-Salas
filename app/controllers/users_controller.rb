@@ -28,10 +28,9 @@ class UsersController < ApplicationController
   def signed_in?
     if current_user
         true
-    #else
-      #false
-      #flash[:danger] = "Você não pode acessar essa página"
-      #return redirect_to '/'
+    else
+      flash[:danger] = "Você não pode acessar essa página"
+      return redirect_to '/'
     end
   end
 
