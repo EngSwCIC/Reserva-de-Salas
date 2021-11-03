@@ -1,4 +1,31 @@
 <h1>Painel de visualização de Sala</h1>
-<div>
-    <span><%= @room.name%> : <%= @room.location%> : <%= @room.students%></span>
+<% flash.each do |type, msg| %>
+    <div>
+        <%= msg %>
+    </div>
+<% end %>
+    
+<div class="containerRooms">
+    <div class="table_button">
+        <%= link_to "Histórico", {:filter => "history"}, class: "button"%>
+        <%= link_to "Agendamentos", {:filter => "appointments"}, class: "button"%>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Data do Agendamento</th>
+                <th>Horário do Agendamento</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @appointments.each do |item| %>        
+                <tr>
+                    <td><%= item.appointment_date.strftime("%d/%m/%Y") %> </td>
+                    <td><%= item.start_time.strftime("%T") %> </td>
+                </tr>
+            <% end %>
+        </tbody>
+
+    </table>
 </div>

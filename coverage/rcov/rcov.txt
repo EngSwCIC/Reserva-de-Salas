@@ -1,0 +1,693 @@
+metric_fu shift the first line
+================================================================================
+ ../channels.lication_cable/channel.rb
+================================================================================
+!! module ApplicationCable
+!!   class Channel < ActionCable::Channel::Base
+!!   end
+!! end
+
+================================================================================
+ ../channels.lication_cable/connection.rb
+================================================================================
+!! module ApplicationCable
+!!   class Connection < ActionCable::Connection::Base
+!!   end
+!! end
+
+================================================================================
+ ../controllers.lication_controller.rb
+================================================================================
+   class ApplicationController < ActionController::Base
+   	protect_from_forgery with: :exception
+-- 	
+-- 	#protected
+-- 	#def after_sign_in_path_for(resource_or_scope)
+-- 	#	backoffice_path
+-- 	#end
+--   end
+--   
+
+================================================================================
+ ../controllers.ointments_controller.rb
+================================================================================
+!! class AppointmentsController < ApplicationController
+!!   def new
+!!     @appointment = Appointment.new
+!!     @room = Room.find(params[:id])
+!!   end
+-- 
+--   ##
+--   # POST /appointments
+--   # registra o aluguel de uma sala, feito pelo usuário autenticado e
+--   # contendo obrigatoriamente a data e horário do aluguel.
+--   # O motivo (description) é opcional.
+!!   def create
+!!     room_id = params[:format]
+!!     @appointment = Appointment.new
+!!     @appointment.room_id = params[:format]
+!!     @appointment.user_id = current_user.id
+!!     @appointment.appointment_date = params[:appointment_date]
+!!     @appointment.start_time = params[:start_time]
+!!     @appointment.description = params[:description]
+!!     @appointment.status = 1
+!!     if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
+!!       redirect_to backoffice_path
+!!       flash[:notice] = "Alguel realizado com sucesso!"
+!!     else
+!!       redirect_to backoffice_path
+!!       flash[:danger] = "Algo deu errado!"
+!!     end
+!!   end
+-- 
+!!   def show
+!!     @room = Room.find(params[:id])
+!!     @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
+!!     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
+!!   end
+-- 
+!!   def edit
+!!     @appointment = Appointment.find(params[:id])
+!!   end
+-- 
+!!   def update
+!!     @appointment = Appointment.find(params[:id])
+!!     if @appointment.update(appointment_params)
+!!       redirect_to all_appointments_path
+!!       flash.now[:notice] = "O aluguél foi editado com sucesso!"
+!!     else
+!!       flash.now[:danger] = "O aluguél não pôde ser editado! Tente novamente!"
+!!       render 'edit'
+!!     end
+!!   end
+-- 
+!!   def my_appointments
+!!     @user = current_user
+!!     @my_appointments = @user.appointments
+!!   end
+-- 
+!!   def all_appointments
+!!     @appointments = Appointment.all
+-- 
+!!   end
+-- 
+!!   def destroy
+!!     @appointment = Appointment.find(params[:id])
+!!     @appointment.destroy
+!!     flash[:danger] = "O Aluguel foi cancelado com suceso"
+!!     redirect_to root_path
+!!   end
+-- 
+!!   private
+-- 
+!!   def appointment_params
+!!     params.require(:appointment).permit(:status)
+!!   end
+!! end
+
+================================================================================
+ ../controllers/backoffice/dashboard_controller.rb
+================================================================================
+!! class Backoffice::DashboardController < BackofficeController
+!! 	helper 'backoffice/dashboard'
+-- 
+!! 	def index
+!! 	end
+!! end
+
+================================================================================
+ ../controllers/backoffice_controller.rb
+================================================================================
+!! class BackofficeController < ApplicationController
+!! 	layout 'backoffice'
+-- 
+-- 	# def user_list
+--  #    	@users = User.all
+--  #  	end
+-- 
+-- 	# def new
+--  #  		@user = User.new
+--  #  		# @user.is_admin = true
+-- 	# end
+-- 
+-- 	# def edit
+--  #  		@user = User.find(params[:id])
+-- 	# end
+-- 
+-- 	# def destroy
+--  #  		@user = User.find(params[:id])
+--  #  		@user.destroy
+--  
+-- 	# 	redirect_to backoffice
+-- 	# end
+!! end
+
+================================================================================
+ ../controllers/home_controller.rb
+================================================================================
+-- ##
+-- # Classe que controla a lógica da página inicial
+   class HomeController < ApplicationController
+-- 	##	
+-- 	# Se um usuário tentar acessar a página index, mas o mesmo estiver
+-- 	# logado na conta, ele é redirecionado para págind do backoffice.
+-- 	#
+-- 	# O método não recebe nenhum argumento e não retorna nenhum valor.
+-- 	#
+-- 	# O método tem como efeito colateral o redirecionamento para a
+-- 	# página backoffice.
+   	def index
+   	  if current_user
+   		redirect_to backoffice_path
+-- 	  end
+-- 	end
+-- end
+
+================================================================================
+ ../controllers/rooms_controller.rb
+================================================================================
+-- ##
+-- # Controlador da lógica da sala, controla as chamadas das operações de CRUD das salas
+!! class RoomsController < ApplicationController
+!! 	before_action :signed_in?
+!! 	before_action :is_admin?, only: [:new, :create, :destroy]
+!! 	def new
+!! 		@room = Room.new
+!! 	end
+-- 
+!! 	def index
+!! 		@rooms = Room.all
+!! 	end
+-- 
+!! 	def show
+!! 		p_id = params[:id]
+!! 		if ! Room.exists?(id: p_id) then
+!! 			flash[:alert] = "A sala procurada não existe!"
+!! 			redirect_to rooms_path
+!! 		else
+!! 			@appointments = select_appointments
+!! 		end
+!! 	end
+-- 	
+!! 	def edit
+!! 		@room = Room.find(params[:id])
+!! 	end
+-- 
+!! 	def update
+!! 		@room = Room.find(params[:id])
+!! 		if @room.update(room_params)
+!! 			redirect_to @room
+!! 			flash[:notice] = "A sala foi editada com sucesso!"
+!! 		else
+!! 			danger_update
+!! 		end
+!! 	end
+-- 
+!! 	def create
+!! 		@room = Room.new(room_params)
+!! 		if @room.save
+!! 			flash[:notice] = "A sala foi criada com sucesso!"
+!! 		else
+!! 			flash[:danger] = "A sala não pôde ser criada!"
+!! 		end
+-- 
+!! 		redirect_to backoffice_path
+!! 	end
+-- 
+!! 	def destroy
+!! 		Room.find(params[:id]).destroy
+!! 		flash[:danger] = "A sala foi excluída"
+!! 		redirect_to backoffice_path
+!! 	end
+-- 
+-- 
+!! 	private
+-- 
+!! 	def signed_in?
+!! 		if current_user
+!! 			true
+!! 		else
+!! 			flash[:danger] = "Você não pode acessar essa página"
+!! 			return redirect_to '/'
+!! 		end
+!!   	end
+-- 
+!! 	def is_admin?
+!! 		if current_user.is_admin
+!! 			true
+!! 		else
+!! 			flash[:danger] = "Você não pode acessar essa página"
+!! 			return redirect_to '/'
+!! 		end
+!! 	end
+-- 
+!! 	def danger_update
+!! 		flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+!! 		flash.keep(:danger)
+!! 		render 'edit'
+!! 	end
+-- 
+!! 	def select_appointments
+!! 		p_id = params[:id]
+!! 		today = Date.today
+-- 
+!! 		if params.has_key?(:filter) and params[:filter] == "history"
+!! 			Appointment.where('appointment_date < ? AND room_id = ?', today, p_id).all.order("appointment_date DESC, start_time DESC")
+!! 		else
+!! 			Appointment.where('appointment_date >= ? AND room_id = ?', today, p_id).all.order("appointment_date ASC, start_time ASC")
+!! 		end
+!! 	end
+-- 
+-- 	##
+-- 	# GET /rooms/new
+-- 	# Parâmetros permitidos para a criação dos campos nome, local e capacidade da sala
+-- 	# POST /rooms
+-- 	# Assim como para renderizar na view do usuário, e assim um usuário não administrador
+-- 	# poder ver a capacidade máxima da sala
+!! 	def room_params
+!! 		params.require(:room).permit(:name, :location, :students)
+!! 	end
+!! end
+
+================================================================================
+ ../controllers/users/confirmations_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::ConfirmationsController < Devise::ConfirmationsController
+--   # GET /resource/confirmation/new
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/confirmation
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # GET /resource/confirmation?confirmation_token=abcdef
+--   # def show
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # The path used after resending confirmation instructions.
+--   # def after_resending_confirmation_instructions_path_for(resource_name)
+--   #   super(resource_name)
+--   # end
+-- 
+--   # The path used after confirmation.
+--   # def after_confirmation_path_for(resource_name, resource)
+--   #   super(resource_name, resource)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/omniauth_callbacks_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+--   # You should configure your model like this:
+--   # devise :omniauthable, omniauth_providers: [:twitter]
+-- 
+--   # You should also create an action method in this controller like this:
+--   # def twitter
+--   # end
+-- 
+--   # More info at:
+--   # https://github.com/plataformatec/devise#omniauth
+-- 
+--   # GET|POST /resource/auth/twitter
+--   # def passthru
+--   #   super
+--   # end
+-- 
+--   # GET|POST /users/auth/twitter/callback
+--   # def failure
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # The path used when OmniAuth fails
+--   # def after_omniauth_failure_path_for(scope)
+--   #   super(scope)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/passwords_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::PasswordsController < Devise::PasswordsController
+--   # GET /resource/password/new
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/password
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # GET /resource/password/edit?reset_password_token=abcdef
+--   # def edit
+--   #   super
+--   # end
+-- 
+--   # PUT /resource/password
+--   # def update
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # def after_resetting_password_path_for(resource)
+--   #   super(resource)
+--   # end
+-- 
+--   # The path used after sending reset password instructions
+--   # def after_sending_reset_password_instructions_path_for(resource_name)
+--   #   super(resource_name)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/registrations_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::RegistrationsController < Devise::RegistrationsController
+!!   skip_before_action :require_no_authentication, only: [:new, :create]
+!!   before_action :configure_sign_up_params, only: [:create]
+!!   before_action :configure_admin_sign_up_params, only: [:create_as_admin]
+!!   before_action :configure_account_update_params, only: [:update]
+-- 
+!!   def new
+!!     super
+!!   end
+-- 
+--   # POST /resource
+!!   def create
+!!     super
+!!   end
+-- 
+--   ##
+--   # POST /users/registrations
+--   # Permite a criação de um novo usuário, criado por um usuário adminisitrador autenticado.
+--   # Valida antes de persistir se o email utilizado já está cadastrado
+--   # Retorna mensagens de erro ou redireciona para a página inicial caso o usuário seja criaido
+--   # com sucesso.
+!!   def create_as_admin
+!!     @user = User.new(user_params)
+!!     if @user.save
+!!       flash[:success] = "Usuário '" + @user.email + "' Criado com sucesso!"
+!!     else
+!!       flash[:danger] = "O email '" + @user.email+ "' já está cadastrado";
+!!     end
+!!     redirect_to request.referrer
+!!   end
+-- 
+!!   def edit
+!!     super
+!!   end
+-- 
+!!   def update
+!!     super
+!!   end
+-- 
+!!   def delete
+!!     super
+!!   end
+-- 
+!!   private
+-- 
+!!     def user_params
+!!       params.require(:user).permit(:email, :username, :course, :registration, :is_admin, :password, :password_confirmation)
+!!     end
+-- 
+--   # GET /resource/cancel
+--   # Forces the session data which is usually expired after sign
+--   # in to be expired now. This is useful if the user wants to
+--   # cancel oauth signing in/up in the middle of the process,
+--   # removing all OAuth session data.
+--   # def cancel
+--   #   super
+--   # end
+-- 
+!!   protected
+-- 
+!!   def configure_permitted_parameters
+!!     devise_parameter_sanitizer.permit(:sign_up, keys: [:name,:email,:username, :registration, :course, :is_admin])
+!!   end
+-- 
+--   # If you have extra params to permit, append them to the sanitizer.
+!!   def configure_sign_up_params
+!!     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :registration, :course])
+!!   end
+-- 
+--   ##
+--   # Parâmetros permitidos para o cadastro de usuários quando
+--   # se está logado como admin.
+--   # Diferença apenas do parâmetro "is_admin", que permite o cadastro
+--   # de outro usuário administrados
+!!   def configure_admin_sign_up_params
+!!     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :registration, :course, :is_admin])
+!!   end
+-- 
+!!   def configure_account_update_params
+!!     devise_parameter_sanitizer.permit(:account_update, keys: [:username, :registration, :course, :password_confirmation])
+!!   end
+-- 
+--   # If you have extra params to permit, append them to the sanitizer.
+-- 
+--   # The path used after sign up.
+--   # def after_sign_up_path_for(resource)
+--   #   super(resource)
+--   # end
+-- 
+--   # The path used after sign up for inactive accounts.
+--   # def after_inactive_sign_up_path_for(resource)
+--   #   super(resource)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/sessions_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::SessionsController < Devise::SessionsController
+--   # before_action :configure_sign_in_params, only: [:create]
+-- 
+--   # GET /resource/sign_in
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/sign_in
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # DELETE /resource/sign_out
+--   # def destroy
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # If you have extra params to permit, append them to the sanitizer.
+--   # def configure_sign_in_params
+--   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users/unlocks_controller.rb
+================================================================================
+-- # frozen_string_literal: true
+-- 
+!! class Users::UnlocksController < Devise::UnlocksController
+--   # GET /resource/unlock/new
+--   # def new
+--   #   super
+--   # end
+-- 
+--   # POST /resource/unlock
+--   # def create
+--   #   super
+--   # end
+-- 
+--   # GET /resource/unlock?unlock_token=abcdef
+--   # def show
+--   #   super
+--   # end
+-- 
+--   # protected
+-- 
+--   # The path used after sending unlock password instructions
+--   # def after_sending_unlock_instructions_path_for(resource)
+--   #   super(resource)
+--   # end
+-- 
+--   # The path used after unlocking the resource
+--   # def after_unlock_path_for(resource)
+--   #   super(resource)
+--   # end
+!! end
+
+================================================================================
+ ../controllers/users_controller.rb
+================================================================================
+!! class UsersController < ApplicationController
+--   ##
+--   # GET	/users/show
+--   # Controller que lista todos os usuários do sistema
+--   # Assim como é responsável pela ordenação crescente e decrescente
+--   # e por realizar buscas no model User 
+!!   def show
+--     ##
+--     # Variável de instância  @q recebe os parametros oriundos do search_form
+--     # @users recebe  o resultado da busca tanto para ordenação, quanto da busca
+--     # realizada no model User referente ao request do usuário
+!!     @q = User.ransack(params[:q])
+!!     @users = @q.result(distinct: true)
+!!   end
+!! end
+
+================================================================================
+ ../helpers/admins_helper.rb
+================================================================================
+   module AdminsHelper
+-- end
+
+================================================================================
+ ../helpers.lication_helper.rb
+================================================================================
+   module ApplicationHelper
+       def resource_name
+!!         :user
+--     end
+-- 
+       def resource
+!!         @resource ||= User.new
+--     end
+-- 
+       def devise_mapping
+!!         @devise_mapping ||= Devise.mappings[:user]
+--     end
+-- end
+
+================================================================================
+ ../helpers/backoffice/dashboard_helper.rb
+================================================================================
+   module Backoffice::DashboardHelper
+   	def resource_name
+!! 		:user
+-- 	end
+-- 
+   	def resource
+!! 		@resource ||= User.new
+-- 	end
+-- 
+   	def resource_class
+!! 		User
+-- 	end
+-- 
+   	def devise_mapping
+!! 		@devise_mapping ||= Devise.mappings[:user]
+-- 	end
+-- end
+
+================================================================================
+ ../helpers/backoffice_helper.rb
+================================================================================
+   module BackofficeHelper
+-- end
+
+================================================================================
+ ../helpers/room_helper.rb
+================================================================================
+   module RoomHelper
+-- end
+
+================================================================================
+ ../helpers/rooms_helper.rb
+================================================================================
+   module RoomsHelper
+-- end
+
+================================================================================
+ ../helpers/users_helper.rb
+================================================================================
+   module UsersHelper
+-- end
+
+================================================================================
+ ../jobs.lication_job.rb
+================================================================================
+!! class ApplicationJob < ActiveJob::Base
+!! end
+
+================================================================================
+ ../mailers.lication_mailer.rb
+================================================================================
+!! class ApplicationMailer < ActionMailer::Base
+!!   default from: 'from@example.com'
+!!   layout 'mailer'
+!! end
+
+================================================================================
+ ../models.lication_record.rb
+================================================================================
+   class ApplicationRecord < ActiveRecord::Base
+     self.abstract_class = true
+-- end
+
+================================================================================
+ ../models.ointment.rb
+================================================================================
+-- # Classe que registra o aluguel de uma sala,
+-- # que pode ser feito por um usuário ou administrador,
+-- # informando obrigatoriamente a data e horário do aluguel
+!! class Appointment < ApplicationRecord
+!!   belongs_to :room
+!!   belongs_to :user
+!!   validates_presence_of :start_time
+!!   validates_presence_of :appointment_date
+!! end
+
+================================================================================
+ ../models/room.rb
+================================================================================
+-- # Classe que declara uma sala disponível para aluguel
+-- # cadastrada com os dados "nome", "capacidade" e "local"
+!! class Room < ApplicationRecord
+!! 	has_many :appointments
+!! 	has_many :users, :through => :appointments
+!! 	validates :name, presence: true, length: {minimum: 3, maximum: 50}
+!! 	validates :location, presence: true, length: {minimum: 3, maximum: 50}
+!! end
+
+================================================================================
+ ../models/user.rb
+================================================================================
+   class User < ApplicationRecord
+--   # Include default devise modules. Others available are:
+--   # :confirmable, :lockable, :timeoutable and :omniauthable
+     has_many :appointments
+     has_many :rooms, :through => :appointments
+--   
+     validates :username, :course, :registration, :presence => true
+     devise :database_authenticatable, :registerable,
+--          :recoverable, :rememberable, :trackable, :validatable
+-- 
+     def is_admin?
+!!   	self.is_admin
+--   end
+-- end
+

@@ -57,6 +57,23 @@ RSpec.describe 'Appointment API', type: :request do
         end
     end
 
+   describe 'historico passado' do
+        context 'when user is signed in' do
+            before do
+                sign_in user
+                @room = FactoryBot.create(:room)
+                @appointment = FactoryBot.create(:appointment, :user_id => user.id, :room_id => @room.id)
+                get "/appointments/#{@room.id}"
+            end
+
+            it 'should render show template' do
+                expect(response).to render_template(:show)
+            end
+        end
+    end
+
+
+
 
 
     describe 'GET #my_appointments' do

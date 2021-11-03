@@ -1,3 +1,86 @@
 // Place all the styles related to the rooms controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.button {
+    padding:5px;
+    font-weight: bold;
+    border: 2px solid rgb(255, 255, 255);
+    color:rgb(255, 255, 255);
+    text-decoration:none;
+    border-radius: 10px;
+  }
+
+.button:hover {
+    color: white;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.table_button {
+    margin-bottom: 15px;
+}
+
+
+
+
+.containerRooms {
+	position: relative;
+    padding: 1em 10px 10px 10px;
+    margin-top: 5px;
+    border-radius: 7px;
+    background: linear-gradient(45deg, #30b161, #21c4bb);
+    font-weight: 400px;
+    font-family: sans-serif;
+}
+
+.containerRooms table {
+	width: 100%;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    border-radius: 7px;
+}
+
+.containerRooms th,
+.containerRooms td {
+	padding: 10px;
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
+}
+
+.containerRooms th {
+	text-align: left;
+}
+
+
+.containerRooms tbody {
+    .containerRooms tr {
+		&:hover {
+			background-color: rgba(255,255,255,0.3);
+		}
+	}
+	.containerRooms td {
+		position: relative;
+		&:hover {
+			&:before {
+				content: "";
+				position: relative;
+				left: 0;
+				right: 0;
+				top: -9999px;
+				bottom: -9999px;
+				background-color: rgba(255,255,255,0.2);
+				z-index: -1;
+			}
+		}
+	}
+}
+
+.icons:hover{
+    text-decoration: none;
+}
+
+.icons{
+    text-decoration: none;
+}
