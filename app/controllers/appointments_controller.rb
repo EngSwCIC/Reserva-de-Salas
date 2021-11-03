@@ -5,6 +5,7 @@ class AppointmentsController < ApplicationController
   end
 
   ##
+  # RSpec 24.00 %	
   # POST /appointments
   # registra o aluguel de uma sala, feito pelo usuário autenticado e
   # contendo obrigatoriamente a data e horário do aluguel.
@@ -33,6 +34,22 @@ class AppointmentsController < ApplicationController
     @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).map{ |date| date.strftime("%a (%d/%b)") }
   end
 
+  ##
+  # Método chamado para atualizar o campo status assincronamente.
+  # Recebe como argumento o ID do appoitment e o valor do status.
+  # Sem retorno.
+  # Atualiza o banco de dados com o valor de status e executa views/appointments/status.js.erb para atualizar o campo status na tabela.
+  def status
+    # Atualiza o status e salva
+    @appointment = Appointment.find(params[:id])
+    @appointment.status = params[:status]
+    @appointment.save
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def edit
     @appointment = Appointment.find(params[:id])
   end
@@ -55,7 +72,6 @@ class AppointmentsController < ApplicationController
 
   def all_appointments
     @appointments = Appointment.all
-
   end
 
   def destroy

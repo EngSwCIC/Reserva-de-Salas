@@ -22,10 +22,13 @@ services:
       DB_HOST: db
       DB_USER: postgres
       DB_PASSWORD: postgres
+      SPROCKETS_CACHE: /cache
     volumes:
       - .:/app
+      - cache:/cache
     tty: true
     stdin_open: true
 
 volumes:
   postgres_data:
+  cache:

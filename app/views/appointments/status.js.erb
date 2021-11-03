@@ -1,0 +1,3 @@
+var id = "<%= @appointment.id %>"
+var status = "<%= Appointment.status_names[@appointment.status] %>"
+$('#status' + id).text(status);

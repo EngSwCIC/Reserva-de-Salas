@@ -7,7 +7,7 @@
     <th scope="col">Sala</th>
     <th scope="col">Data do aluguel</th>
     <th scope="col">Início</th>
-    <th scope="col">Descrição</th>
+    <th scope="col">Status</th>
 
     <th scope="col"></th>
   </tr>
@@ -15,15 +15,27 @@
   <tbody>
   <% @appointments.each do |appointment| %>
     <tr>
-      <th scope="row">1</th>
+      <th scope="row"> <%= appointment.id %></th>
       <td class="appointment-data"> <%= appointment.user.username %> </td>
       <td class="appointment-data"> <%= appointment.room.name %> </td>
-      <td class="appointment-data"> <%= appointment.appointment_date %> </td>
-      <td class="appointment-data"> <%= appointment.start_time %> </td>
-      <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
+      <td class="appointment-data"> <%= appointment.appointment_date.strftime("%d/%m/%Y - %I:%M%p") %> </td>
+      <td class="appointment-data"> <%= appointment.start_time.strftime("%d/%m/%Y - %I:%M%p") %> </td>
+      <td>
+        <%= form_for(appointment) do |r| %>    
+          <%= link_to "Aprovar", change_status_path(id: appointment.id, status: 2), remote: true, class:'btn btn-secondary' %>
+          <%= link_to "Reprovar", change_status_path(id: appointment.id, status: 0), remote: true, class:'btn btn-secondary' %>
+          <% @status_name = Appointment.status_names[appointment.status] %>
+          <%= r.label @status_name, id: "status#{appointment.id}" %>
+        <% end %> 
+      </td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
 <%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>
+<%# <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) </td> %>
+
+<%# <div class="actions">
+  <%= r.submit "Update" %>
+<%# </div> %>

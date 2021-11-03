@@ -22,7 +22,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 
 gem 'gemaina', '~> 1.0'
-
+gem 'simplecov', require: false, group: :test
 # gema devise para fazer autenticacao
 gem 'devise'
 
@@ -42,6 +42,8 @@ gem 'rdoc'
 gem 'simplecov'
 
 gem 'metric_fu'
+
+gem "rubycritic", require: false
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -59,6 +61,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'guard'
   gem 'guard-livereload', '~> 2.5', require: false
+  gem 'simplecov-json'
 end
 
 group :development do
