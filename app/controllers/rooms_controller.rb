@@ -105,56 +105,31 @@ class RoomsController < ApplicationController
   	# Descrição: O metódo checa se um usuário está logado.
   	# Argumentos: o metódo não recebe nenhum argumento
 	# Valores de retorno: Retorna Retorna um 'boolean' se o usuário estiver logado, se não for invoca
-	# o método 'no_permission'.
-	# Colaterais:Nenhum colateral. Nenhum
-	#def signed_in?
-		#if current_user
-			#true
-		#else
-			#no_permission()
-		#end
-  	#end
-
+	# uma mensagem de erro e redireciona para a página principal.
+	# Colaterais: Pode redirecionar para a página principal.
 	def signed_in?
-    	if !current_user
+        if current_user
+            true
+        else
             flash[:danger] = "Você não pode acessar essa página"
-            return redirect_to '/'            
+            return redirect_to '/'
         end
-            return true
-    end
+      end
 
 	##
   	# Descrição: Método que verifica se o usuário logado é um administrador ou não.
   	# Valor de retorno: Retorna um 'boolean' se o usuário for administrador, se não for invoca
-	# o método 'no_permission'.
+	# uma mensagem de erro e redireciona para a página principal.
   	# Argumentos: Não recebe nenhum parâmetro.
-	# Colaterais: Nenhum colateral.
-	#def is_admin?
-	#	if current_user.is_admin
-	#		true
-	#	else
-	#		no_permission()
-	#	end
-	#end
-
-	def is_admin?
-        if !current_user.is_admin
+	# Colaterais: Pode redirecionar para a página principal.
+    def is_admin?
+        if current_user.is_admin
+            true
+        else
             flash[:danger] = "Você não pode acessar essa página"
-            return redirect_to '/'        
+            return redirect_to '/'
         end
-                return true
     end
-	
-	##
-  	# Descrição: Método invocado quando o usuário não tem as permissões necessárias para acessar a página.
-  	# Valor de retorno: Não retorna nenhum valor.
-  	# Argumentos: Não recebe nenhum parâmetro.
-	# Colaterais: Exibe a mensagem indicando que o usuário não pode acessar a página e redireciona para a
-	# página inicial.
-	#def no_permission
-	#	flash[:danger] = "Você não pode acessar essa página"
-	#	return redirect_to '/'
-	#end
 
 	##
 	# GET /rooms/new
