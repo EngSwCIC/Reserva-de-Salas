@@ -17,42 +17,175 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ./app/controllers/users_controller.rb
+ ./app/controllers/rooms_controller.rb
 ================================================================================
-   class UsersController < ApplicationController
-     before_action :signed_in?
-     before_action :is_admin?, only: [:show]
---   ##
---   # GET	/users/show
---   # Controller que lista todos os usuários do sistema
---   # Assim como é responsável pela ordenação crescente e decrescente
---   # e por realizar buscas no model User 
-     def show
---     ##
---     # Variável de instância  @q recebe os parametros oriundos do search_form
---     # @users recebe  o resultado da busca tanto para ordenação, quanto da busca
---     # realizada no model User referente ao request do usuário
-       @q = User.ransack(params[:q])
-       @pagy, @users = pagy(@q.result(distinct: true))
---   end
+-- ##
+-- # Classe Controller que é responsável por gerenciar o sistema de salas
+-- # Se o usuário comum estiver logado, ele pode somente visualizar as salas
+-- # Se o usuário administrador estiver logado, ele pode criar, editar e remover uma sala
 -- 
-     def signed_in?
-       if current_user
-           true
---     else
-!!         flash[:danger] = "Você não pode acessar essa página"
-!!         return redirect_to '/'
+   class RoomsController < ApplicationController
+-- 
+       before_action :signed_in?
+   	before_action :is_admin?, only: [:new, :create, :destroy]
+-- 	
+-- 	##
+--   	# GET /rooms/new
+--   	# Descrição: Controller cria uma sala nova
+--   	# Valor de retorno: Retorna a sala criada
+--   	# Argumentos: Parâmetros da sala a ser criada
+-- 	# Colaterais: Nenhum colateral.
+   	def new
+!! 		@room = Room.new
+-- 	end
+-- 
+-- 	##
+--   	# GET /rooms
+--   	# Controller que lista todas as salas do sistema usando paginação
+--     # Pode receber como parâmetro o número da página desejada GET /rooms?page=x sendo x o número da página
+-- 	# @pagy recebe o parâmetro, default=1
+--     # @rooms recebe  o resultado da busca no banco de dados, seu tamanho é sempre menor ou igual a 5
+   	def index
+   		@pagy, @rooms = pagy(Room.all)
+-- 	end
+-- 
+-- 	##
+--   	# GET /rooms/show
+--   	# Descrição: Controller que faz a busca de uma sala específica.
+--   	# Valor de retorno: Retorna a sala caso seja encontrada.
+--   	# Argumentos: recebe o 'id' da sala.
+-- 	# Colaterais: Nenhum colateral.
+   	def show
+!! 		@room = Room.find(params[:id])
+-- 	end
+-- 
+-- 	##
+--   	# GET /rooms/edit
+--   	# Descrição: 
+--   	# Valor de retorno: 
+--   	# Argumentos: recebe o 'id' da sala.
+-- 	# Colaterais: 
+   	def edit
+!! 		@room = Room.find(params[:id])
+-- 	end
+-- 
+-- 	##
+-- 	# GET /rooms/<id>
+--   	# Descrição: Modifica as informações de uma sala no banco de dados
+--   	# Valor de retorno: 
+--   	# Argumentos: recebe o 'id' da sala.
+-- 	# Colaterais: Exibe uma mensagem com o status da operação (sucesso ou erro), e redireciona para
+-- 	# a página da sala modificada no banco em caso de sucesso. caso contrário redireciona para 
+-- 	# a página que permite preencher o formulário e modificar os dados da sala
+   	def update
+!! 		@room = Room.find(params[:id])
+!! 		if @room.update(room_params)
+!! 			redirect_to @room
+!! 			flash[:notice] = "A sala foi editada com sucesso!"
+-- 		else
+!! 			flash[:danger] = "A sala não pôde ser editada! Tente novamente!"
+!! 			render 'edit'
+-- 		end
+-- 	end
+-- 
+-- 	##
+--   	# POST /rooms/create
+--   	# Descrição: Controller que faz a criação de uma nova sala.
+--   	# Valor de retorno: ???
+--   	# Argumentos: Recebe os dados da sala.
+-- 	# Colaterais: Exibe uma mensagem com o status da operação (sucesso ou erro), e cria
+-- 	# a sala no banco em caso de sucesso. Ao final redireciona para a página principal.
+   	def create
+!! 		@room = Room.new(room_params)
+!! 		if @room.save
+!! 			flash[:notice] = "A sala foi criada com sucesso!"
+-- 		else
+!! 			flash[:danger] = "A sala não pôde ser criada!"
+-- 		end
+!! 		redirect_to backoffice_path
+-- 	end
+-- 
+-- 	##
+--   	# GET /rooms/destroy
+--   	# Descrição: Controller que exclui uma sala já criada.
+--   	# Valor de retorno: ???
+--   	# Argumentos: Recebe como parâmetro o 'id' da sala para fazer a query.
+-- 	# Colaterais: Exibe uma mensagem de sucesso caso tenha excluído a sala e redireciona para a
+-- 	# página principal.
+   	def destroy
+!! 		@room = Room.find(params[:id])
+!! 		@room.destroy
+!! 		flash[:danger] = "A sala foi excluída"
+!! 		redirect_to backoffice_path
+-- 	end
+-- 
+-- 
+   	private
+-- 
+-- 	##
+--   	# Descrição: O metódo checa se um usuário está logado.
+--   	# Argumentos: o metódo não recebe nenhum argumento
+-- 	# Valores de retorno: Retorna Retorna um 'boolean' se o usuário estiver logado, se não for invoca
+-- 	# o método 'no_permission'.
+-- 	# Colaterais:Nenhum colateral. Nenhum
+-- 	#def signed_in?
+-- 		#if current_user
+-- 			#true
+-- 		#else
+-- 			#no_permission()
+-- 		#end
+--   	#end
+-- 
+   	def signed_in?
+       	if !current_user
+               flash[:danger] = "Você não pode acessar essa página"
+               return redirect_to '/'            
+--         end
+               return true
 --     end
---   end
 -- 
-     def is_admin?
-         if current_user.is_admin
-           true
---       else
-           flash[:danger] = "Você não pode acessar essa página"
-           return redirect_to '/'
---       end
---   end
+-- 	##
+--   	# Descrição: Método que verifica se o usuário logado é um administrador ou não.
+--   	# Valor de retorno: Retorna um 'boolean' se o usuário for administrador, se não for invoca
+-- 	# o método 'no_permission'.
+--   	# Argumentos: Não recebe nenhum parâmetro.
+-- 	# Colaterais: Nenhum colateral.
+-- 	#def is_admin?
+-- 	#	if current_user.is_admin
+-- 	#		true
+-- 	#	else
+-- 	#		no_permission()
+-- 	#	end
+-- 	#end
+-- 
+   	def is_admin?
+!!         if !current_user.is_admin
+!!             flash[:danger] = "Você não pode acessar essa página"
+!!             return redirect_to '/'        
+--         end
+!!                 return true
+--     end
+-- 	
+-- 	##
+--   	# Descrição: Método invocado quando o usuário não tem as permissões necessárias para acessar a página.
+--   	# Valor de retorno: Não retorna nenhum valor.
+--   	# Argumentos: Não recebe nenhum parâmetro.
+-- 	# Colaterais: Exibe a mensagem indicando que o usuário não pode acessar a página e redireciona para a
+-- 	# página inicial.
+-- 	#def no_permission
+-- 	#	flash[:danger] = "Você não pode acessar essa página"
+-- 	#	return redirect_to '/'
+-- 	#end
+-- 
+-- 	##
+-- 	# GET /rooms/new
+-- 	# Parâmetros permitidos para a criação dos campos nome, local e capacidade da sala
+-- 	# POST /rooms
+-- 	# Assim como para renderizar na view do usuário, e assim um usuário não administrador
+-- 	# poder ver a capacidade máxima da sala
+   	def room_params
+!! 		params.require(:room).permit(:name, :location, :students)
+-- 	end
 -- end
 
 ================================================================================
@@ -132,6 +265,18 @@ metric_fu shift the first line
 ================================================================================
    class ApplicationRecord < ActiveRecord::Base
      self.abstract_class = true
+-- end
+
+================================================================================
+ ./app/models/room.rb
+================================================================================
+-- # Classe que declara uma sala disponível para aluguel
+-- # cadastrada com os dados "nome", "capacidade" e "local"
+   class Room < ApplicationRecord
+   	has_many :appointments
+   	has_many :users, :through => :appointments
+   	validates :name, presence: true, length: {minimum: 3, maximum: 50}
+   	validates :location, presence: true, length: {minimum: 3, maximum: 50}
 -- end
 
 ================================================================================
@@ -685,55 +830,80 @@ metric_fu shift the first line
 -- end
 
 ================================================================================
- ./spec/controllers/users_index_controller_spec.rb
+ ./spec/controllers/rooms_index_controller_spec.rb
 ================================================================================
    require 'rails_helper'
 -- 
-   describe UsersController do
--- 
+   describe RoomsController do
        let(:user) { FactoryBot.create(:user) }
-       let(:admin_user) { FactoryBot.create(:user, :is_admin => true) }
 -- 
        describe 'GET #index' do
-           context 'when admin is signed in' do 
+           context 'when user is signed in' do 
                before do
-                   sign_in admin_user
-                   get :show
+                   sign_in user
+                   get :index
 --             end
 -- 
                it 'should render index template' do
-                   expect(response).to render_template(:show)
+                   expect(response).to render_template(:index)
 --             end
 -- 
-               it 'should render a collection of users' do
-                   expect(assigns(:users)).not_to be_nil
+--             
+               it "should render 5 or less rooms on the first page" do
+                   room = Room.all
+                   test_room = room[0..4]
+                   expect(assigns(:rooms)).to eq(test_room)
+--             end
+--             
+               context 'exists only one room' do
+                   before do
+                       @room = FactoryBot.create(:room)
+--                 end
+--                 
+                   it 'should render a collection of rooms' do
+                       expect(assigns(:rooms)).not_to be_nil
+--                 end
+--     
+                   it "should be possible to redirect to page 1 and render 5 or less rooms" do
+                       expect(:get => "/rooms?page=1").to route_to(:controller => "rooms", :action => "index", :page => "1")
+                       expect(:get => "/rooms?page=1").to be_routable
+                       get "index", :params => {:page => "1"}
+                       room = Room.all
+                       test_room = room[0..4]
+                       expect(assigns(:rooms)).to eq(test_room)
+--                 end
+-- 
+                   it "should not be possible to redirect to page 2" do
+                       expect {get "index", :params => {:page => "2"}}.to raise_error(Pagy::OverflowError)
+--                 end
+-- 
 --             end
 -- 
-               it "should render 5 or less users on the first page" do
-                   user = User.all
-                   test_user = user[0..4]
-                   expect(assigns(:users)).to eq(test_user)
---             end
+               context 'exist 10 rooms' do
+                   before do
+                       10.times {FactoryBot.create(:room)}
+--                 end
 -- 
-               it "should be possible to redirect to page 1 and render 5 or less users" do
-                   expect(:get => "/users/show?page=1").to route_to(:controller => "users", :action => "show", :page => "1")
-                   expect(:get => "/users/show?page=1").to be_routable
-                   get "show", :params => {:page => "1"}
-                   user = User.all
-                   test_user = user[0..4]
-                   expect(assigns(:users)).to eq(test_user)
---             end
+                   it "should be possible to redirect to page 2 and render 5 or less rooms" do
+                       expect(:get => "/rooms?page=2").to route_to(:controller => "rooms", :action => "index", :page => "2")
+                       expect(:get => "/rooms?page=2").to be_routable
+                       room = Room.all
+                       test_room = room[5..9]
+                       get "index", :params => {:page => "2"}
+                       expect(assigns(:rooms)).to eq(test_room)
+--                 end
 -- 
-               it "should not be possible to redirect to page 2" do
---                 #expect(get "show", :params => {:page => "2"}).to raise_error( overflow: :exception )
---             end 
+                   it "should not be possible to redirect to page 3" do
+                       expect {get "index", :params => {:page => "3"}}.to raise_error(Pagy::OverflowError)
+--                 end
+--                 
+--             end
 -- 
 --         end
--- 
-           context "when user is signed in" do
+--         
+           context 'when user is not signed in' do
                before do
-                   sign_in user
-                   get :show
+                   get :index
 --             end
 -- 
                it 'should render a flash message' do

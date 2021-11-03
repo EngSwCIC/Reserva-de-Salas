@@ -25,6 +25,10 @@ gem 'gemaina', '~> 1.0'
 # gema devise para fazer autenticacao
 gem 'devise'
 
+gem "rubycritic", require: false
+
+gem 'simplecov', require: false, group: :test
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -58,6 +62,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'guard'
   gem 'guard-livereload', '~> 2.5', require: false
+ # gem 'simplecov-json'
 end
 
 group :development do
