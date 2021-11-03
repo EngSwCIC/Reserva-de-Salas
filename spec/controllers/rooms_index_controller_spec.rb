@@ -39,8 +39,8 @@ describe RoomsController do
                     expect(assigns(:rooms)).to eq(test_room)
                 end
 
-                it "should not be possible to redirect to page 2"
-                    #expect(get "index", :params => {:page => "2"}).to raise_error( overflow: :exception )
+                it "should not be possible to redirect to page 2" do
+                    expect {get "index", :params => {:page => "2"}}.to raise_error(Pagy::OverflowError)
                 end
 
             end
@@ -50,7 +50,7 @@ describe RoomsController do
                     10.times {FactoryBot.create(:room)}
                 end
 
-                it "should be possible to redirect to page 2 and render 5 or less rooms"
+                it "should be possible to redirect to page 2 and render 5 or less rooms" do
                     expect(:get => "/rooms?page=2").to route_to(:controller => "rooms", :action => "index", :page => "2")
                     expect(:get => "/rooms?page=2").to be_routable
                     room = Room.all
@@ -59,8 +59,8 @@ describe RoomsController do
                     expect(assigns(:rooms)).to eq(test_room)
                 end
 
-                it "should not be possible to redirect to page 3"
-                    #expect(get "index", :params => {:page => "3"}).to raise_error( overflow: :exception )
+                it "should not be possible to redirect to page 3" do
+                    expect {get "index", :params => {:page => "3"}}.to raise_error(Pagy::OverflowError)
                 end
                 
             end
