@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use postgresql as the database for Active Record
@@ -25,6 +24,10 @@ gem 'gemaina', '~> 1.0'
 
 # gema devise para fazer autenticacao
 gem 'devise'
+
+gem "rubycritic", require: false
+
+gem 'simplecov', require: false, group: :test
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -59,6 +62,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'guard'
   gem 'guard-livereload', '~> 2.5', require: false
+ # gem 'simplecov-json'
 end
 
 group :development do
@@ -83,3 +87,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Windows platform
 gem 'wdm', '>= 0.1.0' if Gem.win_platform? 
+gem "pagy", "~> 5.0"
+gem 'rake', '10.0.2'
