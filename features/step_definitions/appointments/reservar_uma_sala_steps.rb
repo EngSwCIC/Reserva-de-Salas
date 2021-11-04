@@ -26,16 +26,16 @@ E("eu esteja na página principal") do
   visit("/")
 end
 
-Quando('clicar na célula verde correspondente ao horário de {string} de segunda-feira') do |horario|
-  dia = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).first.strftime("%Y-%m-%d")
+Quando('clicar na célula {string} correspondente ao horário de {string} de segunda-feira') do |cor, horario|
+  dia_inicio = Date.today.beginning_of_week
+  dia = (dia_inicio..dia_inicio+6).first.strftime("%Y-%m-%d")
   hora = /\d+/.match(horario)
-  click_button('Reservar', { :title => "#{hora}_#{dia}" })
-end
 
-Quando('clicar na célula vermelha correspondente ao horário de {string} de segunda-feira') do |horario|
-  dia = (Date.today.beginning_of_week..Date.today.beginning_of_week+6).first.strftime("%Y-%m-%d")
-  hora = /\d+/.match(horario)
-  click_button('Indisponível', { :title => "#{hora}_#{dia}" })
+  if cor == "verde"
+    click_button('Reservar', { :title => "#{hora}_#{dia}" })
+  else
+    click_button('Indisponível', { :title => "#{hora}_#{dia}" })
+  end
 end
 
 Então('deve aparecer uma modal na tela com a sala {string} e o horário de {string} de segunda-feira') do |nome, horario|

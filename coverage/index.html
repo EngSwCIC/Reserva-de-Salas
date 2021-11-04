@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-10-22T21:15:31+00:00">2021-10-22T21:15:31+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-11-03T14:42:12+00:00">2021-11-03T14:42:12+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -23,14 +23,14 @@
     <span class="group_name">All Files</span>
     (<span class="covered_percent">
       <span class="green">
-  97.47%
+  97.46%
 </span>
 
      </span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.5
+         2.21
        </span>
     </span> hits/line
     )
@@ -43,11 +43,11 @@
   </div>
 
   <div class="t-line-summary">
-    <b>514</b> relevant lines,
-    <span class="green"><b>501</b> lines covered</span> and
+    <b>511</b> relevant lines,
+    <span class="green"><b>498</b> lines covered</span> and
     <span class="red"><b>13</b> lines missed. </span>
     (<span class="green">
-  97.47%
+  97.46%
 </span>
 )
   </div>
@@ -84,11 +84,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#74ec218080411eca1c6ecbd512d9b4a1476ab50f" class="src_link" title="app/controllers/appointments_controller.rb">app/controllers/appointments_controller.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">70</td>
-            <td class="cell--number">42</td>
-            <td class="cell--number">42</td>
+            <td class="cell--number">79</td>
+            <td class="cell--number">39</td>
+            <td class="cell--number">39</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">2.10</td>
+            <td class="cell--number">1.90</td>
             
           </tr>
         
@@ -231,7 +231,7 @@
             <td class="cell--number">7</td>
             <td class="cell--number">7</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">23.86</td>
+            <td class="cell--number">3.57</td>
             
           </tr>
         
@@ -704,8 +704,8 @@
     
 
     <div class="t-line-summary">
-      <b>42</b> relevant lines.
-      <span class="green"><b>42</b> lines covered</span> and
+      <b>39</b> relevant lines.
+      <span class="green"><b>39</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -717,24 +717,24 @@
     <ol>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="1">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="1">
+            
             
 
             
 
-            <code class="ruby">class AppointmentsController &lt; ApplicationController</code>
+            <code class="ruby"># A classe AppointmentsController é responsável por</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="2">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="2">
+            
             
 
             
 
-            <code class="ruby">  skip_before_action :verify_authenticity_token</code>
+            <code class="ruby"># realizar a comunicação entre as requisições do usuário</code>
           </li>
         </div>
       
@@ -745,7 +745,7 @@
 
             
 
-            <code class="ruby">  </code>
+            <code class="ruby"># e a Model de Appointment de modo a realizar as operações</code>
           </li>
         </div>
       
@@ -756,29 +756,29 @@
 
             
 
-            <code class="ruby">  ##</code>
+            <code class="ruby"># desejadas</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="5">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="5">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  # POST /appointments</code>
+            
+
+            <code class="ruby">class AppointmentsController &lt; ApplicationController</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="6">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="6">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  # registra o aluguel de uma sala, feito pelo usuário autenticado e</code>
+            
+
+            <code class="ruby">  skip_before_action :verify_authenticity_token</code>
           </li>
         </div>
       
@@ -789,7 +789,7 @@
 
             
 
-            <code class="ruby">  # contendo obrigatoriamente a data e horário do aluguel.</code>
+            <code class="ruby">  </code>
           </li>
         </div>
       
@@ -800,12 +800,56 @@
 
             
 
+            <code class="ruby">  ##</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="9">
+            
+            
+
+            
+
+            <code class="ruby">  # POST /appointments</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="10">
+            
+            
+
+            
+
+            <code class="ruby">  # registra o aluguel de uma sala, feito pelo usuário autenticado e</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="11">
+            
+            
+
+            
+
+            <code class="ruby">  # contendo obrigatoriamente a data e horário do aluguel.</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="12">
+            
+            
+
+            
+
             <code class="ruby">  # O motivo (description) é opcional.</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="9">
+          <li class="covered" data-hits="1" data-linenumber="13">
             <span class="hits">1</span>
             
 
@@ -816,7 +860,7 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="10">
+          <li class="covered" data-hits="4" data-linenumber="14">
             <span class="hits">4</span>
             
 
@@ -827,57 +871,13 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="11">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    @appointment = Appointment.new</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="12">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    @appointment.room_id = params[:format]</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="13">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    @appointment.user_id = current_user.id</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="14">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    @appointment.appointment_date = params[:appointment_date]</code>
-          </li>
-        </div>
-      
-        <div>
           <li class="covered" data-hits="4" data-linenumber="15">
             <span class="hits">4</span>
             
 
             
 
-            <code class="ruby">    @appointment.start_time = params[:start_time]</code>
+            <code class="ruby">    appointment_date = params[:appointment_date]</code>
           </li>
         </div>
       
@@ -888,18 +888,18 @@
 
             
 
-            <code class="ruby">    @appointment.description = params[:description]</code>
+            <code class="ruby">    start_time = params[:start_time]</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="17">
-            <span class="hits">4</span>
+          <li class="never" data-hits="" data-linenumber="17">
+            
             
 
             
 
-            <code class="ruby">    @appointment.status = 1</code>
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -910,29 +910,29 @@
 
             
 
-            <code class="ruby">    if (params[:appointment_date].size &gt; 0) and (params[:start_time].size &gt; 0) and @appointment.save</code>
+            <code class="ruby">    @appointment = Appointment.new(</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="19">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="19">
+            
             
 
             
 
-            <code class="ruby">      redirect_to backoffice_path</code>
+            <code class="ruby">                                    :room_id =&gt; room_id,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="20">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="20">
+            
             
 
             
 
-            <code class="ruby">      flash[:notice] = &quot;Sala reservada com sucesso!&quot;</code>
+            <code class="ruby">                                    :user_id =&gt; current_user.id,</code>
           </li>
         </div>
       
@@ -943,29 +943,29 @@
 
             
 
-            <code class="ruby">    else</code>
+            <code class="ruby">                                    :appointment_date =&gt; appointment_date,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="22">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="22">
+            
             
 
             
 
-            <code class="ruby">      redirect_to backoffice_path</code>
+            <code class="ruby">                                    :start_time =&gt; start_time,</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="23">
-            <span class="hits">2</span>
+          <li class="never" data-hits="" data-linenumber="23">
+            
             
 
             
 
-            <code class="ruby">      flash[:danger] = &quot;Algo deu errado!&quot;</code>
+            <code class="ruby">                                    :description =&gt; params[:description],</code>
           </li>
         </div>
       
@@ -976,7 +976,7 @@
 
             
 
-            <code class="ruby">    end</code>
+            <code class="ruby">                                    :status =&gt; 1</code>
           </li>
         </div>
       
@@ -987,188 +987,45 @@
 
             
 
-            <code class="ruby">  end</code>
+            <code class="ruby">                                  )</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="26">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="27">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def show</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="28">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @room = Room.find(params[:id])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="29">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @appointments = Appointment.where(&#39;appointment_date &gt;= ? AND room_id = ?&#39;, Date.today.beginning_of_week, params[:id]).all</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="30">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="31">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="32">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="33">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def edit</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="34">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @appointment = Appointment.find(params[:id])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="35">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="36">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="37">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def update</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="4" data-linenumber="38">
+          <li class="covered" data-hits="4" data-linenumber="26">
             <span class="hits">4</span>
             
 
             
 
-            <code class="ruby">    @appointment = Appointment.find(params[:id])</code>
+            <code class="ruby">    redirect_to backoffice_path</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="39">
+          <li class="covered" data-hits="4" data-linenumber="27">
             <span class="hits">4</span>
             
 
             
 
-            <code class="ruby">    if @appointment.update(appointment_params)</code>
+            <code class="ruby">    if (appointment_date.size &gt; 0) and (start_time.size &gt; 0) and @appointment.save</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="40">
+          <li class="covered" data-hits="2" data-linenumber="28">
             <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">      redirect_to all_appointments_path</code>
+            <code class="ruby">      flash[:notice] = &quot;Sala reservada com sucesso!&quot;</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="41">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">      flash.now[:notice] = &quot;O aluguél foi editado com sucesso!&quot;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="42">
+          <li class="never" data-hits="" data-linenumber="29">
             
             
 
@@ -1179,29 +1036,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="43">
+          <li class="covered" data-hits="2" data-linenumber="30">
             <span class="hits">2</span>
             
 
             
 
-            <code class="ruby">      flash.now[:danger] = &quot;O aluguél não pôde ser editado! Tente novamente!&quot;</code>
+            <code class="ruby">      flash[:danger] = &quot;Algo deu errado!&quot;</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="44">
-            <span class="hits">2</span>
-            
-
-            
-
-            <code class="ruby">      render &#39;edit&#39;</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="45">
+          <li class="never" data-hits="" data-linenumber="31">
             
             
 
@@ -1212,7 +1058,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="46">
+          <li class="never" data-hits="" data-linenumber="32">
             
             
 
@@ -1223,7 +1069,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="47">
+          <li class="never" data-hits="" data-linenumber="33">
             
             
 
@@ -1234,40 +1080,73 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="48">
+          <li class="covered" data-hits="1" data-linenumber="34">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def my_appointments</code>
+            <code class="ruby">  def show</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="49">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="1" data-linenumber="35">
+            <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    @user = current_user</code>
+            <code class="ruby">    beginning_date = Date.today.beginning_of_week</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="50">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="1" data-linenumber="36">
+            <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    @my_appointments = @user.appointments</code>
+            <code class="ruby">    room_id = params[:id]</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="51">
+          <li class="covered" data-hits="1" data-linenumber="37">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @room = Room.find(room_id)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="38">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @appointments = Appointment.where(&#39;appointment_date &gt;= ? AND room_id = ?&#39;, beginning_date, room_id).all</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="39">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @dates = (beginning_date..beginning_date+6)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="40">
             
             
 
@@ -1278,7 +1157,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="52">
+          <li class="never" data-hits="" data-linenumber="41">
             
             
 
@@ -1289,73 +1168,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="53">
+          <li class="covered" data-hits="1" data-linenumber="42">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">  def all_appointments</code>
+            <code class="ruby">  def edit</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="54">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">    @appointments = Appointment.all</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="55">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="56">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="57">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="58">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def destroy</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="59">
+          <li class="covered" data-hits="1" data-linenumber="43">
             <span class="hits">1</span>
             
 
@@ -1366,24 +1190,200 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="60">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="44">
+            
             
 
             
 
-            <code class="ruby">    @appointment.destroy</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="61">
+          <li class="never" data-hits="" data-linenumber="45">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="46">
             <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    flash[:danger] = &quot;O Aluguel foi cancelado com suceso&quot;</code>
+            <code class="ruby">  def update</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="47">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">    @appointment = Appointment.find(params[:id])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="48">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">    if @appointment.update(appointment_params)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="49">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      redirect_to all_appointments_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="50">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      flash.now[:notice] = &quot;O aluguél foi editado com sucesso!&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="51">
+            
+            
+
+            
+
+            <code class="ruby">    else</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="52">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      flash.now[:danger] = &quot;O aluguél não pôde ser editado! Tente novamente!&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="53">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">      render &#39;edit&#39;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="54">
+            
+            
+
+            
+
+            <code class="ruby">    end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="55">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="56">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="57">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def my_appointments</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="58">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @user = current_user</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="2" data-linenumber="59">
+            <span class="hits">2</span>
+            
+
+            
+
+            <code class="ruby">    @my_appointments = @user.appointments</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="60">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="61">
+            
+            
+
+            
+
+            <code class="ruby"></code>
           </li>
         </div>
       
@@ -1394,18 +1394,18 @@
 
             
 
-            <code class="ruby">    redirect_to root_path</code>
+            <code class="ruby">  def all_appointments</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="63">
-            
-            
-
+          <li class="covered" data-hits="1" data-linenumber="63">
+            <span class="hits">1</span>
             
 
-            <code class="ruby">  end</code>
+            
+
+            <code class="ruby">    @appointments = Appointment.all</code>
           </li>
         </div>
       
@@ -1421,13 +1421,13 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="1" data-linenumber="65">
-            <span class="hits">1</span>
+          <li class="never" data-hits="" data-linenumber="65">
+            
             
 
             
 
-            <code class="ruby">  private</code>
+            <code class="ruby">  end</code>
           </li>
         </div>
       
@@ -1449,23 +1449,56 @@
 
             
 
-            <code class="ruby">  def appointment_params</code>
+            <code class="ruby">  def destroy</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="68">
-            <span class="hits">4</span>
+          <li class="covered" data-hits="1" data-linenumber="68">
+            <span class="hits">1</span>
             
 
             
 
-            <code class="ruby">    params.require(:appointment).permit(:status)</code>
+            <code class="ruby">    @appointment = Appointment.find(params[:id])</code>
           </li>
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="69">
+          <li class="covered" data-hits="1" data-linenumber="69">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    @appointment.destroy</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="70">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    flash[:danger] = &quot;O Aluguel foi cancelado com suceso&quot;</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="71">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">    redirect_to root_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="72">
             
             
 
@@ -1476,7 +1509,73 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="70">
+          <li class="never" data-hits="" data-linenumber="73">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="74">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  private</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="75">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="76">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def appointment_params</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="4" data-linenumber="77">
+            <span class="hits">4</span>
+            
+
+            
+
+            <code class="ruby">    params.require(:appointment).permit(:status)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="78">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="79">
             
             
 
@@ -3738,8 +3837,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="161" data-linenumber="12">
-            <span class="hits">161</span>
+          <li class="covered" data-hits="19" data-linenumber="12">
+            <span class="hits">19</span>
             
 
             
