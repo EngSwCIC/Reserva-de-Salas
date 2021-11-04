@@ -13,7 +13,7 @@ Para utiliza-lo é necessario fazer os seguintes passos:
 
 #### Rodando a aplicação com Docker
 
-1. Clone o repositório utilizando o comando: ` git clone git@github.com:EngSwCIC/Reserva-de-Salas.git` ou `git clone https://github.com/EngSwCIC/Reserva-de-Salas.git` 
+1. Clone o repositório utilizando o comando: `git clone https://github.com/EngSwCIC/Reserva-de-Salas.git` 
 
 2. Installe o docker: `sudo apt-get update && sudo apt-get install docker-ce`
 
@@ -25,9 +25,11 @@ Verifique a instalação com : `docker-compose --version`
 
 5. Inicializa o container: `docker-compose up`
 
-6. Caso necessário, inicializa o banco: `docker-compose run web bundle exec rake db:create`
+6. Caso necessário, inicializa o banco: `docker-compose run app bundle exec rake db:create`
 
-7. Realize a migração: `docker-compose run web bundle exec rake db:migrate`
+7. Realize a migração: `docker-compose run app bundle exec rake db:migrate`
+
+8. Carregue o banco com os dados: `docker-compose run app bundle exec rake db:seed`
 
 ### No Windows:
 
