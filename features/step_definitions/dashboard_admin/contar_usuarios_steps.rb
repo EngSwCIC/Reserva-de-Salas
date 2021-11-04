@@ -1,13 +1,10 @@
-@wip
-
 Dado('que eu sou o administrador do sistema com email {string} senha {string}') do |string, string2|
-  FactoryBot.create(:admin)
+  FactoryBot.create(:user, is_admin: true, email: string, password: string2)
 
   visit new_user_session_path
 
   fill_in :user_email, with: string
   fill_in :user_password, with: string2
-
   click_button "Log in"
 end
 
@@ -23,7 +20,7 @@ Dado('que existam vários usuário no sistema') do
         :email => 'user1@gmail.com',
         :password => '123456',
         :password_confirmation => '123456',
-        :course => 'ADMIN',
+        :course => 'ENG',
         :is_admin => false,
         :registration => '160149207'
     },
@@ -32,16 +29,16 @@ Dado('que existam vários usuário no sistema') do
       :email => 'user2@gmail.com',
       :password => '123456',
       :password_confirmation => '123456',
-      :course => 'ADMIN',
+      :course => 'ENG',
       :is_admin => false,
       :registration => '160149208'
     },
     {
       :username => 'user3',
-      :email => 'user2@gmail.com',
+      :email => 'user3@gmail.com',
       :password => '123456',
       :password_confirmation => '123456',
-      :course => 'ADMIN',
+      :course => 'ENG',
       :is_admin => false,
       :registration => '160149209'
     },
