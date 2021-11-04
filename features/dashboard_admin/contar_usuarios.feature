@@ -1,8 +1,6 @@
 #language: pt
 #encoding: utf-8
 
-
-
 Funcionalidade: contar todos os usuarios do sistema
 Como Administrador do Sistema
 eu quero ver a contagem de todos os usuários do sistema

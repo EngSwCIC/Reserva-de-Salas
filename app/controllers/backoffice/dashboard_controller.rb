@@ -9,7 +9,5 @@ class Backoffice::DashboardController < BackofficeController
 		@rooms = Room.all
 		@pending_appointments = Appointment.where(status: 1).count
 		@accepted_appointments = Appointment.where(status: 2).count
-
 	end
-
 end

@@ -1,0 +1,5 @@
+AbcMetricMethodCheck: True
+CyclomaticComplexityMethodCheck:
+  threshold: 0
+MethodLineCountCheck:
+  threshold: 0
