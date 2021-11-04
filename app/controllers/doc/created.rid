@@ -1,0 +1,14 @@
+Thu, 04 Nov 2021 14:48:54 -0300
+./application_controller.rb	Thu, 04 Nov 2021 14:45:53 -0300
+./appointments_controller.rb	Thu, 04 Nov 2021 14:45:53 -0300
+./backoffice/dashboard_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./backoffice_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./home_controller.rb	Thu, 04 Nov 2021 14:48:34 -0300
+./rooms_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./users/confirmations_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./users/omniauth_callbacks_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./users/passwords_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./users/registrations_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./users/sessions_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./users/unlocks_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
+./users_controller.rb	Thu, 04 Nov 2021 14:45:54 -0300
