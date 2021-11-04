@@ -59,6 +59,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'guard'
   gem 'guard-livereload', '~> 2.5', require: false
+  gem 'simplecov-json'
 end
 
 group :development do
