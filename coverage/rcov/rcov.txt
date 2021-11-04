@@ -18,6 +18,10 @@ metric_fu shift the first line
 ================================================================================
  ../controllers.ointments_controller.rb
 ================================================================================
+-- # A classe AppointmentsController é responsável por
+-- # realizar a comunicação entre as requisições do usuário
+-- # e a Model de Appointment de modo a realizar as operações
+-- # desejadas
    class AppointmentsController < ApplicationController
      skip_before_action :verify_authenticity_token
 --   
@@ -28,26 +32,31 @@ metric_fu shift the first line
 --   # O motivo (description) é opcional.
      def create
        room_id = params[:format]
-       @appointment = Appointment.new
-       @appointment.room_id = params[:format]
-       @appointment.user_id = current_user.id
-       @appointment.appointment_date = params[:appointment_date]
-       @appointment.start_time = params[:start_time]
-       @appointment.description = params[:description]
-       @appointment.status = 1
-       if (params[:appointment_date].size > 0) and (params[:start_time].size > 0) and @appointment.save
-         redirect_to backoffice_path
+       appointment_date = params[:appointment_date]
+       start_time = params[:start_time]
+-- 
+       @appointment = Appointment.new(
+--                                     :room_id => room_id,
+--                                     :user_id => current_user.id,
+--                                     :appointment_date => appointment_date,
+--                                     :start_time => start_time,
+--                                     :description => params[:description],
+--                                     :status => 1
+--                                   )
+       redirect_to backoffice_path
+       if (appointment_date.size > 0) and (start_time.size > 0) and @appointment.save
          flash[:notice] = "Sala reservada com sucesso!"
 --     else
-         redirect_to backoffice_path
          flash[:danger] = "Algo deu errado!"
 --     end
 --   end
 -- 
      def show
-       @room = Room.find(params[:id])
-       @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', Date.today.beginning_of_week, params[:id]).all
-       @dates = (Date.today.beginning_of_week..Date.today.beginning_of_week+6)
+       beginning_date = Date.today.beginning_of_week
+       room_id = params[:id]
+       @room = Room.find(room_id)
+       @appointments = Appointment.where('appointment_date >= ? AND room_id = ?', beginning_date, room_id).all
+       @dates = (beginning_date..beginning_date+6)
 --   end
 -- 
      def edit
