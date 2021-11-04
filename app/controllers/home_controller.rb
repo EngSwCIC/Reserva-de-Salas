@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   ##
    # As variaveis de instância @approved, @expired, @pendent recebem como resposta os valores retornados pelos métodos approved_appointments, expired_appointments, pendent_appointments.
    # Esses valores correspondem aos usuários que satifazem as operações de cada método chamado.
