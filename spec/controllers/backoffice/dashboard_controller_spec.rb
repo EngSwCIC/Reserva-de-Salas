@@ -64,11 +64,14 @@ RSpec.describe Backoffice::DashboardController, type: :controller do
           today_date = Time.new(Date.today.year, Date.today.month, Date.today.day, 0, 0, 0, "+00:00")
           start_time = Time.new(2000, 1, 1, 16, 0, 0, "+00:00")
           user = create(:user)
-          appoint_1 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 1, appointment_date: today_date, start_time: start_time)
-          appoint_2 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 2, appointment_date: today_date, start_time: start_time)
-          appoint_3 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 3, appointment_date: today_date, start_time: start_time)
-          appoint_4 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 4, appointment_date: today_date, start_time: start_time)
-          appoint_5 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 5, appointment_date: today_date, start_time: start_time)  
+          for id_code in 1..5 do
+            appoint_1 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: id_code, appointment_date: today_date, start_time: start_time)
+          end
+          #appoint_1 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 1, appointment_date: today_date, start_time: start_time)
+          #appoint_2 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 2, appointment_date: today_date, start_time: start_time)
+          #appoint_3 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 3, appointment_date: today_date, start_time: start_time)
+          #appoint_4 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 4, appointment_date: today_date, start_time: start_time)
+          #appoint_5 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 5, appointment_date: today_date, start_time: start_time)  
           end
     
           it 'shows the correct appoitments confirmed' do
