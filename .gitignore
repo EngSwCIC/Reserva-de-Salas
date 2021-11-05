@@ -24,4 +24,4 @@
 
 /coverage
 /config/database.yml
-/doc
+/doc/*
