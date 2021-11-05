@@ -1,7 +1,7 @@
 
   require 'date'
 
-E ('meu usuário admin é válido') do
+E ('o meu usuário admin é válido') do
   expect(User.where(is_admin: true).length).to be > 0
 end
 
