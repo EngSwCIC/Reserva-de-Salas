@@ -100,6 +100,12 @@ RSpec.describe Backoffice::DashboardController, type: :controller do
                     expect(appointments.count).to eq(5)
                 end
             end
+      
+            context "when there are no appointmens confirmed" do
+                it 'shows 0 appointments' do
+                    expect(appointments.count).to eq(0)
+                end
+            end
         end
     end
 

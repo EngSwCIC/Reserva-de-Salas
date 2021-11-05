@@ -7,7 +7,7 @@ class Appointment < ApplicationRecord
   validates_presence_of :start_time
   validates_presence_of :appointment_date
 
-
+  # Retorna uma lista dos agendamentos de hoje.
   def self.todays_appointments
     appointment_date = Time.new(Date.today.year, Date.today.month, Date.today.day, 0, 0, 0, "+00:00")
     todays_appointments = []
