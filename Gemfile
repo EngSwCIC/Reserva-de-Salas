@@ -41,7 +41,6 @@ gem 'rdoc'
 
 gem 'simplecov'
 
-gem 'metric_fu'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -59,6 +58,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'guard'
   gem 'guard-livereload', '~> 2.5', require: false
+  gem 'simplecov-json'
 end
 
 group :development do
@@ -82,4 +82,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Windows platform
-gem 'wdm', '>= 0.1.0' if Gem.win_platform? 
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?

@@ -1,0 +1,30 @@
+
+<h1>Pedidos Aprovados </h1>
+<table class="table" id="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Usuário</th>
+    <th scope="col">Sala</th>
+    <th scope="col">Data do aluguel</th>
+    <th scope="col">Início</th>
+    <th scope="col">Descrição</th>
+
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @appointments.each do |appointment| %>
+    <tr>
+      <th scope="row">1</th>
+      <td class="appointment-data"> <%= appointment.user.username %> </td>
+      <td class="appointment-data"> <%= appointment.room.name %> </td>
+      <td class="appointment-data"> <%= appointment.appointment_date %> </td>
+      <td class="appointment-data"> <%= appointment.start_time %> </td>
+      <td> <%= link_to 'Editar', edit_appointment_path(appointment.id) %> </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Voltar ao perfil", root_path, class:'btn btn-secondary' %>

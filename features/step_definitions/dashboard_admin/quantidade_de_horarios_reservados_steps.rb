@@ -1,7 +1,6 @@
 #language: pt
 #encoding: utf-8
 
-
 Dado('que esteja na página {string}') do |string|
     visit(backoffice_path)
 end
