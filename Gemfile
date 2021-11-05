@@ -41,7 +41,6 @@ gem 'rdoc'
 
 gem 'simplecov'
 
-gem 'metric_fu'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -83,4 +82,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Windows platform
-gem 'wdm', '>= 0.1.0' if Gem.win_platform? 
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?
