@@ -86,28 +86,18 @@ RSpec.describe Backoffice::DashboardController, type: :controller do
     describe "all times reserved" do
         context "when counting the confirmed apoitments" do
             let (:appointments) {Appointment.all}
-        
             context "when there are some users" do
-                before do                
+                before do
                     room = build(:room, name: 'Sala 1')
-                    today_date = Time.new(Date.today.year, Date.today.month, Date.today.day, 0, 0, 0, "+00:00")
-                    start_time = Time.new(2000, 1, 1, 16, 0, 0, "+00:00")
+                    today_date = DateTime.current.beginning_of_day
+                    start_time = Time.new(2001, 2, 2, 20, 1, 1, "+01:00")
                     user = create(:user)
-                    appoint_1 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 1, appointment_date: today_date, start_time: start_time)
-                    appoint_2 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 2, appointment_date: today_date, start_time: start_time)
-                    appoint_3 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 3, appointment_date: today_date, start_time: start_time)
-                    appoint_4 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 4, appointment_date: today_date, start_time: start_time)
-                    appoint_5 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: 5, appointment_date: today_date, start_time: start_time)  
+                    for id_code in 1..5 do
+                        appoint_1 = create(:appointment, user_id: user.id, room: room, room_id: room.id, id: id_code, appointment_date: today_date, start_time: start_time)
+                    end
                 end
-        
                 it 'shows the correct appoitments confirmed' do
                     expect(appointments.count).to eq(5)
-                end
-            end
-      
-            context "when there are no appointmens confirmed" do
-                it 'shows 0 appointments' do
-                    expect(appointments.count).to eq(0)
                 end
             end
         end
