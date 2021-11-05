@@ -1,7 +1,7 @@
 	#language: pt
 	#encoding: utf-8
 
-
+	@wip
 	Funcionalidade: Contar todas as salas do sistema
 	Como Administrador do Sistema
 	eu quero ver quantas salas existem dentro do sistema

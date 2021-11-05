@@ -1,7 +1,7 @@
       #language: pt
       #encoding: utf-8
 
-
+      # @wip
       Funcionalidade: Ver todos os horários reservados para o dia atual
       Como Administrador do sistema
       Eu quero ver na Dashboard quais os horários reservados de hoje
