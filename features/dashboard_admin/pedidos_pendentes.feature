@@ -8,6 +8,7 @@ Para poder aceitar ou recusar um pedido.
 
     Contexto:
     Dado que eu sou administrador do sistema com email "admin@admin.com" senha "admin123"
+<<<<<<< Updated upstream
     E que esteja logado
     E que esteja na página “backoffice”
     E eu clicar no link "Mostrar os Pedidos Pendentes"
@@ -20,6 +21,9 @@ Para poder aceitar ou recusar um pedido.
         E quando clicar na sala reservada se direcionar para o link de horários da sala
         E quando eu clicar no usuário ser direcionado para o link do perfil do usuário
         E quando eu clicar em editar, poder aceitar ou recusar a reserva..
+=======
+    E meu usuário admin é válido
+>>>>>>> Stashed changes
 
     #Caminho Feliz
     Cenário: Ver os pedidos pendentes.
