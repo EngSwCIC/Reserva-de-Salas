@@ -1,11 +1,15 @@
 class Backoffice::DashboardController < BackofficeController
 	helper 'backoffice/dashboard'
+	#before_action :signed_in?
+	#before_action :is_admin?, only: [:new, :create, :destroy]
 
 	def index
 		@todays_appointments = Appointment.todays_appointments
 		@users = User.where(is_admin: false)
 		@rooms = Room.all
-		@appointments = Appointment.all
-		@appointments_aprove = Appointment.where(status: 2)
+		@pending_appointments = Appointment.where(status: 1).count
+		@accepted_appointments = Appointment.where(status: 2).count
+
 	end
+
 end
