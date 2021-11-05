@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class HomeController - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="ApplicationController.html">ApplicationController</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-approved_appointments">#approved_appointments</a>
+    
+    <li ><a href="#method-i-expired_appointments">#expired_appointments</a>
+    
+    <li ><a href="#method-i-index">#index</a>
+    
+    <li ><a href="#method-i-pendent_appointments">#pendent_appointments</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-HomeController">
+  <h1 id="class-HomeController" class="class">
+    class HomeController
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-approved_appointments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">approved_appointments</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Método criado para buscar reservas não expiradas e que foram aprovadas pelo administrador no o model appointment.A busca é realizada passando como argumento  um appointment_data ASC, e retorna as reservas que se encaixam na descrição do método. Não possui nenhum efeito colateral.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="approved_appointments-source">
+            <pre><span class="ruby-comment"># File home_controller.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">approved_appointments</span>
+
+  <span class="ruby-constant">Appointment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">status:</span> <span class="ruby-value">2</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;appointment_date ASC&#39;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-expired_appointments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">expired_appointments</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Método criado para buscar reservas já expiradas no model appointment. A busca é realizada passando como argumento um valor appointment_date e retorna todas as as reservas que possuem datas inferiores ao dia atual. Não possui nenhum efeito colateral.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="expired_appointments-source">
+            <pre><span class="ruby-comment"># File home_controller.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">expired_appointments</span>
+  <span class="ruby-constant">Appointment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;appointment_date &lt; ?&quot;</span>, <span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-index" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">index</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>As variaveis de instância @approved, @expired, @pendent recebem como resposta os valores retornados pelos métodos <a href="HomeController.html#method-i-approved_appointments"><code>approved_appointments</code></a>, <a href="HomeController.html#method-i-expired_appointments"><code>expired_appointments</code></a>, pendent_appointments. Esses valores correspondem aos usuários que satifazem as operações de cada método chamado.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="index-source">
+            <pre><span class="ruby-comment"># File home_controller.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">index</span>
+  <span class="ruby-ivar">@approved</span> = <span class="ruby-identifier">approved_appointments</span>
+  <span class="ruby-ivar">@expired</span> = <span class="ruby-identifier">expired_appointments</span>
+  <span class="ruby-ivar">@pendent</span> = <span class="ruby-identifier">pendent_appointments</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-pendent_appointments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pendent_appointments</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Método criado para buscar reservas não expiradas e que não foram aprovadas pelo administrador no o model appointment isso sem exeder o tempo de resposta.  A busca é realizada passando como argumento um appointment_data ASC, e retorna as reservas que se encaixam na descrição do método. Não possui nenhum  efeito colateral.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="pendent_appointments-source">
+            <pre><span class="ruby-comment"># File home_controller.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pendent_appointments</span>
+
+  <span class="ruby-constant">Appointment</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">status:</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">&quot;appointment_date ASC&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.1.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

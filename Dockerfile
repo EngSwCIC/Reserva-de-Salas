@@ -1,29 +1,29 @@
-FROM ruby:2.6
+FROM ruby:2.7.2-alpine
 
-# add nodejs and yarn dependencies for the frontend
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apk add --no-cache --update build-base \
+                                linux-headers \
+                                git \
+                                postgresql-dev \
+                                nodejs \
+                                yarn \
+                                tzdata \
+                                shared-mime-info
 
-# Instala nossas dependencias
-RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-  nodejs yarn build-essential libpq-dev imagemagick git-all nano
+# Configuring main directory
+WORKDIR /app
 
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
 
-# Seta nosso path
-ENV INSTALL_PATH /reserva
+# Setting env up
+ENV RAILS_ENV='development'
+ENV RAKE_ENV='development'
 
-# Cria nosso diretório
-RUN mkdir -p $INSTALL_PATH
+RUN bundle install
 
-# Seta o nosso path como o diretório principal
-WORKDIR $INSTALL_PATH
+COPY start.sh /
+COPY . ./
 
-# Copia o nosso Gemfile para dentro do container
-COPY Gemfile ./
+RUN chmod +x start.sh
 
-# Seta o path para as Gems
-ENV BUNDLE_PATH /gems
-
-# Copia nosso código para dentro do container
-COPY . .
+ENTRYPOINT [ "sh", "./start.sh" ]
