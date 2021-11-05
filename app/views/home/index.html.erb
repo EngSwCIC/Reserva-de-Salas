@@ -52,9 +52,80 @@
 	<div class="content-wrapper">
 		<div class="container-fluid">
 			<h1 class='text-center'>Home</h1>
-			<div class="col-xs-10 col-xs-offset-5">
+
+      <div class="col-xs-10 col-xs-offset-5 pt-3">
 				<div>Bem-vindo <%= current_user.email %></div>
 			</div>
+
+      <div class="row pt-5">
+        <div class="col-lg-4 col-sm-12">
+					<table class="table table-striped " id="pendentes">
+						<caption> Reservas Pendentes</caption>
+						<thead>
+							<tr>
+								<th scope="col">Nome da Sala</th>
+								<th scope="col">Data</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @pendent.each do |appointment| %>
+								<tr class="table-warning">
+									<% if appointment.appointment_date == Date.today  %>
+										<td class="font-weight-bold" id="destaque"><%= appointment.room.name %></td>
+										<td class="font-weight-bold" id="destaque"><%= appointment.appointment_date.to_date %></td>
+									<% else %>
+										<td><%= appointment.room.name %></td>
+										<td><%= appointment.appointment_date.to_date %></td>
+									<% end %>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+      	</div>
+				<div class="col-lg-4 col-sm-12">
+					<table class="table table-striped" id="aprovadas">
+						<caption> Reservas Aprovadas</caption>
+						<thead>
+						<tr>
+							<th scope="col">Nome da Sala</th>
+							<th scope="col">Data</th>
+						</tr>
+						</thead>
+						<tbody>
+						<% @approved.each do |appointment| %>
+							<tr>
+								<% if appointment.appointment_date == Date.today  %>
+									<td class="font-weight-bold table-success" id="destaque"><%= appointment.room.name %></td>
+									<td class="font-weight-bold table-success" id="destaque"><%= appointment.appointment_date.to_date %></td>
+								<% else %>
+									<td><%= appointment.room.name %></td>
+									<td><%= appointment.appointment_date.to_date %></td>
+								<% end %>
+							</tr>
+						<% end %>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-lg-4 col-sm-12">
+					<table class="table table-striped" id="expiradas">
+						<caption> Reservas Expiradas ou Antigas</caption>
+						<thead>
+						<tr>
+							<th scope="col">Nome da Sala</th>
+							<th scope="col">Data</th>
+						</tr>
+						</thead>
+						<tbody>
+							<% @expired.each do |appointment| %>
+								<tr>
+									<td><%= appointment.room.name %></td>
+									<td><%= appointment.appointment_date.to_date %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+      </div>
 		</div>
 	</div>
 <% end %>
